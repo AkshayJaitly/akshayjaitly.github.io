@@ -188,6 +188,8 @@
     .tl-item li { color: var(--muted); position: relative; padding-left: 22px; }
     .tl-item li::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
     .tl-item li a { color: var(--accent); border-bottom: 1px dashed color-mix(in srgb, var(--accent) 50%, transparent); }
+    .tl-item li.hl { color: var(--text); background: color-mix(in srgb, var(--accent) 9%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-radius: 10px; padding: 9px 14px 9px 36px; }
+    .tl-item li.hl::before { content: "✦"; left: 14px; top: 9px; }
     .tl-item .mini-tags { margin-top: 12px; }
     details.more { margin-top: 8px; }
     details.more summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: 0.9rem; list-style: none; display: inline-flex; align-items: center; gap: 6px; }
@@ -237,7 +239,7 @@
 
   <header class="nav">
     <div class="wrap nav-inner">
-      <a href="#top" class="brand">Akshay<span>.</span>Jaitly</a>
+      <a href="#top" class="brand">Akshay <span>Jaitly</span></a>
       <nav class="nav-links">
         <a href="#about">About</a>
         <a href="#impact">Impact</a>
@@ -377,13 +379,15 @@
             <div class="tl-head"><span class="role">Senior Software Engineer</span><span class="co">· Capital One</span></div>
             <div class="meta">Jan 2025 – Present · Chicago, IL · Hybrid</div>
             <ul>
+              <li class="hl">Champion <strong>spec-driven, AI-assisted development</strong> — authoring precise specs that steer AI coding agents to ship features faster with higher quality and consistency.</li>
+              <li class="hl">Own <strong>DevOps &amp; MLOps</strong> end to end: CI/CD pipelines, infrastructure-as-code, and observability for reliable, repeatable production deployments.</li>
               <li>Lead development and deployment of ML models to optimize customer experiences and data-driven decisions in fintech.</li>
               <li>Design and implement <strong>Retrieval-Augmented Generation (RAG)</strong> models to enhance retrieval within AI systems.</li>
               <li>Build and refine <strong>AI agents</strong> that automate decision-making across business functions.</li>
               <li>Drive MLOps on <strong>SageMaker</strong> — deployment, monitoring, and continuous improvement of production models.</li>
               <li>Work with <strong>Databricks</strong>, <strong>Iceberg</strong> data lakes, <strong>LangChain</strong> &amp; <strong>Langflow</strong> to streamline AI-driven workflows.</li>
             </ul>
-            <div class="tags mini-tags"><span class="tag">Python</span><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">SageMaker</span><span class="tag">Databricks</span></div>
+            <div class="tags mini-tags"><span class="tag">Spec-Driven AI Dev</span><span class="tag">DevOps</span><span class="tag">CI/CD</span><span class="tag">Python</span><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">SageMaker</span><span class="tag">Databricks</span></div>
           </div>
           <div class="tl-item">
             <div class="tl-head"><span class="role">Senior Software Engineer</span><span class="co">· Siemens Digital Industries Software</span></div>
