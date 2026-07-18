@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akshay Jaitly — Senior Software Engineer</title>
+  <meta name="description" content="Akshay Jaitly — Senior Software Engineer at Capital One. Go, Spark & AWS. Data engineering, ML pipelines, and LLM systems." />
+  <meta property="og:title" content="Akshay Jaitly — Senior Software Engineer" />
+  <meta property="og:description" content="Go, Spark & AWS · Data Engineering · ML Pipelines · LLM Systems" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>" />
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --bg-soft: #111725;
+      --card: #151d2e;
+      --border: #223049;
+      --text: #e6ecf5;
+      --muted: #9aa8bf;
+      --accent: #5b8cff;
+      --accent-2: #7c5cff;
+      --glow: rgba(91, 140, 255, 0.25);
+      --max: 1080px;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f8fc;
+        --bg-soft: #ffffff;
+        --card: #ffffff;
+        --border: #e2e8f2;
+        --text: #14203a;
+        --muted: #5a6a85;
+        --accent: #2f6bff;
+        --accent-2: #6a44ff;
+        --glow: rgba(47, 107, 255, 0.15);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    header.nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(180%) blur(12px);
+      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { font-weight: 700; letter-spacing: -0.02em; font-size: 1.05rem; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 26px; font-size: 0.92rem; }
+    .nav-links a { color: var(--muted); transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+    @media (max-width: 640px) { .nav-links { display: none; } }
+
+    /* Hero */
+    .hero { position: relative; padding: 96px 0 72px; overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; inset: -40% 30% auto -10%; height: 520px;
+      background: radial-gradient(closest-side, var(--glow), transparent 70%);
+      filter: blur(10px); pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 22px;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #2ec26b; box-shadow: 0 0 0 4px rgba(46,194,107,.18); }
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -0.03em; font-weight: 800;
+      margin-bottom: 18px;
+    }
+    h1 .grad {
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .subtitle { font-size: clamp(1.05rem, 2.4vw, 1.35rem); color: var(--muted); max-width: 640px; margin-bottom: 14px; }
+    .location { color: var(--muted); font-size: 0.95rem; display: flex; align-items: center; gap: 8px; margin-bottom: 32px; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 12px 22px; border-radius: 12px; font-weight: 600; font-size: 0.95rem;
+      border: 1px solid var(--border); transition: transform .15s, box-shadow .2s, border-color .2s;
+    }
+    .btn.primary {
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      color: #fff; border-color: transparent; box-shadow: 0 8px 24px -8px var(--accent);
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn.ghost:hover { border-color: var(--accent); }
+
+    /* Sections */
+    section { padding: 72px 0; }
+    .section-head { margin-bottom: 40px; }
+    .section-head .kicker { color: var(--accent); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .section-head h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); letter-spacing: -0.02em; margin-top: 8px; }
+    .section-head p { color: var(--muted); max-width: 620px; margin-top: 12px; }
+
+    /* About */
+    .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
+    @media (max-width: 820px) { .about-grid { grid-template-columns: 1fr; } }
+    .about p + p { margin-top: 16px; }
+    .about p { color: var(--muted); }
+    .about strong { color: var(--text); }
+    .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 26px; }
+    .stat { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .stat:last-child { border-bottom: none; }
+    .stat .k { color: var(--muted); font-size: 0.9rem; }
+    .stat .v { font-weight: 700; }
+
+    /* Skills */
+    .skill-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+    .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: transform .2s, border-color .2s; }
+    .skill-card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+    .skill-card h3 { font-size: 1.05rem; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+    .skill-card .ic { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center;
+      background: color-mix(in srgb, var(--accent) 14%, transparent); font-size: 1.1rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { font-size: 0.83rem; color: var(--muted); background: var(--bg-soft); border: 1px solid var(--border); padding: 5px 12px; border-radius: 999px; }
+
+    /* Experience */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+    .tl-item { position: relative; padding-bottom: 42px; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-item::before {
+      content: ""; position: absolute; left: -28px; top: 4px; width: 16px; height: 16px; border-radius: 50%;
+      background: var(--bg); border: 3px solid var(--accent); box-shadow: 0 0 0 4px var(--glow);
+    }
+    .tl-item .role { font-size: 1.2rem; font-weight: 700; }
+    .tl-item .co { color: var(--accent); font-weight: 600; }
+    .tl-item .period { color: var(--muted); font-size: 0.88rem; margin: 4px 0 12px; }
+    .tl-item ul { list-style: none; display: grid; gap: 8px; }
+    .tl-item li { color: var(--muted); position: relative; padding-left: 20px; }
+    .tl-item li::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
+
+    /* Projects */
+    .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+    .proj-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; transition: transform .2s, border-color .2s; }
+    .proj-card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+    .proj-card .pico { font-size: 1.6rem; margin-bottom: 14px; }
+    .proj-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
+    .proj-card p { color: var(--muted); font-size: 0.95rem; flex: 1; }
+    .proj-card .tags { margin-top: 16px; }
+
+    /* Contact */
+    .contact { text-align: center; }
+    .contact-card {
+      background: linear-gradient(160deg, var(--card), var(--bg-soft));
+      border: 1px solid var(--border); border-radius: 24px; padding: 56px 32px; position: relative; overflow: hidden;
+    }
+    .contact-card::before { content: ""; position: absolute; inset: auto auto -60% -20%; width: 480px; height: 380px;
+      background: radial-gradient(closest-side, var(--glow), transparent 70%); pointer-events: none; }
+    .contact h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -0.02em; margin-bottom: 14px; }
+    .contact p { color: var(--muted); max-width: 480px; margin: 0 auto 28px; }
+    .social-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 24px; }
+    .social {
+      width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center;
+      background: var(--bg-soft); border: 1px solid var(--border); color: var(--muted); transition: all .2s;
+    }
+    .social:hover { color: var(--text); border-color: var(--accent); transform: translateY(-3px); }
+    .social svg { width: 20px; height: 20px; fill: currentColor; }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 0; text-align: center; color: var(--muted); font-size: 0.88rem; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="#top" class="brand">Akshay<span>.</span>Jaitly</a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap">
+        <span class="eyebrow"><span class="dot"></span> Available for interesting problems</span>
+        <h1>Hi, I'm Akshay Jaitly.<br /><span class="grad">I build data &amp; ML systems that scale.</span></h1>
+        <p class="subtitle">Senior Software Engineer at Capital One. I design high-throughput data pipelines and production ML/LLM systems in Go, Spark, and AWS.</p>
+        <p class="location">📍 Chicago, Illinois, United States</p>
+        <div class="cta-row">
+          <a href="#contact" class="btn primary">Get in touch →</a>
+          <a href="https://www.linkedin.com/in/akshayjaitly24/" target="_blank" rel="noopener" class="btn ghost">View LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">About</div>
+          <h2>Engineering at the intersection of data and ML</h2>
+        </div>
+        <div class="about-grid about">
+          <div>
+            <p>I'm a <strong>Senior Software Engineer at Capital One</strong>, where I build and operate large-scale data platforms and machine-learning infrastructure. Previously at <strong>Siemens</strong>, I worked across the stack on systems that turn raw data into reliable, production-grade products.</p>
+            <p>My focus is the plumbing that makes intelligent systems work at scale: distributed data processing with <strong>Spark</strong>, performant services in <strong>Go</strong>, cloud-native architecture on <strong>AWS</strong>, and the pipelines that power <strong>ML and LLM systems</strong> in production.</p>
+            <p>I care about clean abstractions, observable systems, and shipping software that holds up under real-world load.</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat"><span class="k">Current</span><span class="v">Capital One</span></div>
+            <div class="stat"><span class="k">Previously</span><span class="v">Siemens</span></div>
+            <div class="stat"><span class="k">Focus</span><span class="v">Data &amp; ML</span></div>
+            <div class="stat"><span class="k">Core stack</span><span class="v">Go · Spark · AWS</span></div>
+            <div class="stat"><span class="k">Based in</span><span class="v">Chicago, IL</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Skills</div>
+          <h2>What I work with</h2>
+          <p>The tools and domains I use to design, build, and operate data and ML systems.</p>
+        </div>
+        <div class="skill-groups">
+          <div class="skill-card">
+            <h3><span class="ic">🧩</span> Languages</h3>
+            <div class="tags">
+              <span class="tag">Go</span><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Java</span><span class="tag">Scala</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3><span class="ic">⚡</span> Data Engineering</h3>
+            <div class="tags">
+              <span class="tag">Apache Spark</span><span class="tag">Streaming</span><span class="tag">ETL / ELT</span><span class="tag">Kafka</span><span class="tag">Airflow</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3><span class="ic">☁️</span> Cloud &amp; Infra</h3>
+            <div class="tags">
+              <span class="tag">AWS</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">CI/CD</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3><span class="ic">🤖</span> ML &amp; LLM Systems</h3>
+            <div class="tags">
+              <span class="tag">ML Pipelines</span><span class="tag">LLM Systems</span><span class="tag">Feature Stores</span><span class="tag">Model Serving</span><span class="tag">RAG</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Experience</div>
+          <h2>Where I've worked</h2>
+          <p>A snapshot — edit the bullet points to match your exact accomplishments.</p>
+        </div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="role">Senior Software Engineer</div>
+            <div class="co">Capital One</div>
+            <div class="period">Chicago, IL</div>
+            <ul>
+              <li>Build and operate large-scale data pipelines powering analytics and ML workloads.</li>
+              <li>Design cloud-native services on AWS with a focus on reliability and performance.</li>
+              <li>Develop infrastructure for ML and LLM systems in production.</li>
+            </ul>
+          </div>
+          <div class="tl-item">
+            <div class="role">Software Engineer</div>
+            <div class="co">Siemens</div>
+            <div class="period">Earlier</div>
+            <ul>
+              <li>Delivered full-stack features and backend services across enterprise systems.</li>
+              <li>Worked on data-intensive applications and system integration.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Highlights</div>
+          <h2>Selected focus areas</h2>
+          <p>Representative areas of work — swap these for real projects with links when you're ready.</p>
+        </div>
+        <div class="proj-grid">
+          <div class="proj-card">
+            <div class="pico">⚙️</div>
+            <h3>High-throughput data pipelines</h3>
+            <p>Distributed Spark pipelines that ingest, transform, and serve data reliably at scale.</p>
+            <div class="tags"><span class="tag">Spark</span><span class="tag">Go</span><span class="tag">AWS</span></div>
+          </div>
+          <div class="proj-card">
+            <div class="pico">🧠</div>
+            <h3>Production ML pipelines</h3>
+            <p>End-to-end pipelines for training, deploying, and monitoring models in production.</p>
+            <div class="tags"><span class="tag">ML Ops</span><span class="tag">Python</span><span class="tag">Kubernetes</span></div>
+          </div>
+          <div class="proj-card">
+            <div class="pico">💬</div>
+            <h3>LLM systems</h3>
+            <p>Retrieval-augmented and agentic LLM systems wired into real data and workflows.</p>
+            <div class="tags"><span class="tag">LLM</span><span class="tag">RAG</span><span class="tag">Vector DB</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="reveal">
+      <div class="wrap contact">
+        <div class="contact-card">
+          <h2>Let's build something</h2>
+          <p>Open to conversations about data platforms, ML infrastructure, and LLM systems. The fastest way to reach me is LinkedIn.</p>
+          <a href="https://www.linkedin.com/in/akshayjaitly24/" target="_blank" rel="noopener" class="btn primary">Connect on LinkedIn →</a>
+          <div class="social-row">
+            <a class="social" href="https://www.linkedin.com/in/akshayjaitly24/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.24 8.02h4.5V24H.24V8.02zM8.44 8.02h4.31v2.18h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V24h-4.5v-6.34c0-1.51-.03-3.46-2.11-3.46-2.11 0-2.43 1.65-2.43 3.35V24h-4.5V8.02z"/></svg>
+            </a>
+            <a class="social" href="https://github.com/AkshayJaitly" target="_blank" rel="noopener" aria-label="GitHub">
+              <svg viewBox="0 0 24 24"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.96 0-1.32.47-2.39 1.24-3.23-.12-.31-.54-1.53.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.18.77.84 1.24 1.91 1.24 3.23 0 4.63-2.81 5.65-5.49 5.95.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 22.29 24 17.8 24 12.5 24 5.87 18.63.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      © <span id="year"></span> Akshay Jaitly · Built with care in Chicago.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => obs.observe(el));
+  </script>
+</body>
+</html>
