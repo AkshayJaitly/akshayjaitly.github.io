@@ -4,35 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Akshay Jaitly — Senior Software Engineer</title>
-  <meta name="description" content="Akshay Jaitly — Senior Software Engineer at Capital One. Go, Spark & AWS. Data engineering, ML pipelines, and LLM systems." />
+  <meta name="description" content="Akshay Jaitly — Senior Software Engineer at Capital One. Go, Spark & AWS. Data engineering, ML pipelines, RAG & LLM systems. Built a rewards API that unlocked $15M in redemptions." />
   <meta property="og:title" content="Akshay Jaitly — Senior Software Engineer" />
-  <meta property="og:description" content="Go, Spark & AWS · Data Engineering · ML Pipelines · LLM Systems" />
+  <meta property="og:description" content="Go · Spark · AWS · Data Engineering · ML Pipelines · RAG & LLM Systems" />
   <meta property="og:type" content="website" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
   <style>
     :root {
-      --bg: #0b0f17;
-      --bg-soft: #111725;
-      --card: #151d2e;
-      --border: #223049;
-      --text: #e6ecf5;
-      --muted: #9aa8bf;
+      --bg: #0a0e17;
+      --bg-soft: #10172594;
+      --card: #141c2e;
+      --card-2: #182135;
+      --border: #24324c;
+      --text: #eaf0f9;
+      --muted: #97a6bf;
       --accent: #5b8cff;
       --accent-2: #7c5cff;
-      --glow: rgba(91, 140, 255, 0.25);
-      --max: 1080px;
+      --accent-3: #22d3a6;
+      --glow: rgba(91, 140, 255, 0.28);
+      --max: 1120px;
     }
     @media (prefers-color-scheme: light) {
       :root {
-        --bg: #f6f8fc;
-        --bg-soft: #ffffff;
+        --bg: #f5f7fc;
+        --bg-soft: #ffffffcc;
         --card: #ffffff;
-        --border: #e2e8f2;
-        --text: #14203a;
-        --muted: #5a6a85;
+        --card-2: #f2f5fb;
+        --border: #e3e9f3;
+        --text: #131e36;
+        --muted: #566585;
         --accent: #2f6bff;
         --accent-2: #6a44ff;
-        --glow: rgba(47, 107, 255, 0.15);
+        --accent-3: #10b981;
+        --glow: rgba(47, 107, 255, 0.16);
       }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,69 +47,109 @@
       color: var(--text);
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
     .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
 
+    /* Animated background blobs */
+    .bg-fx { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .5; }
+    .blob.b1 { width: 460px; height: 460px; background: var(--accent); top: -140px; left: -120px; animation: float1 18s ease-in-out infinite; }
+    .blob.b2 { width: 400px; height: 400px; background: var(--accent-2); top: 30%; right: -140px; animation: float2 22s ease-in-out infinite; }
+    .blob.b3 { width: 360px; height: 360px; background: var(--accent-3); bottom: -160px; left: 20%; opacity: .28; animation: float1 26s ease-in-out infinite reverse; }
+    @keyframes float1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(40px, 60px); } }
+    @keyframes float2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-50px, 40px); } }
+
     /* Nav */
     header.nav {
       position: sticky; top: 0; z-index: 50;
-      backdrop-filter: saturate(180%) blur(12px);
-      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      backdrop-filter: saturate(180%) blur(14px);
+      background: color-mix(in srgb, var(--bg) 72%, transparent);
       border-bottom: 1px solid var(--border);
     }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .brand { font-weight: 700; letter-spacing: -0.02em; font-size: 1.05rem; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+    .brand { font-weight: 800; letter-spacing: -0.02em; font-size: 1.08rem; }
     .brand span { color: var(--accent); }
-    .nav-links { display: flex; gap: 26px; font-size: 0.92rem; }
+    .nav-links { display: flex; gap: 26px; font-size: 0.92rem; align-items: center; }
     .nav-links a { color: var(--muted); transition: color .2s; }
     .nav-links a:hover { color: var(--text); }
-    @media (max-width: 640px) { .nav-links { display: none; } }
+    .nav-cta { color: var(--text) !important; border: 1px solid var(--border); padding: 8px 16px; border-radius: 10px; transition: border-color .2s, transform .15s; }
+    .nav-cta:hover { border-color: var(--accent); transform: translateY(-1px); }
+    @media (max-width: 720px) { .nav-links a:not(.nav-cta) { display: none; } }
 
     /* Hero */
-    .hero { position: relative; padding: 96px 0 72px; overflow: hidden; }
-    .hero::before {
-      content: ""; position: absolute; inset: -40% 30% auto -10%; height: 520px;
-      background: radial-gradient(closest-side, var(--glow), transparent 70%);
-      filter: blur(10px); pointer-events: none;
-    }
+    .hero { position: relative; padding: 84px 0 56px; }
+    .hero-grid { display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 48px; align-items: center; }
+    @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; gap: 36px; } .hero { padding-top: 56px; } }
     .eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
-      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent);
-      border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+      color: var(--accent-3); background: color-mix(in srgb, var(--accent-3) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-3) 30%, transparent);
       padding: 6px 14px; border-radius: 999px; margin-bottom: 22px;
     }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: #2ec26b; box-shadow: 0 0 0 4px rgba(46,194,107,.18); }
-    h1 {
-      font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -0.03em; font-weight: 800;
-      margin-bottom: 18px;
-    }
-    h1 .grad {
-      background: linear-gradient(120deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-    .subtitle { font-size: clamp(1.05rem, 2.4vw, 1.35rem); color: var(--muted); max-width: 640px; margin-bottom: 14px; }
-    .location { color: var(--muted); font-size: 0.95rem; display: flex; align-items: center; gap: 8px; margin-bottom: 32px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-3); box-shadow: 0 0 0 0 var(--accent-3); animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-3) 60%, transparent); } 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+    h1 { font-size: clamp(2.3rem, 5.5vw, 3.9rem); line-height: 1.04; letter-spacing: -0.03em; font-weight: 800; margin-bottom: 18px; }
+    h1 .grad { background: linear-gradient(120deg, var(--accent), var(--accent-2) 60%, var(--accent-3)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .rotator { display: inline-block; position: relative; min-height: 1.1em; }
+    .rotator span { background: linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .subtitle { font-size: clamp(1.02rem, 2.2vw, 1.28rem); color: var(--muted); max-width: 600px; margin-bottom: 16px; }
+    .location { color: var(--muted); font-size: 0.95rem; display: flex; align-items: center; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; }
+    .chip-mini { font-size: 0.82rem; color: var(--muted); background: var(--card); border: 1px solid var(--border); padding: 4px 11px; border-radius: 999px; }
     .cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 9px;
-      padding: 12px 22px; border-radius: 12px; font-weight: 600; font-size: 0.95rem;
-      border: 1px solid var(--border); transition: transform .15s, box-shadow .2s, border-color .2s;
-    }
-    .btn.primary {
-      background: linear-gradient(120deg, var(--accent), var(--accent-2));
-      color: #fff; border-color: transparent; box-shadow: 0 8px 24px -8px var(--accent);
-    }
+    .btn { display: inline-flex; align-items: center; gap: 9px; padding: 12px 22px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; border: 1px solid var(--border); transition: transform .15s, box-shadow .2s, border-color .2s; cursor: pointer; }
+    .btn.primary { background: linear-gradient(120deg, var(--accent), var(--accent-2)); color: #fff; border-color: transparent; box-shadow: 0 10px 30px -10px var(--accent); }
     .btn:hover { transform: translateY(-2px); }
     .btn.ghost:hover { border-color: var(--accent); }
 
+    /* Hero photo */
+    .photo-wrap { justify-self: center; position: relative; }
+    .photo-frame {
+      width: min(320px, 74vw); aspect-ratio: 1; border-radius: 26px; position: relative;
+      padding: 5px; background: linear-gradient(135deg, var(--accent), var(--accent-2) 55%, var(--accent-3));
+      box-shadow: 0 30px 70px -24px var(--glow); transition: transform .4s ease;
+    }
+    .photo-frame:hover { transform: rotate(-1.5deg) scale(1.02); }
+    .photo-frame img, .monogram { width: 100%; height: 100%; border-radius: 22px; object-fit: cover; display: block; }
+    .monogram { display: none; place-items: center; background: linear-gradient(135deg, var(--card), var(--card-2)); font-size: 5rem; font-weight: 800; letter-spacing: -0.04em;
+      color: transparent; background-clip: padding-box; }
+    .monogram b { background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .badge-float {
+      position: absolute; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 10px 14px;
+      display: flex; align-items: center; gap: 9px; font-size: 0.82rem; font-weight: 600; box-shadow: 0 12px 30px -12px rgba(0,0,0,.5);
+      backdrop-filter: blur(6px);
+    }
+    .badge-float .b-ic { font-size: 1.1rem; }
+    .badge-float.tl { top: 14px; left: -26px; animation: bob 4s ease-in-out infinite; }
+    .badge-float.br { bottom: 18px; right: -22px; animation: bob 4s ease-in-out infinite 1.2s; }
+    @media (max-width: 500px) { .badge-float.tl { left: -6px; } .badge-float.br { right: -6px; } }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .badge-float small { color: var(--muted); font-weight: 500; display: block; font-size: 0.72rem; }
+
+    /* Marquee logos */
+    .worked { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 22px 0; margin-top: 48px; }
+    .worked .lbl { text-align: center; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; }
+    .logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 34px; align-items: center; font-weight: 700; color: var(--muted); font-size: 1.05rem; letter-spacing: -0.01em; }
+    .logos span { transition: color .2s; }
+    .logos span:hover { color: var(--text); }
+
     /* Sections */
-    section { padding: 72px 0; }
-    .section-head { margin-bottom: 40px; }
-    .section-head .kicker { color: var(--accent); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; }
-    .section-head h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); letter-spacing: -0.02em; margin-top: 8px; }
-    .section-head p { color: var(--muted); max-width: 620px; margin-top: 12px; }
+    section.sec { padding: 76px 0; position: relative; }
+    .section-head { margin-bottom: 42px; }
+    .section-head .kicker { color: var(--accent); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .section-head h2 { font-size: clamp(1.7rem, 4vw, 2.5rem); letter-spacing: -0.02em; margin-top: 8px; }
+    .section-head p { color: var(--muted); max-width: 640px; margin-top: 12px; }
+
+    /* Stats */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    @media (max-width: 820px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 26px 22px; text-align: center; transition: transform .2s, border-color .2s; }
+    .stat-box:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+    .stat-box .num { font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em;
+      background: linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .stat-box .cap { color: var(--muted); font-size: 0.9rem; margin-top: 6px; }
 
     /* About */
     .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
@@ -113,81 +157,92 @@
     .about p + p { margin-top: 16px; }
     .about p { color: var(--muted); }
     .about strong { color: var(--text); }
-    .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 26px; }
-    .stat { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--border); }
-    .stat:last-child { border-bottom: none; }
-    .stat .k { color: var(--muted); font-size: 0.9rem; }
-    .stat .v { font-weight: 700; }
+    .facts { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 10px 24px; }
+    .fact { display: flex; justify-content: space-between; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .fact:last-child { border-bottom: none; }
+    .fact .k { color: var(--muted); font-size: 0.9rem; }
+    .fact .v { font-weight: 700; text-align: right; }
 
     /* Skills */
-    .skill-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
-    .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: transform .2s, border-color .2s; }
+    .skill-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 24px; transition: transform .2s, border-color .2s; }
     .skill-card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
     .skill-card h3 { font-size: 1.05rem; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
-    .skill-card .ic { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center;
-      background: color-mix(in srgb, var(--accent) 14%, transparent); font-size: 1.1rem; }
+    .skill-card .ic { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 14%, transparent); font-size: 1.15rem; }
     .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-    .tag { font-size: 0.83rem; color: var(--muted); background: var(--bg-soft); border: 1px solid var(--border); padding: 5px 12px; border-radius: 999px; }
+    .tag { font-size: 0.83rem; color: var(--muted); background: var(--card-2); border: 1px solid var(--border); padding: 5px 12px; border-radius: 999px; transition: color .2s, border-color .2s; }
+    .skill-card:hover .tag { color: var(--text); }
 
-    /* Experience */
-    .timeline { position: relative; padding-left: 28px; }
-    .timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
-    .tl-item { position: relative; padding-bottom: 42px; }
+    /* Experience timeline */
+    .timeline { position: relative; padding-left: 30px; }
+    .timeline::before { content: ""; position: absolute; left: 8px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(var(--accent), var(--accent-2), transparent); }
+    .tl-item { position: relative; padding-bottom: 40px; }
     .tl-item:last-child { padding-bottom: 0; }
-    .tl-item::before {
-      content: ""; position: absolute; left: -28px; top: 4px; width: 16px; height: 16px; border-radius: 50%;
-      background: var(--bg); border: 3px solid var(--accent); box-shadow: 0 0 0 4px var(--glow);
-    }
-    .tl-item .role { font-size: 1.2rem; font-weight: 700; }
+    .tl-item::before { content: ""; position: absolute; left: -30px; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 3px solid var(--accent); box-shadow: 0 0 0 4px var(--glow); }
+    .tl-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+    .tl-item .role { font-size: 1.18rem; font-weight: 700; }
     .tl-item .co { color: var(--accent); font-weight: 600; }
-    .tl-item .period { color: var(--muted); font-size: 0.88rem; margin: 4px 0 12px; }
+    .tl-item .period { color: var(--muted); font-size: 0.85rem; }
+    .tl-item .meta { color: var(--muted); font-size: 0.85rem; margin: 3px 0 12px; }
     .tl-item ul { list-style: none; display: grid; gap: 8px; }
-    .tl-item li { color: var(--muted); position: relative; padding-left: 20px; }
+    .tl-item li { color: var(--muted); position: relative; padding-left: 22px; }
     .tl-item li::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
+    .tl-item li a { color: var(--accent); border-bottom: 1px dashed color-mix(in srgb, var(--accent) 50%, transparent); }
+    .tl-item .mini-tags { margin-top: 12px; }
+    details.more { margin-top: 8px; }
+    details.more summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: 0.9rem; list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+    details.more summary::-webkit-details-marker { display: none; }
+    details.more[open] summary .chev { transform: rotate(90deg); }
+    details.more summary .chev { transition: transform .2s; }
+    details.more .timeline { margin-top: 26px; }
 
     /* Projects */
-    .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
-    .proj-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; transition: transform .2s, border-color .2s; }
-    .proj-card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
-    .proj-card .pico { font-size: 1.6rem; margin-bottom: 14px; }
-    .proj-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
+    .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
+    .proj-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 28px; display: flex; flex-direction: column; transition: transform .2s, border-color .2s; position: relative; overflow: hidden; }
+    .proj-card::after { content: ""; position: absolute; inset: auto -30% -50% auto; width: 200px; height: 200px; background: radial-gradient(closest-side, var(--glow), transparent 70%); opacity: 0; transition: opacity .3s; }
+    .proj-card:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+    .proj-card:hover::after { opacity: 1; }
+    .proj-card .pico { font-size: 1.7rem; margin-bottom: 14px; }
+    .proj-card h3 { font-size: 1.18rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
     .proj-card p { color: var(--muted); font-size: 0.95rem; flex: 1; }
     .proj-card .tags { margin-top: 16px; }
+    .proj-card .link { margin-top: 16px; color: var(--accent); font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; }
+    .proj-card .link:hover { gap: 10px; }
 
     /* Contact */
     .contact { text-align: center; }
-    .contact-card {
-      background: linear-gradient(160deg, var(--card), var(--bg-soft));
-      border: 1px solid var(--border); border-radius: 24px; padding: 56px 32px; position: relative; overflow: hidden;
-    }
-    .contact-card::before { content: ""; position: absolute; inset: auto auto -60% -20%; width: 480px; height: 380px;
-      background: radial-gradient(closest-side, var(--glow), transparent 70%); pointer-events: none; }
-    .contact h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -0.02em; margin-bottom: 14px; }
-    .contact p { color: var(--muted); max-width: 480px; margin: 0 auto 28px; }
-    .social-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 24px; }
-    .social {
-      width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center;
-      background: var(--bg-soft); border: 1px solid var(--border); color: var(--muted); transition: all .2s;
-    }
+    .contact-card { background: linear-gradient(160deg, var(--card), var(--card-2)); border: 1px solid var(--border); border-radius: 26px; padding: 60px 32px; position: relative; overflow: hidden; }
+    .contact-card::before { content: ""; position: absolute; inset: auto auto -60% -20%; width: 480px; height: 380px; background: radial-gradient(closest-side, var(--glow), transparent 70%); pointer-events: none; }
+    .contact h2 { font-size: clamp(1.8rem, 4vw, 2.7rem); letter-spacing: -0.02em; margin-bottom: 14px; position: relative; }
+    .contact p { color: var(--muted); max-width: 500px; margin: 0 auto 28px; position: relative; }
+    .social-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 26px; position: relative; }
+    .social { width: 48px; height: 48px; border-radius: 13px; display: grid; place-items: center; background: var(--bg-soft); border: 1px solid var(--border); color: var(--muted); transition: all .2s; }
     .social:hover { color: var(--text); border-color: var(--accent); transform: translateY(-3px); }
-    .social svg { width: 20px; height: 20px; fill: currentColor; }
+    .social svg { width: 21px; height: 21px; fill: currentColor; }
 
-    footer { border-top: 1px solid var(--border); padding: 32px 0; text-align: center; color: var(--muted); font-size: 0.88rem; }
+    footer { border-top: 1px solid var(--border); padding: 34px 0; text-align: center; color: var(--muted); font-size: 0.88rem; }
+    footer .heart { color: #ff5d6c; }
 
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .blob, .dot, .badge-float { animation: none; } }
   </style>
 </head>
 <body>
+  <div class="bg-fx" aria-hidden="true">
+    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  </div>
+
   <header class="nav">
     <div class="wrap nav-inner">
       <a href="#top" class="brand">Akshay<span>.</span>Jaitly</a>
       <nav class="nav-links">
         <a href="#about">About</a>
+        <a href="#impact">Impact</a>
         <a href="#skills">Skills</a>
         <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+        <a href="#contact" class="nav-cta">Say hi 👋</a>
       </nav>
     </div>
   </header>
@@ -195,148 +250,266 @@
   <main id="top">
     <!-- Hero -->
     <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow"><span class="dot"></span> Available for interesting problems</span>
+          <h1>Hi, I'm Akshay 👋<br />I build <span class="rotator"><span id="rotword">data systems</span></span><br /><span class="grad">that scale.</span></h1>
+          <p class="subtitle">Senior Software Engineer at Capital One. I design high-throughput data pipelines and ship production ML, RAG &amp; LLM systems — with Go, Spark &amp; AWS under the hood.</p>
+          <p class="location">
+            <span>📍 Chicago, Illinois</span>
+            <span class="chip-mini">☕ Go enthusiast</span>
+            <span class="chip-mini">🔐 Ex-HackerOne researcher</span>
+          </p>
+          <div class="cta-row">
+            <a href="#contact" class="btn primary">Get in touch →</a>
+            <a href="https://www.linkedin.com/in/akshayjaitly24/" target="_blank" rel="noopener" class="btn ghost">View LinkedIn</a>
+          </div>
+        </div>
+        <div class="photo-wrap">
+          <div class="photo-frame">
+            <img src="assets/akshay.jpg" alt="Akshay Jaitly" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />
+            <div class="monogram"><b>AJ</b></div>
+          </div>
+          <div class="badge-float tl"><span class="b-ic">🚀</span><span>$15M unlocked<small>Shop with Rewards API</small></span></div>
+          <div class="badge-float br"><span class="b-ic">⚡</span><span>1M+ records<small>Spark aggregation service</small></span></div>
+        </div>
+      </div>
+
+      <div class="wrap worked">
+        <div class="lbl">Experience across</div>
+        <div class="logos">
+          <span>Capital One</span><span>Siemens</span><span>GitHub OSS</span><span>HackerOne</span><span>ACM</span><span>IAENG</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact / Stats -->
+    <section id="impact" class="sec reveal">
       <div class="wrap">
-        <span class="eyebrow"><span class="dot"></span> Available for interesting problems</span>
-        <h1>Hi, I'm Akshay Jaitly.<br /><span class="grad">I build data &amp; ML systems that scale.</span></h1>
-        <p class="subtitle">Senior Software Engineer at Capital One. I design high-throughput data pipelines and production ML/LLM systems in Go, Spark, and AWS.</p>
-        <p class="location">📍 Chicago, Illinois, United States</p>
-        <div class="cta-row">
-          <a href="#contact" class="btn primary">Get in touch →</a>
-          <a href="https://www.linkedin.com/in/akshayjaitly24/" target="_blank" rel="noopener" class="btn ghost">View LinkedIn</a>
+        <div class="section-head">
+          <div class="kicker">By the numbers</div>
+          <h2>Impact, quantified</h2>
+          <p>A few results I'm proud of — from production APIs to cloud cost savings.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-box"><div class="num" data-target="15" data-prefix="$" data-suffix="M">$15M</div><div class="cap">rewards redemption unlocked at REI in 2 months</div></div>
+          <div class="stat-box"><div class="num" data-target="35" data-suffix="%">35%</div><div class="cap">cloud ops cost cut via transient EMR &amp; EC2</div></div>
+          <div class="stat-box"><div class="num" data-target="1" data-suffix="M+">1M+</div><div class="cap">records handled by a scalable aggregation service</div></div>
+          <div class="stat-box"><div class="num" data-target="25" data-prefix="Top ">Top 25</div><div class="cap">contributor to the open-source dogehouse</div></div>
         </div>
       </div>
     </section>
 
     <!-- About -->
-    <section id="about" class="reveal">
+    <section id="about" class="sec reveal">
       <div class="wrap">
         <div class="section-head">
           <div class="kicker">About</div>
-          <h2>Engineering at the intersection of data and ML</h2>
+          <h2>Engineering where data meets ML</h2>
         </div>
         <div class="about-grid about">
           <div>
-            <p>I'm a <strong>Senior Software Engineer at Capital One</strong>, where I build and operate large-scale data platforms and machine-learning infrastructure. Previously at <strong>Siemens</strong>, I worked across the stack on systems that turn raw data into reliable, production-grade products.</p>
-            <p>My focus is the plumbing that makes intelligent systems work at scale: distributed data processing with <strong>Spark</strong>, performant services in <strong>Go</strong>, cloud-native architecture on <strong>AWS</strong>, and the pipelines that power <strong>ML and LLM systems</strong> in production.</p>
-            <p>I care about clean abstractions, observable systems, and shipping software that holds up under real-world load.</p>
+            <p>I'm a <strong>Senior Software Engineer at Capital One</strong>, building and deploying machine-learning and LLM systems that power data-driven decisions in fintech. Day to day that means <strong>RAG models</strong>, <strong>AI agents</strong>, Databricks &amp; Iceberg data lakes, and MLOps on SageMaker.</p>
+            <p>Before this chapter I spent two and a half years at <strong>Siemens Digital Industries Software</strong> building <strong>Go</strong> REST APIs and <strong>Angular</strong> apps for smart, sustainable buildings — including a semantic-enrichment engine for building data and IoT connectors handling high throughput in real time.</p>
+            <p>Earlier at Capital One I wrote the <strong>Go + AWS Lambda</strong> rewards API behind <em>Shop with Rewards</em>, and built big-data pipelines in <strong>Spark &amp; Scala</strong>. I got my start as a <strong>HackerOne security researcher</strong> and a published undergrad researcher in computer vision. I like clean abstractions, observable systems, and code that holds up under real load.</p>
           </div>
-          <div class="stat-card">
-            <div class="stat"><span class="k">Current</span><span class="v">Capital One</span></div>
-            <div class="stat"><span class="k">Previously</span><span class="v">Siemens</span></div>
-            <div class="stat"><span class="k">Focus</span><span class="v">Data &amp; ML</span></div>
-            <div class="stat"><span class="k">Core stack</span><span class="v">Go · Spark · AWS</span></div>
-            <div class="stat"><span class="k">Based in</span><span class="v">Chicago, IL</span></div>
+          <div class="facts">
+            <div class="fact"><span class="k">Now</span><span class="v">Sr. SWE · Capital One</span></div>
+            <div class="fact"><span class="k">Focus</span><span class="v">ML · RAG · LLM systems</span></div>
+            <div class="fact"><span class="k">Core stack</span><span class="v">Go · Spark · AWS</span></div>
+            <div class="fact"><span class="k">Also fluent</span><span class="v">Python · Angular · Java</span></div>
+            <div class="fact"><span class="k">Based in</span><span class="v">Chicago, IL</span></div>
+            <div class="fact"><span class="k">Published</span><span class="v">CV research paper</span></div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Skills -->
-    <section id="skills" class="reveal">
+    <section id="skills" class="sec reveal">
       <div class="wrap">
         <div class="section-head">
-          <div class="kicker">Skills</div>
+          <div class="kicker">Toolbox</div>
           <h2>What I work with</h2>
-          <p>The tools and domains I use to design, build, and operate data and ML systems.</p>
+          <p>The languages, platforms, and domains I reach for to build and ship.</p>
         </div>
         <div class="skill-groups">
           <div class="skill-card">
             <h3><span class="ic">🧩</span> Languages</h3>
-            <div class="tags">
-              <span class="tag">Go</span><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Java</span><span class="tag">Scala</span>
-            </div>
+            <div class="tags"><span class="tag">Go</span><span class="tag">Python</span><span class="tag">Java</span><span class="tag">Scala</span><span class="tag">TypeScript</span><span class="tag">SQL</span></div>
           </div>
           <div class="skill-card">
             <h3><span class="ic">⚡</span> Data Engineering</h3>
-            <div class="tags">
-              <span class="tag">Apache Spark</span><span class="tag">Streaming</span><span class="tag">ETL / ELT</span><span class="tag">Kafka</span><span class="tag">Airflow</span>
-            </div>
+            <div class="tags"><span class="tag">Apache Spark</span><span class="tag">Airflow</span><span class="tag">Databricks</span><span class="tag">Iceberg</span><span class="tag">EMR</span><span class="tag">ETL / ELT</span></div>
           </div>
           <div class="skill-card">
-            <h3><span class="ic">☁️</span> Cloud &amp; Infra</h3>
-            <div class="tags">
-              <span class="tag">AWS</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">CI/CD</span>
-            </div>
+            <h3><span class="ic">🤖</span> AI / ML &amp; LLMs</h3>
+            <div class="tags"><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">Langflow</span><span class="tag">AI Agents</span><span class="tag">SageMaker</span><span class="tag">MLOps</span></div>
           </div>
           <div class="skill-card">
-            <h3><span class="ic">🤖</span> ML &amp; LLM Systems</h3>
-            <div class="tags">
-              <span class="tag">ML Pipelines</span><span class="tag">LLM Systems</span><span class="tag">Feature Stores</span><span class="tag">Model Serving</span><span class="tag">RAG</span>
-            </div>
+            <h3><span class="ic">☁️</span> Cloud &amp; Backend</h3>
+            <div class="tags"><span class="tag">AWS Lambda</span><span class="tag">DynamoDB</span><span class="tag">S3 / SNS</span><span class="tag">Spring Boot</span><span class="tag">Node.js</span><span class="tag">Docker</span></div>
+          </div>
+          <div class="skill-card">
+            <h3><span class="ic">🖥️</span> Frontend</h3>
+            <div class="tags"><span class="tag">Angular</span><span class="tag">React</span><span class="tag">Storybook</span><span class="tag">JavaScript</span></div>
+          </div>
+          <div class="skill-card">
+            <h3><span class="ic">🧪</span> Quality &amp; Security</h3>
+            <div class="tags"><span class="tag">Playwright</span><span class="tag">Jest / Karma</span><span class="tag">GoMocks</span><span class="tag">Integration testing</span><span class="tag">AppSec</span></div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Experience -->
-    <section id="experience" class="reveal">
+    <section id="experience" class="sec reveal">
       <div class="wrap">
         <div class="section-head">
           <div class="kicker">Experience</div>
-          <h2>Where I've worked</h2>
-          <p>A snapshot — edit the bullet points to match your exact accomplishments.</p>
+          <h2>The journey so far</h2>
+          <p>From security research to big-data platforms to production LLM systems.</p>
         </div>
         <div class="timeline">
           <div class="tl-item">
-            <div class="role">Senior Software Engineer</div>
-            <div class="co">Capital One</div>
-            <div class="period">Chicago, IL</div>
+            <div class="tl-head"><span class="role">Senior Software Engineer</span><span class="co">· Capital One</span></div>
+            <div class="meta">Jan 2025 – Present · Chicago, IL · Hybrid</div>
             <ul>
-              <li>Build and operate large-scale data pipelines powering analytics and ML workloads.</li>
-              <li>Design cloud-native services on AWS with a focus on reliability and performance.</li>
-              <li>Develop infrastructure for ML and LLM systems in production.</li>
+              <li>Lead development and deployment of ML models to optimize customer experiences and data-driven decisions in fintech.</li>
+              <li>Design and implement <strong>Retrieval-Augmented Generation (RAG)</strong> models to enhance retrieval within AI systems.</li>
+              <li>Build and refine <strong>AI agents</strong> that automate decision-making across business functions.</li>
+              <li>Drive MLOps on <strong>SageMaker</strong> — deployment, monitoring, and continuous improvement of production models.</li>
+              <li>Work with <strong>Databricks</strong>, <strong>Iceberg</strong> data lakes, <strong>LangChain</strong> &amp; <strong>Langflow</strong> to streamline AI-driven workflows.</li>
             </ul>
+            <div class="tags mini-tags"><span class="tag">Python</span><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">SageMaker</span><span class="tag">Databricks</span></div>
           </div>
           <div class="tl-item">
-            <div class="role">Software Engineer</div>
-            <div class="co">Siemens</div>
-            <div class="period">Earlier</div>
+            <div class="tl-head"><span class="role">Senior Software Engineer</span><span class="co">· Siemens Digital Industries Software</span></div>
+            <div class="meta">Aug 2022 – Jan 2025 · Chicago, IL · Hybrid</div>
             <ul>
-              <li>Delivered full-stack features and backend services across enterprise systems.</li>
-              <li>Worked on data-intensive applications and system integration.</li>
+              <li>Designed and built <strong>Go</strong> REST APIs and <strong>Angular</strong> web apps for smart buildings (Building X Sustainability Manager).</li>
+              <li>Developed a <strong>semantic enrichment engine</strong> and ML models for patient rooms in Python to enrich building data.</li>
+              <li>Built site-connector pages and real-time REST APIs powering the IoT connection framework at high throughput.</li>
+              <li>Improved Sustainability Manager dashboard load times by <strong>15%</strong>.</li>
+              <li>Championed testing best practices with Playwright, Jest, Karma, integration tests, and GoMocks.</li>
             </ul>
+            <div class="tags mini-tags"><span class="tag">Golang</span><span class="tag">Angular</span><span class="tag">DynamoDB</span><span class="tag">Node.js</span><span class="tag">Python</span></div>
           </div>
+          <div class="tl-item">
+            <div class="tl-head"><span class="role">Senior Software Engineer</span><span class="co">· Capital One</span></div>
+            <div class="meta">Aug 2021 – Aug 2022 · On-site</div>
+            <ul>
+              <li>Built <strong>Go</strong> REST APIs on <strong>AWS Lambda</strong> for the <em>Shop with Rewards</em> point-of-sale product.</li>
+              <li>Enabled <strong>$15M</strong> in rewards redemption at REI in the first two months — projected <strong>$300M</strong> redemption &amp; $15M ARR across partners.</li>
+              <li>Featured on the Capital One tech blog: <a href="https://www.capitalone.com/tech/software-engineering/inside-shop-with-rewards/" target="_blank" rel="noopener">Inside the Point-of-Sale Rewards API ↗</a></li>
+            </ul>
+            <div class="tags mini-tags"><span class="tag">Golang</span><span class="tag">AWS Lambda</span><span class="tag">API Design</span></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-head"><span class="role">Software Engineer</span><span class="co">· Capital One</span></div>
+            <div class="meta">Nov 2018 – Aug 2021 · Chicago, IL</div>
+            <ul>
+              <li>Data-driven engineering: built production data pipelines with <strong>Airflow</strong>, <strong>Spark</strong>, <strong>Scala</strong>, Java &amp; Spring Boot.</li>
+              <li>Designed a scalable aggregation service handling bulk loads of up to <strong>1M records</strong>.</li>
+              <li>Cut ops costs <strong>35%</strong> with transient EMR &amp; EC2 via custom Lambda, SNS &amp; S3 triggers.</li>
+              <li>Wrote cryptographic algorithms to mask PCI &amp; NPI data; built React dashboards and web interfaces.</li>
+            </ul>
+            <div class="tags mini-tags"><span class="tag">Spark</span><span class="tag">Scala</span><span class="tag">Airflow</span><span class="tag">Spring Boot</span><span class="tag">React</span></div>
+          </div>
+
+          <details class="more">
+            <summary><span class="chev">▸</span> Show earlier roles &amp; open source</summary>
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-head"><span class="role">Open Source Developer</span><span class="co">· GitHub</span></div>
+                <div class="meta">Mar 2021 – Jan 2025 · Remote</div>
+                <ul>
+                  <li>Top 25 contributor to <a href="https://github.com/benawad/dogehouse" target="_blank" rel="noopener">benawad/dogehouse</a> — built screens with React, Storybook &amp; JavaScript.</li>
+                </ul>
+              </div>
+              <div class="tl-item">
+                <div class="tl-head"><span class="role">Independent Security Researcher</span><span class="co">· HackerOne</span></div>
+                <div class="meta">Sep 2017 – Oct 2018 · Greater Los Angeles Area</div>
+                <ul><li>Responsible-disclosure security research across web applications.</li></ul>
+              </div>
+              <div class="tl-item">
+                <div class="tl-head"><span class="role">Software Engineer Intern</span><span class="co">· International Motor Group</span></div>
+                <div class="meta">Sep 2017 – Dec 2017 · New York City Metro</div>
+                <ul><li>Built a website with database management on the AWS platform.</li></ul>
+              </div>
+              <div class="tl-item">
+                <div class="tl-head"><span class="role">Undergraduate Research Assistant</span><span class="co">· MIT, Pune</span></div>
+                <div class="meta">Jun 2015 – Jun 2016 · Pune, India</div>
+                <ul>
+                  <li>Led a computer-vision capstone measuring shopper purchase intent from facial expressions (MATLAB).</li>
+                  <li>Published a <a href="http://www.ierjournal.org/vol1iss10/Computer%20aided%20detection%20of%20Shoppers%20intent%20to%20purchase%20using%20facial%20expression.pdf" target="_blank" rel="noopener">peer-reviewed research paper ↗</a>.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
         </div>
       </div>
     </section>
 
     <!-- Projects -->
-    <section id="projects" class="reveal">
+    <section id="projects" class="sec reveal">
       <div class="wrap">
         <div class="section-head">
           <div class="kicker">Highlights</div>
-          <h2>Selected focus areas</h2>
-          <p>Representative areas of work — swap these for real projects with links when you're ready.</p>
+          <h2>Things I've built</h2>
+          <p>A few projects that shipped to production — and one that got published.</p>
         </div>
         <div class="proj-grid">
           <div class="proj-card">
-            <div class="pico">⚙️</div>
-            <h3>High-throughput data pipelines</h3>
-            <p>Distributed Spark pipelines that ingest, transform, and serve data reliably at scale.</p>
-            <div class="tags"><span class="tag">Spark</span><span class="tag">Go</span><span class="tag">AWS</span></div>
+            <div class="pico">🛍️</div>
+            <h3>Shop with Rewards API</h3>
+            <p>Go + AWS Lambda point-of-sale rewards API. Unlocked $15M in redemptions at REI in two months, with $300M projected across partners.</p>
+            <div class="tags"><span class="tag">Golang</span><span class="tag">AWS Lambda</span><span class="tag">Fintech</span></div>
+            <a class="link" href="https://www.capitalone.com/tech/software-engineering/inside-shop-with-rewards/" target="_blank" rel="noopener">Read the Capital One case study →</a>
           </div>
           <div class="proj-card">
-            <div class="pico">🧠</div>
-            <h3>Production ML pipelines</h3>
-            <p>End-to-end pipelines for training, deploying, and monitoring models in production.</p>
-            <div class="tags"><span class="tag">ML Ops</span><span class="tag">Python</span><span class="tag">Kubernetes</span></div>
+            <div class="pico">🏢</div>
+            <h3>Building X — Sustainability Manager</h3>
+            <p>Full-stack work on Siemens' smart-building platform: Go REST APIs, Angular dashboards, a semantic-enrichment engine, and real-time IoT connectors.</p>
+            <div class="tags"><span class="tag">Golang</span><span class="tag">Angular</span><span class="tag">IoT</span></div>
+            <a class="link" href="https://www.siemens.com/global/en/company/topic-areas/smart-infrastructure.html" target="_blank" rel="noopener">Explore Siemens Smart Infrastructure →</a>
           </div>
           <div class="proj-card">
-            <div class="pico">💬</div>
-            <h3>LLM systems</h3>
-            <p>Retrieval-augmented and agentic LLM systems wired into real data and workflows.</p>
-            <div class="tags"><span class="tag">LLM</span><span class="tag">RAG</span><span class="tag">Vector DB</span></div>
+            <div class="pico">🤖</div>
+            <h3>RAG &amp; Agentic LLM Systems</h3>
+            <p>Retrieval-augmented generation and AI agents at Capital One — built with LangChain &amp; Langflow, deployed and monitored via SageMaker MLOps.</p>
+            <div class="tags"><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">SageMaker</span></div>
+          </div>
+          <div class="proj-card">
+            <div class="pico">🚀</div>
+            <h3>dogehouse (Open Source)</h3>
+            <p>Top-25 contributor to the viral open-source voice-chat app — building UI screens with React, Storybook, and JavaScript.</p>
+            <div class="tags"><span class="tag">React</span><span class="tag">Storybook</span><span class="tag">OSS</span></div>
+            <a class="link" href="https://github.com/benawad/dogehouse" target="_blank" rel="noopener">View on GitHub →</a>
+          </div>
+          <div class="proj-card">
+            <div class="pico">⚡</div>
+            <h3>Scalable Data Aggregation</h3>
+            <p>Spark &amp; Scala aggregation service handling up to 1M records per batch, plus transient EMR/EC2 automation that cut ops costs 35%.</p>
+            <div class="tags"><span class="tag">Spark</span><span class="tag">Scala</span><span class="tag">EMR</span></div>
+          </div>
+          <div class="proj-card">
+            <div class="pico">📄</div>
+            <h3>Shopper-Intent (Published Research)</h3>
+            <p>Undergraduate capstone using image processing &amp; AI to detect purchase intent from facial expressions. Peer-reviewed and published.</p>
+            <div class="tags"><span class="tag">Computer Vision</span><span class="tag">MATLAB</span><span class="tag">Research</span></div>
+            <a class="link" href="http://www.ierjournal.org/vol1iss10/Computer%20aided%20detection%20of%20Shoppers%20intent%20to%20purchase%20using%20facial%20expression.pdf" target="_blank" rel="noopener">Read the paper →</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="reveal">
+    <section id="contact" class="sec reveal">
       <div class="wrap contact">
         <div class="contact-card">
-          <h2>Let's build something</h2>
-          <p>Open to conversations about data platforms, ML infrastructure, and LLM systems. The fastest way to reach me is LinkedIn.</p>
+          <h2>Let's build something ⚡</h2>
+          <p>Always up for a conversation about data platforms, ML infrastructure, and LLM systems. The fastest way to reach me is LinkedIn.</p>
           <a href="https://www.linkedin.com/in/akshayjaitly24/" target="_blank" rel="noopener" class="btn primary">Connect on LinkedIn →</a>
           <div class="social-row">
             <a class="social" href="https://www.linkedin.com/in/akshayjaitly24/" target="_blank" rel="noopener" aria-label="LinkedIn">
@@ -353,16 +526,42 @@
 
   <footer>
     <div class="wrap">
-      © <span id="year"></span> Akshay Jaitly · Built with care in Chicago.
+      © <span id="year"></span> Akshay Jaitly · Designed &amp; built with <span class="heart">♥</span> in Chicago.
     </div>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Rotating headline word
+    const words = ['data systems', 'ML pipelines', 'LLM agents', 'RAG systems', 'data platforms'];
+    let wi = 0;
+    const rot = document.getElementById('rotword');
+    setInterval(() => {
+      wi = (wi + 1) % words.length;
+      rot.style.transition = 'opacity .3s'; rot.style.opacity = '0';
+      setTimeout(() => { rot.textContent = words[wi]; rot.style.opacity = '1'; }, 300);
+    }, 2600);
+
+    // Reveal on scroll
     const obs = new IntersectionObserver((entries) => {
       entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach((el) => obs.observe(el));
+
+    // Animated stat counters
+    const nums = document.querySelectorAll('.num[data-target]');
+    const numObs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const el = e.target; numObs.unobserve(el);
+        const target = +el.dataset.target, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+        let cur = 0; const step = Math.max(1, Math.ceil(target / 40));
+        const tick = () => { cur = Math.min(target, cur + step); el.textContent = pre + cur + suf; if (cur < target) requestAnimationFrame(tick); };
+        tick();
+      });
+    }, { threshold: 0.5 });
+    nums.forEach((n) => numObs.observe(n));
   </script>
 </body>
 </html>
