@@ -217,6 +217,8 @@
     .proj-card p { color: var(--muted); font-size: 0.95rem; flex: 1; }
     .proj-card .tags { margin-top: 16px; }
     .proj-card .link { margin-top: 16px; color: var(--accent); font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; }
+    .proj-card.featured { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+    .proj-badge { position: absolute; top: 16px; right: 16px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; background: linear-gradient(120deg, var(--accent), var(--accent-2)); padding: 4px 10px; border-radius: 999px; z-index: 1; }
     .proj-card .link:hover { gap: 10px; }
 
     /* Contact */
@@ -526,6 +528,13 @@
           <p>A few projects that shipped to production — and one that got published.</p>
         </div>
         <div class="proj-grid">
+          <div class="proj-card featured">
+            <span class="proj-badge">Latest</span>
+            <div class="pico">🏦</div>
+            <h3>80M+ Transaction Migration &amp; ETL Platform</h3>
+            <p>Migrated <strong>80 million+</strong> historical transactions and built the end-to-end ETL behind it — <strong>AWS Glue 5</strong> migration jobs, automated <strong>end-of-day (EOD) reconciliation summary reports</strong> generated daily, and <strong>API provisioning</strong> serving the full 80M-transaction dataset.</p>
+            <div class="tags"><span class="tag">AWS Glue 5</span><span class="tag">ETL</span><span class="tag">Data Migration</span><span class="tag">EOD Recon</span><span class="tag">API</span></div>
+          </div>
           <div class="proj-card">
             <div class="pico">🛍️</div>
             <h3>Shop with Rewards API</h3>
