@@ -146,7 +146,7 @@
     .section-head p { color: var(--muted); max-width: 640px; margin-top: 12px; }
 
     /* Stats */
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(178px, 1fr)); gap: 18px; }
     @media (max-width: 820px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
     .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 26px 22px; text-align: center; transition: transform .2s, border-color .2s; }
     .stat-box:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
@@ -357,6 +357,7 @@
           <p>A few results I'm proud of — from production APIs to cloud cost savings.</p>
         </div>
         <div class="stats-grid">
+          <div class="stat-box"><div class="num" data-target="80" data-suffix="M+">80M+</div><div class="cap">historical transactions migrated &amp; ETL'd at Capital One</div></div>
           <div class="stat-box"><div class="num" data-target="15" data-prefix="$" data-suffix="M">$15M</div><div class="cap">rewards redemption unlocked at REI in 2 months</div></div>
           <div class="stat-box"><div class="num" data-target="35" data-suffix="%">35%</div><div class="cap">cloud ops cost cut via transient EMR &amp; EC2</div></div>
           <div class="stat-box"><div class="num" data-target="1" data-suffix="M+">1M+</div><div class="cap">records handled by a scalable aggregation service</div></div>
@@ -441,6 +442,7 @@
             <div class="tl-head"><span class="role">Senior Software Engineer</span><span class="co"><svg class="co-logo co-logo-cap" viewBox="0 0 418 150" role="img" aria-label="Capital One"><use href="#logo-capitalone"/></svg></span></div>
             <div class="meta">Jan 2025 – Present · Chicago, IL · Hybrid</div>
             <ul>
+              <li class="hl">Migrated <strong>80M+ historical transactions</strong> and built the end-to-end ETL — <strong>AWS Glue 5</strong> jobs, daily <strong>EOD reconciliation summary reports</strong>, and API provisioning over the full 80M-transaction dataset.</li>
               <li class="hl">Champion <strong>spec-driven, AI-assisted development</strong> — authoring precise specs that steer AI coding agents to ship features faster with higher quality and consistency.</li>
               <li class="hl">Own <strong>DevOps &amp; MLOps</strong> end to end: CI/CD pipelines, infrastructure-as-code, and observability for reliable, repeatable production deployments.</li>
               <li>Lead development and deployment of ML models to optimize customer experiences and data-driven decisions in fintech.</li>
@@ -449,7 +451,7 @@
               <li>Drive MLOps on <strong>SageMaker</strong> — deployment, monitoring, and continuous improvement of production models.</li>
               <li>Work with <strong>Databricks</strong>, <strong>Iceberg</strong> data lakes, <strong>LangChain</strong> &amp; <strong>Langflow</strong> to streamline AI-driven workflows.</li>
             </ul>
-            <div class="tags mini-tags"><span class="tag">Spec-Driven AI Dev</span><span class="tag">DevOps</span><span class="tag">CI/CD</span><span class="tag">Python</span><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">SageMaker</span><span class="tag">Databricks</span></div>
+            <div class="tags mini-tags"><span class="tag">AWS Glue 5</span><span class="tag">ETL</span><span class="tag">Spec-Driven AI Dev</span><span class="tag">DevOps</span><span class="tag">CI/CD</span><span class="tag">Python</span><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">SageMaker</span><span class="tag">Databricks</span></div>
           </div>
           <div class="tl-item">
             <div class="tl-head"><span class="role">Senior Software Engineer</span><span class="co"><svg class="co-logo co-logo-sie" viewBox="0 0 210 50" role="img" aria-label="Siemens"><use href="#logo-siemens"/></svg><span class="co-sub">Digital Industries Software</span></span></div>
