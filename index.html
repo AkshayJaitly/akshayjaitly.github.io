@@ -217,6 +217,8 @@
     .proj-card p { color: var(--muted); font-size: 0.95rem; flex: 1; }
     .proj-card .tags { margin-top: 16px; }
     .proj-card .link { margin-top: 16px; color: var(--accent); font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; }
+    .proj-links { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 16px; }
+    .proj-links .link { margin-top: 0; }
     .proj-card.featured { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
     .proj-badge { position: absolute; top: 16px; right: 16px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; background: linear-gradient(120deg, var(--accent), var(--accent-2)); padding: 4px 10px; border-radius: 999px; z-index: 1; }
     .proj-card .link:hover { gap: 10px; }
@@ -557,9 +559,13 @@
           </div>
           <div class="proj-card">
             <div class="pico">🤖</div>
-            <h3>RAG &amp; Agentic LLM Systems</h3>
-            <p>Retrieval-augmented generation and AI agents at Capital One — built with LangChain &amp; Langflow, deployed and monitored via SageMaker MLOps.</p>
-            <div class="tags"><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">SageMaker</span></div>
+            <h3>RAG Vector-DB Assistant</h3>
+            <p>Document Q&amp;A app that ingests PDF / Word / text, embeds it, and answers grounded in retrieved context — <strong>LangChain + LangGraph + ChromaDB</strong> with parent-child (small-to-big) retrieval, input/output guardrails, local embeddings, and a React UI. Runs on Claude or Ollama.</p>
+            <div class="tags"><span class="tag">LangChain</span><span class="tag">LangGraph</span><span class="tag">ChromaDB</span><span class="tag">React</span><span class="tag">RAG</span></div>
+            <div class="proj-links">
+              <a class="link" href="https://akshayjaitly.github.io/langchain-rag-assistant/" target="_blank" rel="noopener">Live demo →</a>
+              <a class="link" href="https://github.com/AkshayJaitly/langchain-rag-assistant" target="_blank" rel="noopener">Code →</a>
+            </div>
           </div>
           <div class="proj-card">
             <div class="pico">🚀</div>
