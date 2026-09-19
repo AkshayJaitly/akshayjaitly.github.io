@@ -560,8 +560,8 @@
           <div class="proj-card">
             <div class="pico">🤖</div>
             <h3>RAG Vector-DB Assistant</h3>
-            <p>Document Q&amp;A app that ingests PDF / Word / text, embeds it, and answers grounded in retrieved context — <strong>LangChain + LangGraph + ChromaDB</strong> with parent-child (small-to-big) retrieval, input/output guardrails, local embeddings, and a React UI. Runs on Claude or Ollama.</p>
-            <div class="tags"><span class="tag">LangChain</span><span class="tag">LangGraph</span><span class="tag">ChromaDB</span><span class="tag">React</span><span class="tag">RAG</span></div>
+            <p>Production RAG over your own documents — <strong>LangGraph</strong> pipeline, hybrid <strong>BM25 + vector</strong> retrieval fused with RRF, and citations down to the page. Built to <strong>refuse</strong>: it answers "I don't know" rather than guessing, and a golden-dataset evaluation <strong>gates CI</strong> so retrieval quality can't regress silently. Guardrails classify <em>uploaded documents</em> for prompt injection, not just the user's question. Runs at zero cost on Groq or Gemini.</p>
+            <div class="tags"><span class="tag">LangGraph</span><span class="tag">RAG</span><span class="tag">Hybrid Retrieval</span><span class="tag">Evals in CI</span><span class="tag">Guardrails</span><span class="tag">Groq / Gemini</span></div>
             <div class="proj-links">
               <a class="link" href="https://akshayjaitly.github.io/langchain-rag-assistant/" target="_blank" rel="noopener">Live demo →</a>
               <a class="link" href="https://github.com/AkshayJaitly/langchain-rag-assistant" target="_blank" rel="noopener">Code →</a>
