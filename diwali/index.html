@@ -335,7 +335,6 @@
       <div class="bar music-row">
         <button id="m-toggle" class="mbtn" type="button" aria-pressed="false"><span class="eq"><i></i><i></i><i></i></span>🔔 Play Aarti</button>
         <button id="f-toggle" class="mbtn" type="button" aria-pressed="false" title="Aarti on flute"><svg class="flute" viewBox="0 0 28 28" width="16" height="16" aria-hidden="true"><g transform="rotate(-40 14 14)"><rect x="1" y="11.5" width="26" height="5" rx="2.5" fill="currentColor"/><g fill="#0a0507"><circle cx="5.5" cy="14" r="1.1"/><circle cx="11" cy="14" r=".9"/><circle cx="14.2" cy="14" r=".9"/><circle cx="17.4" cy="14" r=".9"/><circle cx="20.6" cy="14" r=".9"/></g><rect x="7.5" y="11.5" width="1.2" height="5" fill="#0a0507" opacity=".5"/><rect x="23" y="11.5" width="1.2" height="5" fill="#0a0507" opacity=".5"/></g></svg>Flute</button>
-        <button id="b-toggle" class="mbtn" type="button" aria-pressed="false" title="Hare Krishna maha-mantra, ISKCON kirtan style">🦚 Hare Rama</button>
         <button id="s-toggle" class="snd" type="button" aria-pressed="false" title="Firework sounds" aria-label="Firework sounds">🔇<span class="lbl"> Sound</span></button>
       </div>
       <div class="player-wrap"><div class="player" id="player" hidden></div></div>
@@ -1053,7 +1052,7 @@ function playAarti(mode, song){
 }
 let aartiMode = null;
 function stopAarti(){ if (aartiStop){ aartiStop(); aartiStop = null; } aartiMode = null;
-  for (const id of ['m-toggle','f-toggle','b-toggle']){ $(id).classList.remove('on'); $(id).setAttribute('aria-pressed','false'); } }
+  for (const id of ['m-toggle','f-toggle']){ $(id).classList.remove('on'); $(id).setAttribute('aria-pressed','false'); } }
 function toggleAarti(mode, id, song){
   const key = mode + (song || ''); const same = aartiMode === key; stopAarti(); if (same) return;
   aartiStop = playAarti(mode, song); if (!aartiStop) return; aartiMode = key;
@@ -1061,7 +1060,6 @@ function toggleAarti(mode, id, song){
 }
 $('m-toggle').addEventListener('click', () => toggleAarti('harmonium', 'm-toggle'));
 $('f-toggle').addEventListener('click', () => toggleAarti('flute', 'f-toggle'));
-$('b-toggle').addEventListener('click', () => toggleAarti('harmonium', 'b-toggle', 'mantra'));
 $('s-toggle').addEventListener('click', e => {
   soundOn = !soundOn; const a = audio(); if (a && a.state === 'suspended') a.resume();
   e.currentTarget.firstChild.textContent = soundOn ? '🔊' : '🔇'; e.currentTarget.setAttribute('aria-pressed', String(soundOn));
