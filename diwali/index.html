@@ -906,7 +906,7 @@ function playAarti(){
   const L2 = [...n(['Gs4','As4','B4','Cs5','Ds5','Cs5']), ...n(['B4','As4','B4','Gs4'],1.5)];                               // Maiya Jai Lakshmi Mata
   const L3 = [...n(['Gs4','As4','Gs4','As4','Cs5','B4','B4','B4','B4','As4']), ...n(['Gs4','As4','Gs4','Fs4','Fs4'],1.5)];  // Tumko / Maiya ji ko nishdin sevat
   const L4 = [...n(['F4','Fs4','Gs4','As4','Gs4']), ...n(['Fs4','F4','Fs4','Ds4'],1.5)];                                    // Hari Vishnu Vidhata
-  const tune = [...L1, ...L2, ...L3, ...L3, ...L4, ...L1.slice(0,-1), ['Gs4',2.5]];                                      // ...Om Jai Lakshmi Mata
+  const tune = [...L1, ...L2, ...L3, ...L3, ...L4, ...L1.slice(0,-3), ['F4',.75], ['Fs4',.75], ['Gs4',4]];                                      // ...Om Jai Lakshmi Mata
   const total = tune.reduce((n,[,b]) => n+b, 0) * beat;
   const out = a.createGain(); out.gain.setValueAtTime(.0001, t0); out.gain.exponentialRampToValueAtTime(.9, t0+.4);
   out.gain.setValueAtTime(.9, t0+total-.6); out.gain.exponentialRampToValueAtTime(.0001, t0+total+1.6); out.connect(a.destination);
@@ -919,13 +919,13 @@ function playAarti(){
   }
   // harmonium melody (two reeds, slight detune + bellows swell)
   let t = t0;
-  for (const [n,b] of tune){
-    const f = HZ[n], d = b*beat;
+  for (const [i,[n,b]] of tune.entries()){
+    const f = HZ[n], d = b*beat, last = i === tune.length-1;
     for (const det of [0, 4]){
       const o = a.createOscillator(), g = a.createGain(), lp = a.createBiquadFilter();
       o.type = det ? 'square' : 'sawtooth'; o.frequency.value = f; o.detune.value = det;
       lp.type = 'lowpass'; lp.frequency.value = 2200; lp.Q.value = .7;
-      const peak = det ? .05 : .09;
+      const peak = (det ? .05 : .09) * (last ? 1.45 : 1);
       g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t+.05); g.gain.setValueAtTime(peak*.85, t+d*.8); g.gain.exponentialRampToValueAtTime(.0001, t+d+.05);
       o.connect(lp).connect(g).connect(out); o.start(t); o.stop(t+d+.1); nodes.push(o);
     }
