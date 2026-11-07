@@ -335,7 +335,7 @@
       <div class="bar music-row">
         <button id="m-toggle" class="mbtn" type="button" aria-pressed="false"><span class="eq"><i></i><i></i><i></i></span>🔔 Play Aarti</button>
         <button id="f-toggle" class="mbtn" type="button" aria-pressed="false" title="Aarti on flute"><svg class="flute" viewBox="0 0 28 28" width="16" height="16" aria-hidden="true"><g transform="rotate(-40 14 14)"><rect x="1" y="11.5" width="26" height="5" rx="2.5" fill="currentColor"/><g fill="#0a0507"><circle cx="5.5" cy="14" r="1.1"/><circle cx="11" cy="14" r=".9"/><circle cx="14.2" cy="14" r=".9"/><circle cx="17.4" cy="14" r=".9"/><circle cx="20.6" cy="14" r=".9"/></g><rect x="7.5" y="11.5" width="1.2" height="5" fill="#0a0507" opacity=".5"/><rect x="23" y="11.5" width="1.2" height="5" fill="#0a0507" opacity=".5"/></g></svg>Flute</button>
-        <button id="b-toggle" class="mbtn" type="button" aria-pressed="false" title="Hare Rama Hare Krishna maha-mantra">🦚 Hare Krishna</button>
+        <button id="b-toggle" class="mbtn" type="button" aria-pressed="false" title="Hare Krishna maha-mantra, ISKCON kirtan style">🦚 Hare Rama</button>
         <button id="s-toggle" class="snd" type="button" aria-pressed="false" title="Firework sounds" aria-label="Firework sounds">🔇<span class="lbl"> Sound</span></button>
       </div>
       <div class="player-wrap"><div class="player" id="player" hidden></div></div>
@@ -905,29 +905,24 @@ let aartiStop = null;
 function playAarti(mode, song){
   const flute = mode === 'flute', naav = song === 'mantra';
   const a = audio(); if (!a) return null; if (a.state === 'suspended') a.resume();
-  const t0 = a.currentTime + .08, SA = naav ? 261.63 : 277.18, beat = .42;
+  const t0 = a.currentTime + .08, SA = naav ? 261.63 : 277.18, beat = naav ? .56 : .42;
   // Om Jai Lakshmi Mata, as given: key of C#
-  const HZ = {As3:233.08, C4:261.63, D4:293.66, G4:392.00, Ds4:311.13, F4:349.23, Fs4:369.99, Gs4:415.30, As4:466.16, B4:493.88, Cs5:554.37, Ds5:622.25};
+  const HZ = {As3:233.08, C4:261.63, D4:293.66, E4:329.63, G4:392.00, Ds4:311.13, F4:349.23, Fs4:369.99, Gs4:415.30, As4:466.16, B4:493.88, Cs5:554.37, Ds5:622.25};
   const n = (list, last=1, tail=1.5) => list.map((x,i) => [x, i === list.length-1 ? last : .5]);
   const L1 = [...n(['Fs4','Fs4','Fs4','Fs4','Gs4','Fs4']), ...n(['F4','Fs4','Gs4'],1.5)];                                   // Om Jai Lakshmi Mata
   const L2 = [...n(['Gs4','As4','B4','Cs5','Ds5','Cs5']), ...n(['B4','As4','B4','Gs4'],1.5)];                               // Maiya Jai Lakshmi Mata
   const L3 = [...n(['Gs4','As4','Gs4','As4','Cs5','B4','B4','B4','B4','As4']), ...n(['Gs4','As4','Gs4','Fs4','Fs4'],1.5)];  // Tumko / Maiya ji ko nishdin sevat
   const L4 = [...n(['F4','Fs4','Gs4','As4','Gs4']), ...n(['Fs4','F4','Fs4','Ds4'],1.5)];                                    // Hari Vishnu Vidhata
   let tune = [...L1, ...L2, ...L3, ...L3, ...L4, ...L1.slice(0,-3), ['F4',.75], ['Fs4',.75], ['Gs4',4]];
-  let fastFrom = -1, fastTo = -1;
+  let cycles = [];
   if (naav){
-    // Hare Rama Hare Krishna maha-mantra, notes as given (C, Kafi thaat): slow cycle, then two fast cycles, resolving on C
-    const slow = (list, last) => list.map((x,i) => [x, i === list.length-1 ? last : 1.15]);
-    const S1 = slow(['G4','G4','G4','F4','Ds4','G4','F4'],2);   // Hare Rama Hare Rama
-    const S2 = slow(['Ds4','Ds4','F4','Ds4','D4','C4'],2.4);     // Rama Rama Hare Hare
-    const S3 = slow(['As3','As3','D4','D4','Ds4','Ds4'],2);      // Hare Krishna Hare Krishna
-    const S4 = slow(['F4','F4','Ds4','D4','C4','C4'],2);         // Krishna Krishna Hare Hare
-    const fast = k => ['G4','G4','G4','F4','Ds4','G4','F4','F4', 'Ds4','Ds4','F4','Ds4','D4','C4', 'As3','As3','D4','D4','Ds4','Ds4', 'F4','F4','Ds4','D4','C4','C4'].map(x => [x, .5*k]);
-    const slowPart = [...S1, ...S2, ...S3, ...S4];
-    fastFrom = slowPart.reduce((a,[,b]) => a+b, 0);
-    const fastPart = [...fast(1), ...fast(.82)];
-    fastTo = fastFrom + fastPart.reduce((a,[,b]) => a+b, 0);
-    tune = [...slowPart, ...fastPart, ['D4',.6], ['C4',4.5]];
+    // ISKCON kirtan: Prabhupada's simple four-note maha-mantra tune (Sa Re Ga Ma), speeding up each round
+    const K1 = ['D4','E4','F4','F4','E4','D4','E4','D4'].map(x => [x,.5]);   // Hare Krishna Hare Krishna / Hare Rama Hare Rama
+    const K2 = [['E4',.5],['D4',.5],['C4',.5],['D4',.5],['E4',.5],['D4',.5],['C4',1]]; // Krishna Krishna Hare Hare / Rama Rama Hare Hare
+    const round = f => [...K1, ...K2, ...K1, ...K2].map(([x,b]) => [x, b*f]);
+    tune = []; let at = 0;
+    for (const f of [1, .74, .56]){ cycles.push({at, f}); const r = round(f); tune.push(...r); at += 16*f; }
+    tune.push(['D4',.6], ['C4',4]);
   }
   const total = tune.reduce((n,[,b]) => n+b, 0) * beat;
   const out = a.createGain(); out.gain.setValueAtTime(.0001, t0); out.gain.exponentialRampToValueAtTime(.9, t0+.4);
@@ -1013,27 +1008,35 @@ function playAarti(mode, song){
       o.connect(g).connect(out); o.start(bt); o.stop(bt+dec+.05); nodes.push(o);
     }
   }
-  if (fastFrom >= 0){
-    const tf = t0 + fastFrom*beat, te = t0 + fastTo*beat;
-    for (let bt = tf, k = 0; bt < te - .02; k++){
-      const step = (bt < tf + 13*beat) ? beat*.5 : beat*.5*.82;
-      if (k % 4 === 0 || k % 4 === 3){ // dha: low dholak thump
-        const o = a.createOscillator(), g = a.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(140, bt); o.frequency.exponentialRampToValueAtTime(58, bt+.18);
-        g.gain.setValueAtTime(.0001, bt); g.gain.exponentialRampToValueAtTime(.5, bt+.006); g.gain.exponentialRampToValueAtTime(.0001, bt+.32);
-        o.connect(g).connect(out); o.start(bt); o.stop(bt+.35); nodes.push(o);
+  if (cycles.length){
+    const mri = (at, low, v) => {   // mridanga: low 'dha' with pitch bend, high 'ta' ring
+      const o = a.createOscillator(), g = a.createGain(); o.type = 'sine';
+      if (low){ o.frequency.setValueAtTime(110, at); o.frequency.exponentialRampToValueAtTime(68, at+.22); }
+      else { o.frequency.setValueAtTime(520, at); o.frequency.exponentialRampToValueAtTime(470, at+.12); }
+      g.gain.setValueAtTime(.0001, at); g.gain.exponentialRampToValueAtTime(v, at+.005); g.gain.exponentialRampToValueAtTime(.0001, at + (low ? .38 : .18));
+      o.connect(g).connect(out); o.start(at); o.stop(at+.4); nodes.push(o);
+    };
+    const kartal = (at, v) => {     // brass hand cymbals: bright inharmonic ring
+      for (const [fq, dv] of [[3150,.6],[4420,.4],[5830,.3],[7710,.2]]){
+        const o = a.createOscillator(), g = a.createGain(); o.type = 'sine'; o.frequency.value = fq;
+        g.gain.setValueAtTime(.0001, at); g.gain.exponentialRampToValueAtTime(v*dv, at+.003); g.gain.exponentialRampToValueAtTime(.0001, at+.45);
+        o.connect(g).connect(out); o.start(at); o.stop(at+.5); nodes.push(o);
       }
-      { // ta: high dholak slap, accented offbeats
-        const nz = a.createBufferSource(); nz.buffer = noiseBuf(.08); const hp = a.createBiquadFilter(); hp.type = 'bandpass'; hp.frequency.value = 2400; hp.Q.value = 1.2;
-        const g = a.createGain(), v = k % 2 ? .22 : .1; g.gain.setValueAtTime(v, bt); g.gain.exponentialRampToValueAtTime(.0001, bt+.06);
-        nz.connect(hp).connect(g).connect(out); nz.start(bt); nz.stop(bt+.08); nodes.push(nz);
+      const nz = a.createBufferSource(); nz.buffer = noiseBuf(.05); const hp = a.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 6000;
+      const g = a.createGain(); g.gain.setValueAtTime(v*.5, at); g.gain.exponentialRampToValueAtTime(.0001, at+.04); nz.connect(hp).connect(g).connect(out); nz.start(at); nz.stop(at+.05); nodes.push(nz);
+    };
+    cycles.forEach(({at, f}, ci) => {
+      const loud = [.55, .8, 1][ci];
+      for (let b = 0; b < 16; b++){
+        const bt = t0 + (at + b*f)*beat, half = f*beat*.5;
+        // kartals: ching, ching, CHANG, rest
+        if (b % 4 !== 3) kartal(bt, (b % 4 === 2 ? .09 : .05) * loud);
+        // mridanga: dha . ta dha | ta . dha ta
+        mri(bt, b % 2 === 0, (b % 2 === 0 ? .45 : .22) * loud);
+        if (ci > 0) mri(bt + half, b % 2 === 1, .16 * loud);
       }
-      if (k % 4 === 2){ // clap
-        const nz = a.createBufferSource(); nz.buffer = noiseBuf(.14); const bp = a.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1300; bp.Q.value = .9;
-        const g = a.createGain(); g.gain.setValueAtTime(.0001, bt); g.gain.exponentialRampToValueAtTime(.32, bt+.004); g.gain.exponentialRampToValueAtTime(.0001, bt+.12);
-        nz.connect(bp).connect(g).connect(out); nz.start(bt); nz.stop(bt+.14); nodes.push(nz);
-      }
-      bt += step;
-    }
+    });
+    kartal(t0 + (cycles[2].at + 16*cycles[2].f + .6)*beat, .1);
   }
   const done = setTimeout(() => stopAarti(), (total+1.8)*1000);
   return () => { clearTimeout(done); try { out.gain.cancelScheduledValues(a.currentTime); out.gain.setValueAtTime(out.gain.value, a.currentTime); out.gain.exponentialRampToValueAtTime(.0001, a.currentTime+.3); } catch(e){} setTimeout(() => nodes.forEach(o => { try { o.stop(); } catch(e){} }), 350); };
