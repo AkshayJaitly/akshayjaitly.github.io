@@ -165,7 +165,10 @@
     .msg{font-size:15px;line-height:1.35;max-width:36ch}
     .from{font-size:12.5px;letter-spacing:.14em}
     .bar{margin-top:6px;gap:6px}.bar button,.bar a.btn{padding:7px 11px;font-size:12px;letter-spacing:.08em}
-    .music-row{margin-top:0}
+    .music-row{margin-top:0;flex-wrap:nowrap}
+    .music-row .mbtn,.music-row .snd{padding:7px 9px;gap:5px}
+    .snd .lbl{display:none}
+    .music-row .eq{display:none}
     .stage{flex:1 1 auto;height:auto;min-height:170px;margin-top:4px}
     .couple{bottom:calc(40px + env(safe-area-inset-bottom,0px));height:calc(100% - 34px - env(safe-area-inset-bottom,0px));max-height:300px}
     .player{position:absolute;z-index:8;margin-top:0;transform:translateY(100%);bottom:auto}
@@ -183,6 +186,7 @@
     .eyebrow{letter-spacing:.12em;font-size:10px}
     .bar{gap:5px}.bar button,.bar a.btn{padding:6px 8px;font-size:11px;letter-spacing:.04em}
     .artist{display:none}
+    .music-row .mbtn,.music-row .snd{font-size:10.5px;letter-spacing:.02em;white-space:nowrap;padding:6px 7px}
   }
   @media (max-width:820px) and (max-height:600px){
     .msg{display:none}
@@ -331,7 +335,8 @@
       <div class="bar music-row">
         <button id="m-toggle" class="mbtn" type="button" aria-pressed="false"><span class="eq"><i></i><i></i><i></i></span>🔔 Play Aarti</button>
         <button id="f-toggle" class="mbtn" type="button" aria-pressed="false" title="Aarti on flute"><svg class="flute" viewBox="0 0 28 28" width="16" height="16" aria-hidden="true"><g transform="rotate(-40 14 14)"><rect x="1" y="11.5" width="26" height="5" rx="2.5" fill="currentColor"/><g fill="#0a0507"><circle cx="5.5" cy="14" r="1.1"/><circle cx="11" cy="14" r=".9"/><circle cx="14.2" cy="14" r=".9"/><circle cx="17.4" cy="14" r=".9"/><circle cx="20.6" cy="14" r=".9"/></g><rect x="7.5" y="11.5" width="1.2" height="5" fill="#0a0507" opacity=".5"/><rect x="23" y="11.5" width="1.2" height="5" fill="#0a0507" opacity=".5"/></g></svg>Flute</button>
-        <button id="s-toggle" class="snd" type="button" aria-pressed="false" title="Firework sounds">🔇 Sound</button>
+        <button id="b-toggle" class="mbtn" type="button" aria-pressed="false" title="Ram bhajan: Kahe ki ye naav banai">🦚 Ram Bhajan</button>
+        <button id="s-toggle" class="snd" type="button" aria-pressed="false" title="Firework sounds" aria-label="Firework sounds">🔇<span class="lbl"> Sound</span></button>
       </div>
       <div class="player-wrap"><div class="player" id="player" hidden></div></div>
     </div>
@@ -897,18 +902,26 @@ $('share').addEventListener('click', () => {
 const music = $('m-toggle'), player = $('player');
 // ---- in-page aarti: original ~14s harmonium + tanpura + temple bell rendition of the traditional tune ----
 let aartiStop = null;
-function playAarti(mode){
-  const flute = mode === 'flute';
+function playAarti(mode, song){
+  const flute = mode === 'flute', naav = song === 'naav';
   const a = audio(); if (!a) return null; if (a.state === 'suspended') a.resume();
-  const t0 = a.currentTime + .08, SA = 277.18, beat = .42;
+  const t0 = a.currentTime + .08, SA = naav ? 233.08 : 277.18, beat = naav ? .4 : .42;
   // Om Jai Lakshmi Mata, as given: key of C#
-  const HZ = {Ds4:311.13, F4:349.23, Fs4:369.99, Gs4:415.30, As4:466.16, B4:493.88, Cs5:554.37, Ds5:622.25};
+  const HZ = {As3:233.08, C4:261.63, D4:293.66, G4:392.00, Ds4:311.13, F4:349.23, Fs4:369.99, Gs4:415.30, As4:466.16, B4:493.88, Cs5:554.37, Ds5:622.25};
   const n = (list, last=1, tail=1.5) => list.map((x,i) => [x, i === list.length-1 ? last : .5]);
   const L1 = [...n(['Fs4','Fs4','Fs4','Fs4','Gs4','Fs4']), ...n(['F4','Fs4','Gs4'],1.5)];                                   // Om Jai Lakshmi Mata
   const L2 = [...n(['Gs4','As4','B4','Cs5','Ds5','Cs5']), ...n(['B4','As4','B4','Gs4'],1.5)];                               // Maiya Jai Lakshmi Mata
   const L3 = [...n(['Gs4','As4','Gs4','As4','Cs5','B4','B4','B4','B4','As4']), ...n(['Gs4','As4','Gs4','Fs4','Fs4'],1.5)];  // Tumko / Maiya ji ko nishdin sevat
   const L4 = [...n(['F4','Fs4','Gs4','As4','Gs4']), ...n(['Fs4','F4','Fs4','Ds4'],1.5)];                                    // Hari Vishnu Vidhata
-  const tune = [...L1, ...L2, ...L3, ...L3, ...L4, ...L1.slice(0,-3), ['F4',.75], ['Fs4',.75], ['Gs4',4]];                                      // ...Om Jai Lakshmi Mata
+  let tune = [...L1, ...L2, ...L3, ...L3, ...L4, ...L1.slice(0,-3), ['F4',.75], ['Fs4',.75], ['Gs4',4]];
+  if (naav){
+    // Ram bhajan: Kahe ki ye naav banai — notes as given (key of B-flat)
+    const N1 = n(['D4','D4','D4','D4','C4','As3','D4','D4','D4','Ds4','Ds4'],1.5);   // Kahe ki ya naav banai / Ram naam ki naav banai
+    const N2 = n(['F4','F4','Ds4','Ds4','D4','D4'],1.5);                              // Kahe ki / Bhakti ki patwaar
+    const N3 = n(['G4','G4','G4','F4','Ds4','G4','F4','Ds4','Ds4'],1);                 // Ho rama kahe ki / pyaar ki laga di
+    const N4 = n(['F4','Ds4','D4','C4'],2);                                           // Zanjeer
+    tune = [...N1, ...N2, ...N3, ...N4, ...N1, ...N2, ...N3, ...N4.slice(0,-1), ['C4',3.5]];
+  }                                      // ...Om Jai Lakshmi Mata
   const total = tune.reduce((n,[,b]) => n+b, 0) * beat;
   const out = a.createGain(); out.gain.setValueAtTime(.0001, t0); out.gain.exponentialRampToValueAtTime(.9, t0+.4);
   out.gain.setValueAtTime(.9, t0+total-.6); out.gain.exponentialRampToValueAtTime(.0001, t0+total+1.6); out.connect(a.destination);
@@ -949,7 +962,7 @@ function playAarti(mode){
     if (flute){
       // wooden bansuri: warm low register, soft overtones, body resonance, airy breath, slow vibrato, hall reverb
       const F = f, from = prev || F, gl = Math.min(.05, d*.2);
-      const SC = ['Ds4','F4','Fs4','Gs4','As4','B4','Cs5','Ds5'], up = HZ[SC[Math.min(SC.indexOf(n)+1, SC.length-1)]] || F*1.12;
+      const SC = ['As3','C4','D4','Ds4','F4','Fs4','G4','Gs4','As4','B4','Cs5','Ds5'], up = HZ[SC[Math.min(SC.indexOf(n)+1, SC.length-1)]] || F*1.12;
       const kan = b >= 1 && i > 0;
       const body = a.createBiquadFilter(); body.type = 'peaking'; body.frequency.value = 850; body.Q.value = 1.1; body.gain.value = 5;
       const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2400; lp.Q.value = .9;
@@ -998,17 +1011,18 @@ function playAarti(mode){
 }
 let aartiMode = null;
 function stopAarti(){ if (aartiStop){ aartiStop(); aartiStop = null; } aartiMode = null;
-  for (const id of ['m-toggle','f-toggle']){ $(id).classList.remove('on'); $(id).setAttribute('aria-pressed','false'); } }
-function toggleAarti(mode, id){
-  const same = aartiMode === mode; stopAarti(); if (same) return;
-  aartiStop = playAarti(mode); if (!aartiStop) return; aartiMode = mode;
+  for (const id of ['m-toggle','f-toggle','b-toggle']){ $(id).classList.remove('on'); $(id).setAttribute('aria-pressed','false'); } }
+function toggleAarti(mode, id, song){
+  const key = mode + (song || ''); const same = aartiMode === key; stopAarti(); if (same) return;
+  aartiStop = playAarti(mode, song); if (!aartiStop) return; aartiMode = key;
   $(id).classList.add('on'); $(id).setAttribute('aria-pressed','true');
 }
 $('m-toggle').addEventListener('click', () => toggleAarti('harmonium', 'm-toggle'));
 $('f-toggle').addEventListener('click', () => toggleAarti('flute', 'f-toggle'));
+$('b-toggle').addEventListener('click', () => toggleAarti('harmonium', 'b-toggle', 'naav'));
 $('s-toggle').addEventListener('click', e => {
   soundOn = !soundOn; const a = audio(); if (a && a.state === 'suspended') a.resume();
-  e.currentTarget.textContent = soundOn ? '🔊 Sound' : '🔇 Sound'; e.currentTarget.setAttribute('aria-pressed', String(soundOn));
+  e.currentTarget.firstChild.textContent = soundOn ? '🔊' : '🔇'; e.currentTarget.setAttribute('aria-pressed', String(soundOn));
   if (soundOn) launch();
 });
 
