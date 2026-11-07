@@ -913,6 +913,13 @@ function playAarti(mode){
   const out = a.createGain(); out.gain.setValueAtTime(.0001, t0); out.gain.exponentialRampToValueAtTime(.9, t0+.4);
   out.gain.setValueAtTime(.9, t0+total-.6); out.gain.exponentialRampToValueAtTime(.0001, t0+total+1.6); out.connect(a.destination);
   const nodes = [];
+  const verbIn = a.createGain(); verbIn.gain.value = flute ? .42 : 0;
+  if (flute){
+    const len = Math.round(a.sampleRate*2.4), ir = a.createBuffer(2, len, a.sampleRate);
+    for (let ch=0; ch<2; ch++){ const dd = ir.getChannelData(ch); for (let i=0;i<len;i++) dd[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 3.2); }
+    const cv = a.createConvolver(); cv.buffer = ir; const wet = a.createGain(); wet.gain.value = .55;
+    verbIn.connect(cv).connect(wet).connect(out);
+  }
   // tanpura drone: Sa and Pa
   for (const [f,v] of [[SA/2,.10],[SA*3/4,.06],[SA,.04]]){
     const o = a.createOscillator(), g = a.createGain(), lp = a.createBiquadFilter();
@@ -925,21 +932,30 @@ function playAarti(mode){
   for (const [i,[n,b]] of tune.entries()){
     const f = HZ[n], d = b*beat, last = i === tune.length-1;
     if (flute){
-      // bansuri: sine + soft triangle an octave up, glide from the last note, delayed vibrato, breath noise
-      const F = f*2, o = a.createOscillator(), o2 = a.createOscillator(), g = a.createGain(), g2 = a.createGain();
-      o.type = 'sine'; o2.type = 'triangle';
-      const from = prev ? prev*2 : F;
-      for (const osc of [o, o2]){ osc.frequency.setValueAtTime(from, t); osc.frequency.exponentialRampToValueAtTime(F, t + Math.min(.07, d*.3)); }
-      const lfo = a.createOscillator(), lg = a.createGain(); lfo.frequency.value = 5.2; lg.gain.setValueAtTime(0, t); lg.gain.linearRampToValueAtTime(F*.007, t + Math.min(.35, d*.6));
-      lfo.connect(lg); lg.connect(o.frequency); lg.connect(o2.frequency);
-      const peak = .17 * (last ? 1.35 : 1);
-      g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t+.06); g.gain.setValueAtTime(peak*.9, t+d*.85); g.gain.exponentialRampToValueAtTime(.0001, t+d+.08);
-      g2.gain.value = .25;
-      o.connect(g); o2.connect(g2).connect(g); g.connect(out);
-      const nz = a.createBufferSource(); nz.buffer = noiseBuf(d+.1); const bp = a.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = F*1.5; bp.Q.value = 1.4;
-      const ng = a.createGain(); ng.gain.setValueAtTime(.0001, t); ng.gain.exponentialRampToValueAtTime(.05, t+.03); ng.gain.exponentialRampToValueAtTime(.012, t+.2); ng.gain.exponentialRampToValueAtTime(.0001, t+d+.05);
-      nz.connect(bp).connect(ng).connect(out);
-      for (const x of [o, o2, lfo]){ x.start(t); x.stop(t+d+.12); nodes.push(x); } nz.start(t); nz.stop(t+d+.1); nodes.push(nz);
+      // wooden bansuri: warm low register, soft overtones, body resonance, airy breath, slow vibrato, hall reverb
+      const F = f, from = prev || F, gl = Math.min(.11, d*.35);
+      const body = a.createBiquadFilter(); body.type = 'peaking'; body.frequency.value = 850; body.Q.value = 1.1; body.gain.value = 5;
+      const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2400; lp.Q.value = .9;
+      const g = a.createGain();
+      const lfo = a.createOscillator(), lg = a.createGain(); lfo.frequency.value = 4.6;
+      lg.gain.setValueAtTime(0, t); lg.gain.linearRampToValueAtTime(F*.0095, t + Math.min(.45, d*.7)); lfo.connect(lg);
+      for (const [mul, type, v] of [[1,'sine',1],[1,'triangle',.16],[2,'sine',.2],[3,'sine',.07]]){
+        const o = a.createOscillator(), og = a.createGain(); o.type = type; og.gain.value = v;
+        o.frequency.setValueAtTime(from*mul, t); o.frequency.exponentialRampToValueAtTime(F*mul, t+gl);
+        const lm = a.createGain(); lm.gain.value = mul; lg.connect(lm); lm.connect(o.frequency);
+        o.connect(og).connect(g); o.start(t); o.stop(t+d+.15); nodes.push(o);
+      }
+      const peak = .2 * (last ? 1.35 : 1);
+      g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak*.7, t+.05); g.gain.exponentialRampToValueAtTime(peak, t+Math.min(.25, d*.5));
+      g.gain.setValueAtTime(peak*.95, t+d*.82); g.gain.exponentialRampToValueAtTime(.0001, t+d+.12);
+      g.connect(body).connect(lp); lp.connect(out); lp.connect(verbIn);
+      // breath: tuned air under the tone + a short chiff at the start
+      const nz = a.createBufferSource(); nz.buffer = noiseBuf(d+.15);
+      const bp = a.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = F*2; bp.Q.value = 2.2;
+      const ng = a.createGain(); ng.gain.setValueAtTime(.0001, t); ng.gain.exponentialRampToValueAtTime(.07, t+.025); ng.gain.exponentialRampToValueAtTime(.018, t+.16);
+      ng.gain.setValueAtTime(.018, t+d*.8); ng.gain.exponentialRampToValueAtTime(.0001, t+d+.1);
+      nz.connect(bp).connect(ng); ng.connect(out); ng.connect(verbIn);
+      lfo.start(t); lfo.stop(t+d+.15); nz.start(t); nz.stop(t+d+.15); nodes.push(lfo, nz);
     } else {
       for (const det of [0, 4]){
         const o = a.createOscillator(), g = a.createGain(), lp = a.createBiquadFilter();
