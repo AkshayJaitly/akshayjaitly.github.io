@@ -315,7 +315,7 @@
         <button id="share" class="solid" type="button">Share</button>
       </div>
       <div class="bar music-row">
-        <button id="m-toggle" class="mbtn" type="button" aria-expanded="false"><span class="eq"><i></i><i></i><i></i></span>Tauba Tauba<span class="artist">&nbsp;· Karan Aujla</span></button>
+        <button id="m-toggle" class="mbtn" type="button" aria-expanded="false"><span class="eq"><i></i><i></i><i></i></span>Om Jai Lakshmi Mata<span class="artist">&nbsp;· Aarti</span></button>
         <button id="s-toggle" class="snd" type="button" aria-pressed="false" title="Firework sounds">🔇 Sound</button>
       </div>
       <div class="player-wrap"><div class="player" id="player" hidden></div></div>
@@ -863,12 +863,12 @@ $('m-toggle').addEventListener('click', () => {
   const open = player.hidden;
   if (open && !player.firstChild){
     const links = document.createElement('div'); links.className = 'm-links';
-    links.innerHTML = '<a href="https://open.spotify.com/track/25Nxyrng0Z3jC5Q0hAibpw" target="_blank" rel="noopener">▶ Play in Spotify</a>'
-      + '<a href="https://www.youtube.com/results?search_query=Tauba+Tauba+Karan+Aujla+official" target="_blank" rel="noopener">▶ Play on YouTube</a>';
+    links.innerHTML = '<a href="https://open.spotify.com/track/15zTvb1r5S328pFLtJYS83" target="_blank" rel="noopener">▶ Play in Spotify</a>'
+      + '<a href="https://www.youtube.com/results?search_query=Om+Jai+Lakshmi+Mata+Aarti+Anuradha+Paudwal" target="_blank" rel="noopener">▶ Play on YouTube</a>';
     if (location.protocol === 'file:'){ player.appendChild(links); player.hidden = false; music.classList.add('on'); $('m-toggle').setAttribute('aria-expanded','true'); return; }
     const f = document.createElement('iframe');
-    f.src = 'https://open.spotify.com/embed/track/25Nxyrng0Z3jC5Q0hAibpw?utm_source=generator&theme=0';
-    f.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'; f.loading = 'lazy'; f.title = 'Tauba Tauba by Karan Aujla on Spotify';
+    f.src = 'https://open.spotify.com/embed/track/15zTvb1r5S328pFLtJYS83?utm_source=generator&theme=0';
+    f.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'; f.loading = 'lazy'; f.title = 'Om Jai Lakshmi Mata Aarti by Anuradha Paudwal on Spotify';
     player.appendChild(f); player.appendChild(links);
   }
   player.hidden = !open; music.classList.toggle('on', open); $('m-toggle').setAttribute('aria-expanded', String(open));
