@@ -329,7 +329,7 @@
         <button id="share" class="solid" type="button">Share</button>
       </div>
       <div class="bar music-row">
-        <button id="m-toggle" class="mbtn" type="button" aria-pressed="false"><span class="eq"><i></i><i></i><i></i></span>🔔 Play Aarti<span class="artist">&nbsp;· Om Jai Lakshmi Mata</span></button>
+        <button id="m-toggle" class="mbtn" type="button" aria-pressed="false"><span class="eq"><i></i><i></i><i></i></span>🔔 Play Aarti</button>
         <button id="s-toggle" class="snd" type="button" aria-pressed="false" title="Firework sounds">🔇 Sound</button>
       </div>
       <div class="player-wrap"><div class="player" id="player" hidden></div></div>
@@ -948,14 +948,6 @@ $('m-toggle').addEventListener('click', () => {
   if (aartiStop){ stopAarti(); return; }
   aartiStop = playAarti(); if (!aartiStop) return;
   music.classList.add('on'); $('m-toggle').setAttribute('aria-pressed','true');
-  if (!player.firstChild){
-    const links = document.createElement('div'); links.className = 'm-links';
-    links.innerHTML = '<a href="https://www.youtube.com/results?search_query=Om+Jai+Lakshmi+Mata+Aarti+Anuradha+Paudwal" target="_blank" rel="noopener">Full aarti: YouTube</a>'
-      + '<a href="https://open.spotify.com/track/15zTvb1r5S328pFLtJYS83" target="_blank" rel="noopener">Spotify</a>'
-      + '<a href="https://music.apple.com/song/730343317" target="_blank" rel="noopener">Apple Music</a>';
-    player.appendChild(links);
-  }
-  player.hidden = false;
 });
 $('s-toggle').addEventListener('click', e => {
   soundOn = !soundOn; const a = audio(); if (a && a.state === 'suspended') a.resume();
