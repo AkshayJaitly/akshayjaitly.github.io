@@ -430,6 +430,7 @@
         <radialGradient id="skin" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#fff1e8"/><stop offset=".6" stop-color="#fcdccb"/><stop offset="1" stop-color="#eebfa6"/></radialGradient>
         <radialGradient id="faceShade" cx="50%" cy="38%" r="62%"><stop offset=".62" stop-color="#d9927a" stop-opacity="0"/><stop offset="1" stop-color="#d9927a" stop-opacity=".38"/></radialGradient>
         <radialGradient id="iris" cx="45%" cy="40%" r="60%"><stop offset="0" stop-color="#8a5a3a"/><stop offset=".7" stop-color="#4a2a18"/><stop offset="1" stop-color="#22120a"/></radialGradient>
+        <linearGradient id="salwarGold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d9b25a"/><stop offset=".5" stop-color="#fff0c2"/><stop offset="1" stop-color="#caa04a"/></linearGradient>
         <linearGradient id="lehGold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a87726"/><stop offset=".25" stop-color="#e9c46a"/><stop offset=".45" stop-color="#fff1c0"/><stop offset=".65" stop-color="#e3b450"/><stop offset="1" stop-color="#94641c"/></linearGradient>
         <pattern id="zari" width="16" height="16" patternUnits="userSpaceOnUse">
           <path d="M8 2 q4 4 0 8 q-4-4 0-8z" fill="#8a5a12" opacity=".55"/><circle cx="2" cy="13" r="1.2" fill="#fff4cf"/><circle cx="14" cy="13" r="1.2" fill="#fff4cf"/><circle cx="8" cy="12.5" r=".9" fill="#b3122e" opacity=".8"/>
@@ -505,25 +506,15 @@
         </g>
         <!-- neck + head -->
         <path d="M124 150 h18 v24 q-9 6 -18 0z" fill="#f2c9b2"/>
-        <ellipse cx="88" cy="114" rx="7.5" ry="11" fill="#f6cdb8"/><ellipse cx="178" cy="114" rx="7.5" ry="11" fill="#f6cdb8"/>
-        <path d="M86 108 q4 5 2 12M180 108 q-4 5 -2 12" stroke="#dba18a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-        <path d="M87 106 Q87 62 133 62 Q179 62 179 106 Q179 140 161 158 Q148 170 133 170 Q118 170 105 158 Q87 140 87 106Z" fill="url(#skin)"/>
-        <path d="M87 106 Q87 62 133 62 Q179 62 179 106 Q179 140 161 158 Q148 170 133 170 Q118 170 105 158 Q87 140 87 106Z" fill="url(#faceShade)"/>
+        <circle cx="133" cy="112" r="46" fill="url(#skin)"/>
+        <ellipse cx="88" cy="116" rx="7" ry="10" fill="#f6cdb8"/><ellipse cx="178" cy="116" rx="7" ry="10" fill="#f6cdb8"/>
         <!-- hair -->
-        <path d="M85 112 Q78 70 104 56 Q130 44 160 52 Q186 62 182 104 Q181 114 176 108 Q173 88 160 80 Q150 92 126 88 Q106 90 97 96 Q91 102 91 114Z" fill="url(#hair)"/>
-        <path d="M102 66 q22-14 52-6M98 80 q14-10 30-8M150 60 q16 6 24 22" stroke="#6b5247" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".55"/>
+        <path d="M88 108 Q84 62 126 60 Q170 56 180 96 Q178 112 174 104 Q166 82 140 80 Q118 92 100 88 Q92 96 92 112Z" fill="url(#hair)"/>
+        <path d="M112 70 q20-8 40 2" stroke="#5a463d" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/>
         <!-- face -->
-        <path d="M107 102 Q116 95 127 99 Q117 99 108 104Z" fill="#1f1410"/><path d="M139 99 Q150 95 159 102 Q149 99 139 101Z" fill="#1f1410"/>
-        <path d="M108 102 Q117 96 126 99M140 99 Q150 96 158 102" stroke="#1f1410" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-        <g class="blink">
-          <ellipse cx="118" cy="114" rx="8" ry="6.6" fill="#fffaf6"/><circle cx="119" cy="114.6" r="5" fill="url(#iris)"/><circle cx="119" cy="114.6" r="2.3" fill="#120806"/>
-          <circle cx="121" cy="112.4" r="1.7" fill="#fff"/><circle cx="117" cy="116.8" r=".9" fill="#fff" opacity=".8"/>
-          <path d="M109.6 112.6 Q118 105.4 126.6 111.8" stroke="#1d1210" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-          <ellipse cx="148" cy="114" rx="8" ry="6.6" fill="#fffaf6"/><circle cx="149" cy="114.6" r="5" fill="url(#iris)"/><circle cx="149" cy="114.6" r="2.3" fill="#120806"/>
-          <circle cx="151" cy="112.4" r="1.7" fill="#fff"/><circle cx="147" cy="116.8" r=".9" fill="#fff" opacity=".8"/>
-          <path d="M139.4 111.8 Q148 105.4 156.4 112.6" stroke="#1d1210" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-        </g>
-        <path d="M111 119.6 Q118 122.4 125 119.2M141 119.2 Q148 122.4 155 119.6" stroke="#d8a08a" stroke-width="1" fill="none"/>
+        <path d="M110 100 q8-5 16 0M140 100 q8-5 16 0" stroke="#2a1a14" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <g class="blink"><ellipse cx="118" cy="114" rx="5" ry="6.5" fill="#1d1210"/><ellipse cx="148" cy="114" rx="5" ry="6.5" fill="#1d1210"/></g>
+        <circle cx="120" cy="111" r="1.8" fill="#fff"/><circle cx="150" cy="111" r="1.8" fill="#fff"/>
         <ellipse cx="107" cy="128" rx="9" ry="6" fill="url(#cheek)"/><ellipse cx="159" cy="128" rx="9" ry="6" fill="url(#cheek)"/>
         <path d="M92 104 Q94 140 133 150 Q172 140 174 104 Q170 128 133 136 Q96 128 92 104Z" fill="#241815" opacity=".09"/>
         <path d="M89 110 Q88 152 133 166 Q178 152 177 110 Q175 136 164 145 Q152 151 140 150 Q136 153 133 153 Q130 153 126 150 Q114 151 102 145 Q91 136 89 110Z" fill="#241815"/>
@@ -531,8 +522,7 @@
         <g stroke="#3d2b24" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".75">
           <path d="M100 146 q2 5 5 8M116 154 q1 4 3 6M131 158 v5M135 158 v5M150 154 q-1 4 -3 6M166 146 q-2 5 -5 8"/></g>
         <path d="M114 134 Q123 125 133 129.5 Q143 125 152 134 Q145 136.5 133 132.6 Q121 136.5 114 134Z" fill="#1c120f"/>
-        <path d="M121 135.6 Q133 147.5 145 135.6 Q133 139 121 135.6Z" fill="#fff" stroke="#7d3d36" stroke-width="1.6" stroke-linejoin="round"/>
-        <path d="M125 142 Q133 148.6 141 142" stroke="#b5615a" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
+        <path d="M120 135 q13 11 26 0" stroke="#7d3d36" stroke-width="2.6" fill="#fff" stroke-linecap="round"/>
         <path d="M129 150 q4 4 8 0" stroke="#241815" stroke-width="5" stroke-linecap="round"/>
         <path d="M130.5 103 L128.6 121.5 Q129.4 125.6 133.6 126.2" stroke="#c98a72" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M129.8 104 L128 121" stroke="#e7ae96" stroke-width="3.2" fill="none" opacity=".35" stroke-linecap="round"/>
@@ -569,20 +559,16 @@
           <path d="M41 5 Q51 4 49 -5 Q47 0 43 1Z" fill="#f2c766"/>
           <path d="M-1 9 L-1 -5 Q4 -7 6 -3" fill="#ff6fae" stroke="#f2c766" stroke-width="1"/>
         </g>
-        <!-- lehenga skirt -->
-        <path d="M238 250 Q267 242 296 250 Q318 320 336 392 Q267 404 198 392 Q216 320 238 250Z" fill="url(#lehGold)"/>
-        <path d="M238 250 Q267 242 296 250 Q318 320 336 392 Q267 404 198 392 Q216 320 238 250Z" fill="url(#zari)"/>
-        <path d="M252 252 Q246 320 232 396M282 252 Q288 320 302 396M267 248 V400" stroke="#9a6a1e" stroke-width="1.2" opacity=".45" fill="none"/>
-        <path d="M200 388 Q267 402 334 388 L336 393 Q267 406 198 393Z" fill="#b3122e"/>
-        <path d="M204 380 Q267 394 330 380" stroke="#fff1c0" stroke-width="3" fill="none"/>
-        <path d="M206 384 Q267 398 328 384" stroke="#b3122e" stroke-width="1.6" stroke-dasharray="3 3" fill="none"/>
-        <path d="M238 252 Q267 244 296 252" stroke="#b3122e" stroke-width="4" fill="none"/>
-        <!-- midriff + choli -->
-        <path d="M240 236 Q267 230 294 236 L296 252 Q267 246 238 252Z" fill="url(#skin)"/>
-        <path d="M234 186 Q267 170 300 186 Q302 212 296 238 Q267 232 238 238 Q232 212 234 186Z" fill="url(#lehGold)"/>
-        <path d="M234 186 Q267 170 300 186 Q302 212 296 238 Q267 232 238 238 Q232 212 234 186Z" fill="url(#zari)"/>
-        <path d="M252 180 Q267 204 282 180" stroke="#b3122e" stroke-width="3.5" fill="none"/>
-        <path d="M238 238 Q267 232 296 238" stroke="#b3122e" stroke-width="3" fill="none"/>
+        <!-- salwar (gold) -->
+        <path d="M244 318 L242 390 Q252 396 262 390 L264 322Z" fill="url(#salwarGold)"/>
+        <path d="M268 322 L270 390 Q280 396 290 390 L292 318Z" fill="url(#salwarGold)"/>
+        <path d="M244 372q9 3 18 0M244 382q9 3 18 0M270 372q9 3 18 0M270 382q9 3 18 0" stroke="#b8862b" stroke-width="1.2" fill="none"/>
+        <!-- kameez (gold, earlier shape) -->
+        <path d="M234 186 Q267 170 300 186 Q306 260 318 334 Q267 348 216 334 Q228 260 234 186Z" fill="url(#lehGold)"/>
+        <path d="M234 186 Q267 170 300 186 Q306 260 318 334 Q267 348 216 334 Q228 260 234 186Z" fill="url(#zari)"/>
+        <path d="M216 332 Q267 346 318 332" stroke="#b3122e" stroke-width="7" fill="none"/>
+        <path d="M218 324 Q267 338 316 324" stroke="#fff1c0" stroke-width="1.4" stroke-dasharray="2 4" fill="none"/>
+        <path d="M252 180 Q267 204 282 180" stroke="#b3122e" stroke-width="4" fill="none"/>
         <!-- inner arm toward Akshay -->
         <path d="M238 190 Q214 226 212 262 L226 266 Q230 232 248 204Z" fill="url(#lehGold)"/>
         <circle cx="216" cy="268" r="8.5" fill="url(#skinHand)"/>
@@ -602,32 +588,20 @@
         </g>
         <!-- neck + head -->
         <path d="M258 152 h18 v24 q-9 6 -18 0z" fill="#f2c9b2"/>
-        <path d="M223 110 Q223 68 267 68 Q311 68 311 110 Q311 140 294 157 Q282 168 267 168 Q252 168 240 157 Q223 140 223 110Z" fill="url(#skin)"/>
-        <path d="M223 110 Q223 68 267 68 Q311 68 311 110 Q311 140 294 157 Q282 168 267 168 Q252 168 240 157 Q223 140 223 110Z" fill="url(#faceShade)" opacity=".8"/>
+        <circle cx="267" cy="114" r="44" fill="url(#skin)"/>
         <!-- fringe / centre parting -->
         <path d="M224 112 Q222 66 267 64 Q312 66 310 112 Q300 84 270 76 Q236 84 224 112Z" fill="url(#hair)"/>
         <path d="M267 64 L268 80" stroke="#c0392b" stroke-width="2.4"/>
-        <path d="M236 92 q14-18 30-22M298 92 q-14-18 -30-22M244 80 q10-8 20-10" stroke="#5a463d" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".55"/>
         <!-- jhumkas -->
         <g fill="url(#goldg)"><circle cx="224" cy="132" r="3"/><path d="M218 136 q6 12 12 0z"/><circle cx="310" cy="132" r="3"/><path d="M304 136 q6 12 12 0z"/></g>
         <!-- face -->
         <circle cx="267" cy="96" r="3.2" fill="#d7263d"/>
-        <path d="M245 105 Q254 98 263 102M271 102 Q280 98 289 105" stroke="#2a1a14" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <g class="blink">
-          <ellipse cx="254" cy="118" rx="8.4" ry="7.2" fill="#fffaf6"/><circle cx="255" cy="118.6" r="5.4" fill="url(#iris)"/><circle cx="255" cy="118.6" r="2.4" fill="#120806"/>
-          <circle cx="257.2" cy="116.2" r="1.9" fill="#fff"/><circle cx="252.8" cy="121" r=".9" fill="#fff" opacity=".8"/>
-          <path d="M245.4 117 Q254 108.6 262.8 115.6" stroke="#120806" stroke-width="2.8" fill="none" stroke-linecap="round"/>
-          <path d="M246 115.6 l-4.6 -2.6M247.6 112.8 l-3.4 -4M250.4 110.8 l-1.8 -4.4" stroke="#120806" stroke-width="1.4" stroke-linecap="round"/>
-          <ellipse cx="280" cy="118" rx="8.4" ry="7.2" fill="#fffaf6"/><circle cx="281" cy="118.6" r="5.4" fill="url(#iris)"/><circle cx="281" cy="118.6" r="2.4" fill="#120806"/>
-          <circle cx="283.2" cy="116.2" r="1.9" fill="#fff"/><circle cx="278.8" cy="121" r=".9" fill="#fff" opacity=".8"/>
-          <path d="M271.2 115.6 Q280 108.6 288.6 117" stroke="#120806" stroke-width="2.8" fill="none" stroke-linecap="round"/>
-          <path d="M288 115.6 l4.6 -2.6M286.4 112.8 l3.4 -4M283.6 110.8 l1.8 -4.4" stroke="#120806" stroke-width="1.4" stroke-linecap="round"/>
-        </g>
-        <path d="M246.6 123.6 Q254 126.4 261.4 123.2M272.6 123.2 Q280 126.4 287.4 123.6" stroke="#d8a08a" stroke-width=".9" fill="none"/>
+        <path d="M246 104 q8-5 16 0M272 104 q8-5 16 0" stroke="#2a1a14" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <g class="blink"><ellipse cx="254" cy="117" rx="5" ry="6.5" fill="#1d1210"/><ellipse cx="282" cy="117" rx="5" ry="6.5" fill="#1d1210"/></g>
+        <path d="M247 112 l-4-3M289 112 l4-3" stroke="#1d1210" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="256" cy="114" r="1.8" fill="#fff"/><circle cx="284" cy="114" r="1.8" fill="#fff"/>
         <ellipse cx="243" cy="130" rx="9" ry="6" fill="url(#cheek)"/><ellipse cx="291" cy="130" rx="9" ry="6" fill="url(#cheek)"/>
-        <path d="M257.6 138 Q262 134.6 267 136.6 Q272 134.6 276.4 138 Q267 147.4 257.6 138Z" fill="#d6455f"/>
-        <path d="M260.2 138.6 Q267 141.8 273.8 138.6 Q267 140 260.2 138.6Z" fill="#fff"/>
-        <ellipse cx="267" cy="143.2" rx="3" ry="1" fill="#fff" opacity=".45"/>
+        <path d="M256 136 q11 11 22 0" stroke="#c2405a" stroke-width="3" fill="#fff" stroke-linecap="round"/>
         <path d="M266.3 108 L264.8 124.4 Q265.5 127.8 268.9 128.2" stroke="#d09582" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M265.7 109 L264.3 123.6" stroke="#ebb8a3" stroke-width="2.6" fill="none" opacity=".35" stroke-linecap="round"/>
         <path d="M269.6 110 L269.8 122.4" stroke="#fff" stroke-width="1.1" opacity=".65" stroke-linecap="round"/>
