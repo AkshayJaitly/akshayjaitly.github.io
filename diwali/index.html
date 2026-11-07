@@ -898,16 +898,12 @@ const music = $('m-toggle'), player = $('player');
 let aartiStop = null;
 function playAarti(){
   const a = audio(); if (!a) return null; if (a.state === 'suspended') a.resume();
-  const t0 = a.currentTime + .08, SA = 277.18, beat = .4;
-  const R = {S:1, R:9/8, G:5/4, M:4/3, P:3/2, D:5/3, N:15/8, s:2};
-  // traditional aarti tune (Om Jai Jagdish Hare / Om Jai Lakshmi Mata), raag Bilawal
-  const tune = [
-    ['S',.5],['G',.5],['P',1],['P',.5],['D',.5],['P',1.5],            // Om jai Lakshmi Ma-ta
-    ['M',.5],['G',.5],['R',.5],['R',.5],['G',.5],['R',.5],['S',1.5],  // Mai-ya jai Lakshmi Ma-ta
-    ['S',.5],['R',.5],['G',.5],['M',.5],['P',.5],['D',.5],['P',1.5],  // Tum-ko nis-din se-vat
-    ['M',.5],['G',.5],['R',.5],['G',.5],['R',.5],['S',1.5],           // Har Vish-nu Vi-dha-ta
-    ['S',.5],['G',.5],['P',1],['P',.5],['D',.5],['P',1.5],            // Om jai Lakshmi Ma-ta
-    ['M',.5],['G',.5],['R',.5],['R',.5],['G',.5],['R',.5],['S',2.5]];
+  const t0 = a.currentTime + .08, SA = 277.18, beat = .46;
+  // Om Jai Lakshmi Mata, as given: key of C#
+  const HZ = {F4:349.23, Fs4:369.99, Gs4:415.30, As4:466.16, B4:493.88, Cs5:554.37, Ds5:622.25};
+  const L1 = [['Fs4',.5],['Fs4',.5],['Fs4',.5],['Fs4',.5],['Gs4',.5],['Fs4',1],  ['F4',.5],['Fs4',.5],['Gs4',1.5]];       // Om Jai Lakshmi Mata
+  const L2 = [['Gs4',.5],['As4',.5],['B4',.5],['Cs5',.5],['Ds5',.5],['Cs5',1],  ['B4',.5],['As4',.5],['B4',.5],['Gs4',1.5]]; // Maiya Jai Lakshmi Mata
+  const tune = [...L1, ...L2, ...L1, ...L2.slice(0,-1), ['Gs4',2.5]];
   const total = tune.reduce((n,[,b]) => n+b, 0) * beat;
   const out = a.createGain(); out.gain.setValueAtTime(.0001, t0); out.gain.exponentialRampToValueAtTime(.9, t0+.4);
   out.gain.setValueAtTime(.9, t0+total-.6); out.gain.exponentialRampToValueAtTime(.0001, t0+total+1.6); out.connect(a.destination);
@@ -921,7 +917,7 @@ function playAarti(){
   // harmonium melody (two reeds, slight detune + bellows swell)
   let t = t0;
   for (const [n,b] of tune){
-    const f = SA*R[n], d = b*beat;
+    const f = HZ[n], d = b*beat;
     for (const det of [0, 4]){
       const o = a.createOscillator(), g = a.createGain(), lp = a.createBiquadFilter();
       o.type = det ? 'square' : 'sawtooth'; o.frequency.value = f; o.detune.value = det;
