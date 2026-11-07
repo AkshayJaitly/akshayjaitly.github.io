@@ -938,14 +938,8 @@ function playAarti(mode){
       o.connect(bp); o2.connect(bp); bp.connect(lp).connect(g); g.connect(out); g.connect(verbIn);
       for (const x of [o,o2]){ x.start(at); x.stop(at+2.7); nodes.push(x); }
     };
-    const strings = [[SA*3/4,.09],[SA,.08],[SA,.07],[SA/2,.11]];
+    const strings = [[SA*3/4,.055],[SA,.05],[SA,.045],[SA/2,.07]];
     for (let ct = t0, k = 0; ct < t0+total+.5; ct += .55, k++) pluck(strings[k%4][0], ct, strings[k%4][1]);
-    // swarmandal shimmer at the opening
-    const up = [1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8, 2, 9/4, 5/2, 8/3, 3, 10/3, 15/4, 4];
-    up.forEach((r, i) => { const at = t0 + i*.045, o = a.createOscillator(), g = a.createGain();
-      o.type = 'triangle'; o.frequency.value = SA*r;
-      g.gain.setValueAtTime(.0001, at); g.gain.exponentialRampToValueAtTime(.05, at+.006); g.gain.exponentialRampToValueAtTime(.0001, at+1.4);
-      o.connect(g); g.connect(out); g.connect(verbIn); o.start(at); o.stop(at+1.5); nodes.push(o); });
   }
   // harmonium melody (two reeds, slight detune + bellows swell)
   let t = t0;
@@ -954,20 +948,17 @@ function playAarti(mode){
     const f = HZ[n], d = b*beat, last = i === tune.length-1;
     if (flute){
       // wooden bansuri: warm low register, soft overtones, body resonance, airy breath, slow vibrato, hall reverb
-      const F = f, from = prev || F, gl = Math.min(b >= 1 ? .16 : .09, d*.4);
+      const F = f, from = prev || F, gl = Math.min(.05, d*.2);
       const SC = ['Ds4','F4','Fs4','Gs4','As4','B4','Cs5','Ds5'], up = HZ[SC[Math.min(SC.indexOf(n)+1, SC.length-1)]] || F*1.12;
       const kan = b >= 1 && i > 0;
       const body = a.createBiquadFilter(); body.type = 'peaking'; body.frequency.value = 850; body.Q.value = 1.1; body.gain.value = 5;
       const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2400; lp.Q.value = .9;
       const g = a.createGain();
-      const lfo = a.createOscillator(), lg = a.createGain(); lfo.frequency.value = 4.6;
-      lg.gain.setValueAtTime(0, t); lg.gain.linearRampToValueAtTime(F*.0095, t + Math.min(.45, d*.7)); lfo.connect(lg);
-      for (const [mul, type, v] of [[1,'sine',1],[1,'triangle',.2],[2,'sine',.24],[3,'sine',.09],[.5,'sine',.06]]){
+      const lfo = a.createOscillator(), lg = a.createGain(); lfo.frequency.value = 4.3;
+      lg.gain.setValueAtTime(0, t); lg.gain.setValueAtTime(0, t + Math.min(.3, d*.5)); lg.gain.linearRampToValueAtTime(F*.0055, t + Math.min(.7, d*.9)); lfo.connect(lg);
+      for (const [mul, type, v] of [[1,'sine',1],[1,'triangle',.12],[2,'sine',.18],[3,'sine',.05]]){
         const o = a.createOscillator(), og = a.createGain(); o.type = type; og.gain.value = v;
-        if (kan){ o.frequency.setValueAtTime(up*mul, t); o.frequency.setValueAtTime(up*mul, t+.055); o.frequency.exponentialRampToValueAtTime(F*mul, t+.11); }
-        else { o.frequency.setValueAtTime(from*mul, t); o.frequency.exponentialRampToValueAtTime(F*mul, t+gl); }
-        if (last){ const m0 = t + d*.35; o.frequency.setValueAtTime(F*mul, m0); o.frequency.exponentialRampToValueAtTime(up*mul, m0+.07);
-          o.frequency.exponentialRampToValueAtTime(F*mul, m0+.14); o.frequency.exponentialRampToValueAtTime(HZ.F4*mul*(F/HZ.Gs4), m0+.2); o.frequency.exponentialRampToValueAtTime(F*mul, m0+.28); }
+        o.frequency.setValueAtTime(from*mul, t); o.frequency.exponentialRampToValueAtTime(F*mul, t+gl);
         const lm = a.createGain(); lm.gain.value = mul; lg.connect(lm); lm.connect(o.frequency);
         o.connect(og).connect(g); o.start(t); o.stop(t+d+.15); nodes.push(o);
       }
