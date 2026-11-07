@@ -110,6 +110,10 @@
   .wave{transform-box:fill-box;animation:wave 1.8s ease-in-out infinite}
   .wave.him{transform-origin:92% 96%} .wave.hers{transform-origin:8% 96%;animation-delay:-.9s}
   .dupatta{transform-box:fill-box;transform-origin:50% 0%;animation:dup 3s ease-in-out infinite}
+  .skirt{transform-box:fill-box;transform-origin:50% 0%;animation:skirt 3.2s ease-in-out infinite}
+  .seq{animation:seq 2.4s linear infinite}.seq.b{animation-duration:3.4s;animation-direction:reverse}
+  @keyframes skirt{0%,100%{transform:skewX(0deg) scaleX(1)}50%{transform:skewX(-1.6deg) scaleX(1.015)}}
+  @keyframes seq{to{stroke-dashoffset:-22}}
   @keyframes dup{0%,100%{transform:skewX(0deg) rotate(0deg)}50%{transform:skewX(-4deg) rotate(1.5deg)}}
   .blink{animation:blink 5s infinite;transform-box:fill-box;transform-origin:50% 50%}
 
@@ -430,6 +434,11 @@
         <radialGradient id="skin" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#fff1e8"/><stop offset=".6" stop-color="#fcdccb"/><stop offset="1" stop-color="#eebfa6"/></radialGradient>
         <radialGradient id="faceShade" cx="50%" cy="38%" r="62%"><stop offset=".62" stop-color="#d9927a" stop-opacity="0"/><stop offset="1" stop-color="#d9927a" stop-opacity=".38"/></radialGradient>
         <radialGradient id="iris" cx="45%" cy="40%" r="60%"><stop offset="0" stop-color="#8a5a3a"/><stop offset=".7" stop-color="#4a2a18"/><stop offset="1" stop-color="#22120a"/></radialGradient>
+        <linearGradient id="net" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#b99a5c"/><stop offset=".12" stop-color="#e9d6a8"/><stop offset=".22" stop-color="#d8bf87"/><stop offset=".34" stop-color="#f4e7c6"/>
+          <stop offset=".46" stop-color="#dcc38c"/><stop offset=".58" stop-color="#f7ecd0"/><stop offset=".7" stop-color="#d9be86"/><stop offset=".82" stop-color="#efdfb8"/><stop offset="1" stop-color="#b0905a"/></linearGradient>
+        <linearGradient id="netV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#7a5a2a" stop-opacity=".18"/></linearGradient>
+        <linearGradient id="sleeve" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ecd9ad"/><stop offset="1" stop-color="#cfb27a"/></linearGradient>
         <linearGradient id="salwarGold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d9b25a"/><stop offset=".5" stop-color="#fff0c2"/><stop offset="1" stop-color="#caa04a"/></linearGradient>
         <linearGradient id="lehGold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a87726"/><stop offset=".25" stop-color="#e9c46a"/><stop offset=".45" stop-color="#fff1c0"/><stop offset=".65" stop-color="#e3b450"/><stop offset="1" stop-color="#94641c"/></linearGradient>
         <pattern id="zari" width="16" height="16" patternUnits="userSpaceOnUse">
@@ -443,6 +452,13 @@
         <linearGradient id="dupatta" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffcfb8" stop-opacity=".7"/><stop offset="1" stop-color="#e88f8f" stop-opacity=".45"/></linearGradient>
         <radialGradient id="hair" cx="40%" cy="25%" r="80%"><stop offset="0" stop-color="#3a2a24"/><stop offset=".5" stop-color="#1a1210"/><stop offset="1" stop-color="#080505"/></radialGradient>
         <linearGradient id="goldg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3a1"/><stop offset="1" stop-color="#b9842a"/></linearGradient>
+        <linearGradient id="silk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#060606"/><stop offset=".35" stop-color="#262423"/><stop offset=".5" stop-color="#34312e"/><stop offset=".7" stop-color="#1a1918"/><stop offset="1" stop-color="#050505"/></linearGradient>
+        <linearGradient id="pantsBlack" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#050505"/><stop offset=".5" stop-color="#26262a"/><stop offset="1" stop-color="#070707"/></linearGradient>
+        <linearGradient id="leather" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a3e"/><stop offset=".5" stop-color="#121214"/><stop offset="1" stop-color="#000"/></linearGradient>
+        <pattern id="butti" width="58" height="66" patternUnits="userSpaceOnUse">
+          <g transform="translate(6 4) scale(.78)"><g fill="#d9a441"><path d="M4 12 A7 7 0 0 1 18 12 Z"/><rect x="10" y="12" width="2" height="7"/><path d="M9 19 h4 l-1 5 h-2z"/></g><path d="M5.5 11 L11 6 L16.5 11M8 12 L11 8 L14 12" stroke="#7a5a1c" stroke-width=".6" fill="none"/></g>
+          <g transform="translate(35 37) scale(.78)"><g fill="#d9a441"><path d="M4 12 A7 7 0 0 1 18 12 Z"/><rect x="10" y="12" width="2" height="7"/><path d="M9 19 h4 l-1 5 h-2z"/></g><path d="M5.5 11 L11 6 L16.5 11M8 12 L11 8 L14 12" stroke="#7a5a1c" stroke-width=".6" fill="none"/></g>
+        </pattern>
         <pattern id="masaba" width="22" height="22" patternUnits="userSpaceOnUse">
           <circle cx="5" cy="5" r="2.4" fill="#ff5fa2"/><circle cx="5" cy="5" r="1" fill="#ffd36b"/>
           <path d="M16 12l2 3-2 3-2-3z" fill="#d9a441"/><circle cx="16" cy="3" r="1" fill="#ffd36b"/><circle cx="3" cy="17" r="1" fill="#d9a441"/>
@@ -457,48 +473,36 @@
       <!-- ===== AKSHAY ===== -->
       <g class="bob him">
         <!-- legs (churidar pajama) -->
-        <path d="M110 318 L108 392 Q118 398 128 392 L130 322Z" fill="url(#pyjama)"/>
-        <path d="M134 322 L136 392 Q146 398 156 392 L156 318Z" fill="url(#pyjama)"/>
-        <path d="M110 360q9 3 18 0M110 372q9 3 18 0M137 360q9 3 18 0M137 372q9 3 18 0" stroke="#bdb3a2" stroke-width="1.2" fill="none"/>
+        <path d="M110 318 L108 392 Q118 398 128 392 L130 322Z" fill="url(#pantsBlack)"/>
+        <path d="M134 322 L136 392 Q146 398 156 392 L156 318Z" fill="url(#pantsBlack)"/>
+        <path d="M119 334 L118 390M146 334 L146 390" stroke="#3a3a40" stroke-width="1" fill="none" opacity=".7"/>
         <!-- mojari -->
-<g transform="translate(131 388) scale(-1 1)">
-          <path d="M-1 9 L30 9 Q40 9 43 5 L43 11 Q20 15 -1 12Z" fill="#5a1a10"/>
-          <path d="M-1 9 Q-2 -3 9 -4 L20 -3 Q32 -1 41 5 L43 6 L-1 10Z" fill="#141414"/>
-          <path d="M-1 9 Q-2 -3 9 -4 L20 -3 Q32 -1 41 5 L43 6 L-1 10Z" fill="url(#shine)" opacity=".5"/>
-          <path d="M-1 6 Q10 3 22 4" stroke="#000" stroke-width="1.2" fill="none" opacity=".6"/>
-          <path d="M12 -2 Q26 0 38 5" stroke="#e9b955" stroke-width="2" fill="none"/>
-          <path d="M14 3 q3-4 6 0 q3-4 6 0 q3-4 6 0" stroke="#e9b955" stroke-width="1.1" fill="none"/>
-          <circle cx="22" cy="1.6" r="1.6" fill="#d7263d"/>
-          <path d="M41 5 Q51 4 49 -5 Q47 0 43 1Z" fill="#e9b955"/>
-          <path d="M-1 9 L-1 -5 Q4 -7 6 -3" fill="#141414" stroke="#e9b955" stroke-width="1"/>
-        </g>
-        <g transform="translate(133 388) ">
-          <path d="M-1 9 L30 9 Q40 9 43 5 L43 11 Q20 15 -1 12Z" fill="#5a1a10"/>
-          <path d="M-1 9 Q-2 -3 9 -4 L20 -3 Q32 -1 41 5 L43 6 L-1 10Z" fill="#141414"/>
-          <path d="M-1 9 Q-2 -3 9 -4 L20 -3 Q32 -1 41 5 L43 6 L-1 10Z" fill="url(#shine)" opacity=".5"/>
-          <path d="M-1 6 Q10 3 22 4" stroke="#000" stroke-width="1.2" fill="none" opacity=".6"/>
-          <path d="M12 -2 Q26 0 38 5" stroke="#e9b955" stroke-width="2" fill="none"/>
-          <path d="M14 3 q3-4 6 0 q3-4 6 0 q3-4 6 0" stroke="#e9b955" stroke-width="1.1" fill="none"/>
-          <circle cx="22" cy="1.6" r="1.6" fill="#d7263d"/>
-          <path d="M41 5 Q51 4 49 -5 Q47 0 43 1Z" fill="#e9b955"/>
-          <path d="M-1 9 L-1 -5 Q4 -7 6 -3" fill="#141414" stroke="#e9b955" stroke-width="1"/>
-        </g>
+<path d="M108 384 L130 384 L131 400 Q116 405 99 402 Q94 400 97 395 Q101 390 108 389Z" fill="url(#leather)"/>
+        <path d="M100 398 Q112 401 130 399" stroke="#5a5a60" stroke-width="1" fill="none"/><path d="M103 393 Q108 391 114 392" stroke="#fff" stroke-width="1.4" opacity=".45" stroke-linecap="round"/>
+        <path d="M98 401 Q115 405 131 401 L131 403 Q115 407 98 403Z" fill="#000"/>
+        <path d="M136 384 L158 384 L158 389 Q165 390 169 395 Q172 400 167 402 Q150 405 135 400Z" fill="url(#leather)"/>
+        <path d="M136 399 Q154 401 166 398" stroke="#5a5a60" stroke-width="1" fill="none"/><path d="M152 392 Q158 391 163 393" stroke="#fff" stroke-width="1.4" opacity=".45" stroke-linecap="round"/>
+        <path d="M135 401 Q151 405 168 401 L168 403 Q151 407 135 403Z" fill="#000"/>
         <!-- kurta -->
-        <path d="M96 182 Q133 166 170 182 L184 330 Q133 344 82 330Z" fill="url(#kurta)"/>
-        <path d="M96 182 Q133 166 170 182 L184 330 Q133 344 82 330Z" fill="url(#masaba)" opacity=".85"/>
+        <path d="M96 182 Q133 166 170 182 L184 330 Q133 344 82 330Z" fill="url(#silk)"/>
+        <path d="M96 182 Q133 166 170 182 L184 330 Q133 344 82 330Z" fill="url(#butti)" opacity=".95"/>
         <path d="M96 182 Q133 166 170 182 L184 330 Q133 344 82 330Z" fill="url(#shine)" opacity=".5"/>
-        <path d="M82 328 Q133 342 184 328" stroke="#d9a441" stroke-width="3" fill="none"/>
-        <path d="M133 176 L133 238" stroke="#d9a441" stroke-width="2.2"/>
-        <circle cx="133" cy="196" r="2.4" fill="#ffe3a1"/><circle cx="133" cy="210" r="2.4" fill="#ffe3a1"/><circle cx="133" cy="224" r="2.4" fill="#ffe3a1"/>
-        <path d="M118 176 q15 10 30 0" stroke="#d9a441" stroke-width="3" fill="none"/>
+        <path d="M88 296 L84 332M178 296 L182 332" stroke="#000" stroke-width="1.6"/><path d="M82 330 Q133 344 184 330" stroke="#000" stroke-width="1.2" fill="none" opacity=".6"/>
+        <path d="M117 170 Q133 178 149 170 L149 177 Q133 185 117 177Z" fill="url(#goldg)"/>
+        <path d="M119 174 Q133 181 147 174" stroke="#3a2a0a" stroke-width=".8" stroke-dasharray="2 2" fill="none"/>
+        <rect x="129.5" y="180" width="7" height="60" rx="1" fill="url(#goldg)"/>
+        <path d="M130 186 l3.5 4 3.5-4M130 196 l3.5 4 3.5-4M130 206 l3.5 4 3.5-4M130 216 l3.5 4 3.5-4M130 226 l3.5 4 3.5-4" stroke="#3a2a0a" stroke-width=".8" fill="none"/>
+        <circle cx="139.5" cy="186" r="1.6" fill="#000" stroke="#555" stroke-width=".4"/><circle cx="139.5" cy="198" r="1.6" fill="#000" stroke="#555" stroke-width=".4"/>
         <!-- inner arm resting toward Kanika -->
-        <path d="M166 186 Q186 222 190 262 L176 266 Q170 230 156 200Z" fill="url(#kurta)"/>
-        <path d="M166 186 Q186 222 190 262 L176 266 Q170 230 156 200Z" fill="url(#masaba)" opacity=".8"/>
+        <path d="M166 186 Q186 222 190 262 L176 266 Q170 230 156 200Z" fill="url(#silk)"/>
+        <path d="M166 186 Q186 222 190 262 L176 266 Q170 230 156 200Z" fill="url(#butti)" opacity=".95"/>
+        <path d="M174 252 L190 248 L192 262 L176 266Z" fill="url(#goldg)"/><path d="M176 256 L190 252M177 261 L191 257" stroke="#3a2a0a" stroke-width=".8"/>
         <circle cx="185" cy="268" r="9" fill="url(#skinHand)"/>
         <!-- outer arm raised with phuljhari -->
         <g class="wave him">
-          <path d="M100 186 Q76 168 66 138 L80 130 Q90 156 112 172Z" fill="url(#kurta)"/>
-          <path d="M100 186 Q76 168 66 138 L80 130 Q90 156 112 172Z" fill="url(#masaba)" opacity=".8"/>
+          <path d="M100 186 Q76 168 66 138 L80 130 Q90 156 112 172Z" fill="url(#silk)"/>
+          <path d="M100 186 Q76 168 66 138 L80 130 Q90 156 112 172Z" fill="url(#butti)" opacity=".95"/>
+          <path d="M64 142 L68 130 L82 128 L80 140Z" fill="url(#goldg)"/><path d="M66 138 L80 135M67 133 L81 131" stroke="#3a2a0a" stroke-width=".8"/>
           <circle cx="72" cy="128" r="9.5" fill="url(#skinHand)"/>
           <line x1="72" y1="130" x2="44" y2="48" stroke="#8a8a8a" stroke-width="2.4" stroke-linecap="round"/>
           <line x1="58" y1="88" x2="44" y2="48" stroke="#3b3b3b" stroke-width="3.4" stroke-linecap="round"/>
@@ -560,29 +564,40 @@
           <path d="M41 5 Q51 4 49 -5 Q47 0 43 1Z" fill="#f2c766"/>
           <path d="M-1 9 L-1 -5 Q4 -7 6 -3" fill="#ff6fae" stroke="#f2c766" stroke-width="1"/>
         </g>
-        <!-- salwar (gold) -->
-        <path d="M244 318 L242 390 Q252 396 262 390 L264 322Z" fill="url(#salwarGold)"/>
-        <path d="M268 322 L270 390 Q280 396 290 390 L292 318Z" fill="url(#salwarGold)"/>
-        <path d="M244 372q9 3 18 0M244 382q9 3 18 0M270 372q9 3 18 0M270 382q9 3 18 0" stroke="#b8862b" stroke-width="1.2" fill="none"/>
-        <!-- kameez (gold, earlier shape) -->
-        <path d="M234 186 Q267 170 300 186 Q306 260 318 334 Q267 348 216 334 Q228 260 234 186Z" fill="url(#lehGold)"/>
-        <path d="M234 186 Q267 170 300 186 Q306 260 318 334 Q267 348 216 334 Q228 260 234 186Z" fill="url(#zari)"/>
-        <path d="M216 332 Q267 346 318 332" stroke="#b3122e" stroke-width="7" fill="none"/>
-        <path d="M218 324 Q267 338 316 324" stroke="#fff1c0" stroke-width="1.4" stroke-dasharray="2 4" fill="none"/>
-        <path d="M252 180 Q267 204 282 180" stroke="#b3122e" stroke-width="4" fill="none"/>
+        <!-- lehenga: champagne net, vertical sequin stripes -->
+        <g class="skirt">
+          <path d="M239 248 Q267 242 295 248 C314 300 332 352 340 392 L329.6 395.2 L319.1 392.0 L308.7 388.8 L298.3 392.0 L287.9 395.2 L277.4 392.0 L267.0 388.8 L256.6 392.0 L246.1 395.2 L235.7 392.0 L225.3 388.8 L214.9 392.0 L204.4 395.2 L194.0 392.0 C202 352 220 300 239 248Z" fill="url(#net)"/>
+          <path d="M239 248 Q267 242 295 248 C314 300 332 352 340 392 L329.6 395.2 L319.1 392.0 L308.7 388.8 L298.3 392.0 L287.9 395.2 L277.4 392.0 L267.0 388.8 L256.6 392.0 L246.1 395.2 L235.7 392.0 L225.3 388.8 L214.9 392.0 L204.4 395.2 L194.0 392.0 C202 352 220 300 239 248Z" fill="url(#netV)"/>
+          <path d="M242.0 250 Q217.0 330 198.0 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq b" d="M242.0 250 Q217.0 330 198.0 390" stroke="#fffaf0" stroke-width="1.6" stroke-dasharray="1.2 2.4" stroke-linecap="round" fill="none"/><path d="M244.8 250 Q222.6 330 205.7 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq a" d="M244.8 250 Q222.6 330 205.7 390" stroke="#fff0bf" stroke-width="2.2" stroke-dasharray="2.2 3.2" stroke-linecap="round" fill="none"/><path d="M247.6 250 Q228.1 330 213.3 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq b" d="M247.6 250 Q228.1 330 213.3 390" stroke="#fffaf0" stroke-width="1.6" stroke-dasharray="1.2 2.4" stroke-linecap="round" fill="none"/><path d="M250.3 250 Q233.7 330 221.0 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq a" d="M250.3 250 Q233.7 330 221.0 390" stroke="#fff0bf" stroke-width="2.2" stroke-dasharray="2.2 3.2" stroke-linecap="round" fill="none"/><path d="M253.1 250 Q239.2 330 228.7 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq b" d="M253.1 250 Q239.2 330 228.7 390" stroke="#fffaf0" stroke-width="1.6" stroke-dasharray="1.2 2.4" stroke-linecap="round" fill="none"/><path d="M255.9 250 Q244.8 330 236.3 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq a" d="M255.9 250 Q244.8 330 236.3 390" stroke="#fff0bf" stroke-width="2.2" stroke-dasharray="2.2 3.2" stroke-linecap="round" fill="none"/><path d="M258.7 250 Q250.3 330 244.0 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq b" d="M258.7 250 Q250.3 330 244.0 390" stroke="#fffaf0" stroke-width="1.6" stroke-dasharray="1.2 2.4" stroke-linecap="round" fill="none"/><path d="M261.4 250 Q255.9 330 251.7 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq a" d="M261.4 250 Q255.9 330 251.7 390" stroke="#fff0bf" stroke-width="2.2" stroke-dasharray="2.2 3.2" stroke-linecap="round" fill="none"/><path d="M264.2 250 Q261.4 330 259.3 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq b" d="M264.2 250 Q261.4 330 259.3 390" stroke="#fffaf0" stroke-width="1.6" stroke-dasharray="1.2 2.4" stroke-linecap="round" fill="none"/><path d="M267.0 250 Q267.0 330 267.0 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq a" d="M267.0 250 Q267.0 330 267.0 390" stroke="#fff0bf" stroke-width="2.2" stroke-dasharray="2.2 3.2" stroke-linecap="round" fill="none"/><path d="M269.8 250 Q272.6 330 274.7 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq b" d="M269.8 250 Q272.6 330 274.7 390" stroke="#fffaf0" stroke-width="1.6" stroke-dasharray="1.2 2.4" stroke-linecap="round" fill="none"/><path d="M272.6 250 Q278.1 330 282.3 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq a" d="M272.6 250 Q278.1 330 282.3 390" stroke="#fff0bf" stroke-width="2.2" stroke-dasharray="2.2 3.2" stroke-linecap="round" fill="none"/><path d="M275.3 250 Q283.7 330 290.0 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq b" d="M275.3 250 Q283.7 330 290.0 390" stroke="#fffaf0" stroke-width="1.6" stroke-dasharray="1.2 2.4" stroke-linecap="round" fill="none"/><path d="M278.1 250 Q289.2 330 297.7 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq a" d="M278.1 250 Q289.2 330 297.7 390" stroke="#fff0bf" stroke-width="2.2" stroke-dasharray="2.2 3.2" stroke-linecap="round" fill="none"/><path d="M280.9 250 Q294.8 330 305.3 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq b" d="M280.9 250 Q294.8 330 305.3 390" stroke="#fffaf0" stroke-width="1.6" stroke-dasharray="1.2 2.4" stroke-linecap="round" fill="none"/><path d="M283.7 250 Q300.3 330 313.0 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq a" d="M283.7 250 Q300.3 330 313.0 390" stroke="#fff0bf" stroke-width="2.2" stroke-dasharray="2.2 3.2" stroke-linecap="round" fill="none"/><path d="M286.4 250 Q305.9 330 320.7 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq b" d="M286.4 250 Q305.9 330 320.7 390" stroke="#fffaf0" stroke-width="1.6" stroke-dasharray="1.2 2.4" stroke-linecap="round" fill="none"/><path d="M289.2 250 Q311.4 330 328.3 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq a" d="M289.2 250 Q311.4 330 328.3 390" stroke="#fff0bf" stroke-width="2.2" stroke-dasharray="2.2 3.2" stroke-linecap="round" fill="none"/><path d="M292.0 250 Q317.0 330 336.0 390" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".55"/><path class="seq b" d="M292.0 250 Q317.0 330 336.0 390" stroke="#fffaf0" stroke-width="1.6" stroke-dasharray="1.2 2.4" stroke-linecap="round" fill="none"/>
+          <path d="M340.0 390.0 L329.6 393.2 L319.1 390.0 L308.7 386.8 L298.3 390.0 L287.9 393.2 L277.4 390.0 L267.0 386.8 L256.6 390.0 L246.1 393.2 L235.7 390.0 L225.3 386.8 L214.9 390.0 L204.4 393.2 L194.0 390.0" stroke="#fff3cf" stroke-width="2" stroke-dasharray="1 3" fill="none"/>
+          <path d="M239 248 Q267 242 295 248" stroke="#c9a24e" stroke-width="3" fill="none"/>
+          <path d="M239 248 Q267 242 295 248" stroke="#fffaf0" stroke-width="1.4" stroke-dasharray="1 2.4" fill="none"/>
+        </g>
+        <!-- midriff -->
+        <path d="M238 228 Q267 236 296 228 L296 250 Q267 243 238 250Z" fill="url(#skin)"/>
+        <!-- V-neck crop blouse with tassel fringe -->
+        <path d="M234 186 Q267 172 300 186 Q302 208 298 230 Q267 238 236 230 Q232 208 234 186Z" fill="url(#net)"/>
+        <path d="M250 181 L267 208 L284 181 Q267 176 250 181Z" fill="url(#skin)"/>
+        <path d="M250 181 L267 208 L284 181" stroke="#c9a24e" stroke-width="2" fill="none" stroke-linejoin="round"/>
+        <path d="M240 196 Q252 210 262 224M294 196 Q282 210 272 224M246 190 Q256 200 260 212M288 190 Q278 200 274 212" stroke="#fffaf0" stroke-width="1.6" stroke-dasharray="1.4 2.4" stroke-linecap="round" fill="none"/>
+        <path d="M236 230 Q267 238 298 230" stroke="#c9a24e" stroke-width="2.2" fill="none"/>
+        <g><path d="M239.0 231.7 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="239.0" cy="239.7" r="1.5" fill="#fff3cf"/><path d="M243.4 231.4 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="243.4" cy="239.4" r="1.5" fill="#fff3cf"/><path d="M247.8 231.2 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="247.8" cy="239.2" r="1.5" fill="#fff3cf"/><path d="M252.2 230.9 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="252.2" cy="238.9" r="1.5" fill="#fff3cf"/><path d="M256.6 230.6 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="256.6" cy="238.6" r="1.5" fill="#fff3cf"/><path d="M261.0 230.4 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="261.0" cy="238.4" r="1.5" fill="#fff3cf"/><path d="M265.4 230.1 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="265.4" cy="238.1" r="1.5" fill="#fff3cf"/><path d="M269.8 230.2 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="269.8" cy="238.2" r="1.5" fill="#fff3cf"/><path d="M274.2 230.4 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="274.2" cy="238.4" r="1.5" fill="#fff3cf"/><path d="M278.6 230.7 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="278.6" cy="238.7" r="1.5" fill="#fff3cf"/><path d="M283.0 231.0 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="283.0" cy="239.0" r="1.5" fill="#fff3cf"/><path d="M287.4 231.2 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="287.4" cy="239.2" r="1.5" fill="#fff3cf"/><path d="M291.8 231.5 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="291.8" cy="239.5" r="1.5" fill="#fff3cf"/><path d="M296.2 231.8 v7" stroke="#c9a24e" stroke-width="1.1"/><circle cx="296.2" cy="239.8" r="1.5" fill="#fff3cf"/></g>
+        <!-- ruby necklace -->
+        <path d="M254 177 Q267 192 280 177" stroke="url(#goldg)" stroke-width="2.6" fill="none"/>
+        <g fill="#b3122e" stroke="#ffe3a1" stroke-width=".6"><path d="M259.5 183 l2 4 -2 3 -2 -3z"/><path d="M267 186.5 l2.4 4.6 -2.4 3.4 -2.4 -3.4z"/><path d="M274.5 183 l2 4 -2 3 -2 -3z"/></g>
         <!-- inner arm toward Akshay -->
-        <path d="M238 190 Q214 226 212 262 L226 266 Q230 232 248 204Z" fill="url(#lehGold)"/>
+        <path d="M238 190 Q214 226 212 262 L226 266 Q230 232 248 204Z" fill="url(#sleeve)"/><path d="M236 200 Q224 222 220 252M242 204 Q230 230 226 258" stroke="#fffaf0" stroke-width="1.3" stroke-dasharray="1.2 2.4" fill="none"/>
         <circle cx="216" cy="268" r="8.5" fill="url(#skinHand)"/>
         <path d="M209 258 h14" stroke="#ffd36b" stroke-width="2.5"/><path d="M210 262 h13" stroke="#ff4f9a" stroke-width="2"/>
         <!-- dupatta over shoulder -->
-        <path class="dupatta" d="M296 182 Q324 230 312 330 Q330 260 316 196 Q306 180 296 182Z" fill="url(#dupatta)"/>
-        <path d="M236 184 Q262 214 300 186 Q290 224 252 230 Q232 216 236 184Z" fill="url(#dupatta)"/>
-        <path d="M312 330 Q330 260 316 196" stroke="#ffe3a1" stroke-width="2" fill="none" stroke-dasharray="3 3"/>
+        
+        
+        
         <path d="M229 128 Q220 196 236 262 Q242 276 250 262 Q238 198 242 134Z" fill="url(#hair)"/>
         <path d="M233 150 Q228 200 240 252" stroke="#5a463d" stroke-width="1.6" fill="none" opacity=".6"/>
         <!-- outer arm raised with phuljhari -->
         <g class="wave hers">
-          <path d="M296 190 Q322 170 332 140 L318 132 Q308 158 286 176Z" fill="url(#lehGold)"/>
+          <path d="M296 190 Q322 170 332 140 L318 132 Q308 158 286 176Z" fill="url(#sleeve)"/><path d="M296 182 Q314 166 324 142M290 178 Q306 164 318 140" stroke="#fffaf0" stroke-width="1.3" stroke-dasharray="1.2 2.4" fill="none"/>
           <circle cx="326" cy="130" r="9" fill="url(#skinHand)"/>
           <path d="M318 142 h15" stroke="#ffd36b" stroke-width="2.5"/><path d="M317 146 h15" stroke="#ff4f9a" stroke-width="2"/>
           <line x1="326" y1="132" x2="356" y2="50" stroke="#8a8a8a" stroke-width="2.4" stroke-linecap="round"/>
