@@ -905,9 +905,9 @@ let aartiStop = null;
 function playAarti(mode, song){
   const flute = mode === 'flute', naav = song === 'mantra';
   const a = audio(); if (!a) return null; if (a.state === 'suspended') a.resume();
-  const t0 = a.currentTime + .08, SA = naav ? 261.63 : 277.18, beat = naav ? .56 : .42;
+  const t0 = a.currentTime + .08, SA = naav ? 349.23 : 277.18, beat = naav ? .5 : .42;
   // Om Jai Lakshmi Mata, as given: key of C#
-  const HZ = {As3:233.08, C4:261.63, D4:293.66, E4:329.63, G4:392.00, Ds4:311.13, F4:349.23, Fs4:369.99, Gs4:415.30, As4:466.16, B4:493.88, Cs5:554.37, Ds5:622.25};
+  const HZ = {As3:233.08, C4:261.63, D4:293.66, E4:329.63, A4:440.00, Bb4:466.16, C5:523.25, D5:587.33, F5:698.46, G4:392.00, Ds4:311.13, F4:349.23, Fs4:369.99, Gs4:415.30, As4:466.16, B4:493.88, Cs5:554.37, Ds5:622.25};
   const n = (list, last=1, tail=1.5) => list.map((x,i) => [x, i === list.length-1 ? last : .5]);
   const L1 = [...n(['Fs4','Fs4','Fs4','Fs4','Gs4','Fs4']), ...n(['F4','Fs4','Gs4'],1.5)];                                   // Om Jai Lakshmi Mata
   const L2 = [...n(['Gs4','As4','B4','Cs5','Ds5','Cs5']), ...n(['B4','As4','B4','Gs4'],1.5)];                               // Maiya Jai Lakshmi Mata
@@ -916,13 +916,15 @@ function playAarti(mode, song){
   let tune = [...L1, ...L2, ...L3, ...L3, ...L4, ...L1.slice(0,-3), ['F4',.75], ['Fs4',.75], ['Gs4',4]];
   let cycles = [];
   if (naav){
-    // ISKCON kirtan: Prabhupada's simple four-note maha-mantra tune (Sa Re Ga Ma), speeding up each round
-    const K1 = ['D4','E4','F4','F4','E4','D4','E4','D4'].map(x => [x,.5]);   // Hare Krishna Hare Krishna / Hare Rama Hare Rama
-    const K2 = [['E4',.5],['D4',.5],['C4',.5],['D4',.5],['E4',.5],['D4',.5],['C4',1]]; // Krishna Krishna Hare Hare / Rama Rama Hare Hare
-    const round = f => [...K1, ...K2, ...K1, ...K2].map(([x,b]) => [x, b*f]);
+    // ISKCON Prabhupada melody, notes as given (key of F: Sa=F, Re=G, Ga=A, Ma=Bb, Pa=C, Dha=D, Sa'=high F)
+    const half = [['C5',1],['A4',.75],['Bb4',.25]];                                    // Ha-re Krish-na  (Pa - Ga - Ma)
+    const tail = ['C5','C5','D5','C5','Bb4','A4','G4','F4'].map(x => [x,.5]);          // Krishna Krishna Hare Hare (Pa Pa Dha Pa Ma Ga Re Sa)
+    const lift = [['F5',1],['F5',.5],['D5',.5]];                                       // Ha-re Ra-ma, high (Sa' - Sa' Dha)
+    const liftTail = ['F5','F5','D5','C5','Bb4','A4','G4','F4'].map(x => [x,.5]);      // Rama Rama Hare Hare, high
+    const round = (f, hi) => [...half, ...half, ...tail, ...(hi ? [...lift, ...lift, ...liftTail] : [...half, ...half, ...tail])].map(([x,b]) => [x, b*f]);
     tune = []; let at = 0;
-    for (const f of [1, .74, .56]){ cycles.push({at, f}); const r = round(f); tune.push(...r); at += 16*f; }
-    tune.push(['D4',.6], ['C4',4]);
+    for (const [f, hi] of [[1,false],[.8,true],[.64,true]]){ cycles.push({at, f}); tune.push(...round(f, hi)); at += 16*f; }
+    tune.push(['F4',4]);
   }
   const total = tune.reduce((n,[,b]) => n+b, 0) * beat;
   const out = a.createGain(); out.gain.setValueAtTime(.0001, t0); out.gain.exponentialRampToValueAtTime(.9, t0+.4);
@@ -964,7 +966,7 @@ function playAarti(mode, song){
     if (flute){
       // wooden bansuri: warm low register, soft overtones, body resonance, airy breath, slow vibrato, hall reverb
       const F = f, from = prev || F, gl = Math.min(.05, d*.2);
-      const SC = ['As3','C4','D4','Ds4','F4','Fs4','G4','Gs4','As4','B4','Cs5','Ds5'], up = HZ[SC[Math.min(SC.indexOf(n)+1, SC.length-1)]] || F*1.12;
+      const SC = ['As3','C4','D4','Ds4','E4','F4','Fs4','G4','Gs4','A4','As4','Bb4','B4','C5','Cs5','D5','Ds5','F5'], up = HZ[SC[Math.min(SC.indexOf(n)+1, SC.length-1)]] || F*1.12;
       const kan = b >= 1 && i > 0;
       const body = a.createBiquadFilter(); body.type = 'peaking'; body.frequency.value = 850; body.Q.value = 1.1; body.gain.value = 5;
       const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2400; lp.Q.value = .9;
@@ -1009,6 +1011,14 @@ function playAarti(mode, song){
     }
   }
   if (cycles.length){
+    const CH = {F:[174.61,220.00,261.63], C:[130.81,164.81,196.00], G:[196.00,246.94,293.66]};
+    const chord = (name, at, dur) => CH[name].forEach(fq => {
+      const o = a.createOscillator(), g = a.createGain(), lp = a.createBiquadFilter(); o.type = 'sawtooth'; o.frequency.value = fq;
+      lp.type = 'lowpass'; lp.frequency.value = 1500; g.gain.setValueAtTime(.0001, at); g.gain.exponentialRampToValueAtTime(.032, at+.06);
+      g.gain.setValueAtTime(.03, at+dur*.9); g.gain.exponentialRampToValueAtTime(.0001, at+dur+.05);
+      o.connect(lp).connect(g).connect(out); o.start(at); o.stop(at+dur+.1); nodes.push(o); });
+    cycles.forEach(({at, f}) => ['F','C','G','C','F','C','G','C'].forEach((c, k) => chord(c, t0 + (at + k*2*f)*beat, 2*f*beat)));
+    chord('F', t0 + (cycles[2].at + 16*cycles[2].f)*beat, 4*beat);
     const mri = (at, low, v) => {   // mridanga: low 'dha' with pitch bend, high 'ta' ring
       const o = a.createOscillator(), g = a.createGain(); o.type = 'sine';
       if (low){ o.frequency.setValueAtTime(110, at); o.frequency.exponentialRampToValueAtTime(68, at+.22); }
@@ -1036,7 +1046,7 @@ function playAarti(mode, song){
         if (ci > 0) mri(bt + half, b % 2 === 1, .16 * loud);
       }
     });
-    kartal(t0 + (cycles[2].at + 16*cycles[2].f + .6)*beat, .1);
+    kartal(t0 + (cycles[2].at + 16*cycles[2].f)*beat, .1);
   }
   const done = setTimeout(() => stopAarti(), (total+1.8)*1000);
   return () => { clearTimeout(done); try { out.gain.cancelScheduledValues(a.currentTime); out.gain.setValueAtTime(out.gain.value, a.currentTime); out.gain.exponentialRampToValueAtTime(.0001, a.currentTime+.3); } catch(e){} setTimeout(() => nodes.forEach(o => { try { o.stop(); } catch(e){} }), 350); };
