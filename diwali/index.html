@@ -898,12 +898,15 @@ const music = $('m-toggle'), player = $('player');
 let aartiStop = null;
 function playAarti(){
   const a = audio(); if (!a) return null; if (a.state === 'suspended') a.resume();
-  const t0 = a.currentTime + .08, SA = 277.18, beat = .46;
+  const t0 = a.currentTime + .08, SA = 277.18, beat = .42;
   // Om Jai Lakshmi Mata, as given: key of C#
-  const HZ = {F4:349.23, Fs4:369.99, Gs4:415.30, As4:466.16, B4:493.88, Cs5:554.37, Ds5:622.25};
-  const L1 = [['Fs4',.5],['Fs4',.5],['Fs4',.5],['Fs4',.5],['Gs4',.5],['Fs4',1],  ['F4',.5],['Fs4',.5],['Gs4',1.5]];       // Om Jai Lakshmi Mata
-  const L2 = [['Gs4',.5],['As4',.5],['B4',.5],['Cs5',.5],['Ds5',.5],['Cs5',1],  ['B4',.5],['As4',.5],['B4',.5],['Gs4',1.5]]; // Maiya Jai Lakshmi Mata
-  const tune = [...L1, ...L2, ...L1, ...L2.slice(0,-1), ['Gs4',2.5]];
+  const HZ = {Ds4:311.13, F4:349.23, Fs4:369.99, Gs4:415.30, As4:466.16, B4:493.88, Cs5:554.37, Ds5:622.25};
+  const n = (list, last=1, tail=1.5) => list.map((x,i) => [x, i === list.length-1 ? last : .5]);
+  const L1 = [...n(['Fs4','Fs4','Fs4','Fs4','Gs4','Fs4']), ...n(['F4','Fs4','Gs4'],1.5)];                                   // Om Jai Lakshmi Mata
+  const L2 = [...n(['Gs4','As4','B4','Cs5','Ds5','Cs5']), ...n(['B4','As4','B4','Gs4'],1.5)];                               // Maiya Jai Lakshmi Mata
+  const L3 = [...n(['Gs4','As4','Gs4','As4','Cs5','B4','B4','B4','B4','As4']), ...n(['Gs4','As4','Gs4','Fs4','Fs4'],1.5)];  // Tumko / Maiya ji ko nishdin sevat
+  const L4 = [...n(['F4','Fs4','Gs4','As4','Gs4']), ...n(['Fs4','F4','Fs4','Ds4'],1.5)];                                    // Hari Vishnu Vidhata
+  const tune = [...L1, ...L2, ...L3, ...L3, ...L4, ...L1.slice(0,-1), ['Gs4',2.5]];                                      // ...Om Jai Lakshmi Mata
   const total = tune.reduce((n,[,b]) => n+b, 0) * beat;
   const out = a.createGain(); out.gain.setValueAtTime(.0001, t0); out.gain.exponentialRampToValueAtTime(.9, t0+.4);
   out.gain.setValueAtTime(.9, t0+total-.6); out.gain.exponentialRampToValueAtTime(.0001, t0+total+1.6); out.connect(a.destination);
