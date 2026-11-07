@@ -122,7 +122,7 @@
   .bar .snd{border-radius:999px;border-color:#d9a44199}
   .eq{display:flex;gap:2px;align-items:flex-end;height:12px}
   .eq i{width:3px;height:4px;background:var(--gold);border-radius:1px}
-  .mbtn.on .eq i{animation:eq .8s ease-in-out infinite}.mbtn.on .eq i:nth-child(2){animation-delay:-.3s}.mbtn.on .eq i:nth-child(3){animation-delay:-.55s}
+  .mbtn.on{background:var(--gold);color:#1a0b05}.mbtn.on .eq i{background:#1a0b05;animation:eq .8s ease-in-out infinite}.mbtn.on .eq i:nth-child(2){animation-delay:-.3s}.mbtn.on .eq i:nth-child(3){animation-delay:-.55s}
   @keyframes eq{0%,100%{height:3px}50%{height:12px}}
   .player-wrap{position:relative;width:min(340px,100%);height:0}
   .player-wrap .player{position:absolute;left:0;right:0;top:6px}
@@ -330,6 +330,7 @@
       </div>
       <div class="bar music-row">
         <button id="m-toggle" class="mbtn" type="button" aria-pressed="false"><span class="eq"><i></i><i></i><i></i></span>🔔 Play Aarti</button>
+        <button id="f-toggle" class="mbtn" type="button" aria-pressed="false" title="Aarti on flute"><svg class="flute" viewBox="0 0 28 28" width="16" height="16" aria-hidden="true"><g transform="rotate(-40 14 14)"><rect x="1" y="11.5" width="26" height="5" rx="2.5" fill="currentColor"/><g fill="#0a0507"><circle cx="5.5" cy="14" r="1.1"/><circle cx="11" cy="14" r=".9"/><circle cx="14.2" cy="14" r=".9"/><circle cx="17.4" cy="14" r=".9"/><circle cx="20.6" cy="14" r=".9"/></g><rect x="7.5" y="11.5" width="1.2" height="5" fill="#0a0507" opacity=".5"/><rect x="23" y="11.5" width="1.2" height="5" fill="#0a0507" opacity=".5"/></g></svg>Flute</button>
         <button id="s-toggle" class="snd" type="button" aria-pressed="false" title="Firework sounds">🔇 Sound</button>
       </div>
       <div class="player-wrap"><div class="player" id="player" hidden></div></div>
@@ -896,7 +897,8 @@ $('share').addEventListener('click', () => {
 const music = $('m-toggle'), player = $('player');
 // ---- in-page aarti: original ~14s harmonium + tanpura + temple bell rendition of the traditional tune ----
 let aartiStop = null;
-function playAarti(){
+function playAarti(mode){
+  const flute = mode === 'flute';
   const a = audio(); if (!a) return null; if (a.state === 'suspended') a.resume();
   const t0 = a.currentTime + .08, SA = 277.18, beat = .42;
   // Om Jai Lakshmi Mata, as given: key of C#
@@ -919,17 +921,36 @@ function playAarti(){
   }
   // harmonium melody (two reeds, slight detune + bellows swell)
   let t = t0;
+  let prev = null;
   for (const [i,[n,b]] of tune.entries()){
     const f = HZ[n], d = b*beat, last = i === tune.length-1;
-    for (const det of [0, 4]){
-      const o = a.createOscillator(), g = a.createGain(), lp = a.createBiquadFilter();
-      o.type = det ? 'square' : 'sawtooth'; o.frequency.value = f; o.detune.value = det;
-      lp.type = 'lowpass'; lp.frequency.value = 2200; lp.Q.value = .7;
-      const peak = (det ? .05 : .09) * (last ? 1.45 : 1);
-      g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t+.05); g.gain.setValueAtTime(peak*.85, t+d*.8); g.gain.exponentialRampToValueAtTime(.0001, t+d+.05);
-      o.connect(lp).connect(g).connect(out); o.start(t); o.stop(t+d+.1); nodes.push(o);
+    if (flute){
+      // bansuri: sine + soft triangle an octave up, glide from the last note, delayed vibrato, breath noise
+      const F = f*2, o = a.createOscillator(), o2 = a.createOscillator(), g = a.createGain(), g2 = a.createGain();
+      o.type = 'sine'; o2.type = 'triangle';
+      const from = prev ? prev*2 : F;
+      for (const osc of [o, o2]){ osc.frequency.setValueAtTime(from, t); osc.frequency.exponentialRampToValueAtTime(F, t + Math.min(.07, d*.3)); }
+      const lfo = a.createOscillator(), lg = a.createGain(); lfo.frequency.value = 5.2; lg.gain.setValueAtTime(0, t); lg.gain.linearRampToValueAtTime(F*.007, t + Math.min(.35, d*.6));
+      lfo.connect(lg); lg.connect(o.frequency); lg.connect(o2.frequency);
+      const peak = .17 * (last ? 1.35 : 1);
+      g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t+.06); g.gain.setValueAtTime(peak*.9, t+d*.85); g.gain.exponentialRampToValueAtTime(.0001, t+d+.08);
+      g2.gain.value = .25;
+      o.connect(g); o2.connect(g2).connect(g); g.connect(out);
+      const nz = a.createBufferSource(); nz.buffer = noiseBuf(d+.1); const bp = a.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = F*1.5; bp.Q.value = 1.4;
+      const ng = a.createGain(); ng.gain.setValueAtTime(.0001, t); ng.gain.exponentialRampToValueAtTime(.05, t+.03); ng.gain.exponentialRampToValueAtTime(.012, t+.2); ng.gain.exponentialRampToValueAtTime(.0001, t+d+.05);
+      nz.connect(bp).connect(ng).connect(out);
+      for (const x of [o, o2, lfo]){ x.start(t); x.stop(t+d+.12); nodes.push(x); } nz.start(t); nz.stop(t+d+.1); nodes.push(nz);
+    } else {
+      for (const det of [0, 4]){
+        const o = a.createOscillator(), g = a.createGain(), lp = a.createBiquadFilter();
+        o.type = det ? 'square' : 'sawtooth'; o.frequency.value = f; o.detune.value = det;
+        lp.type = 'lowpass'; lp.frequency.value = 2200; lp.Q.value = .7;
+        const peak = (det ? .05 : .09) * (last ? 1.45 : 1);
+        g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t+.05); g.gain.setValueAtTime(peak*.85, t+d*.8); g.gain.exponentialRampToValueAtTime(.0001, t+d+.05);
+        o.connect(lp).connect(g).connect(out); o.start(t); o.stop(t+d+.1); nodes.push(o);
+      }
     }
-    t += d;
+    prev = f; t += d;
   }
   // temple bell (ghanti): inharmonic partials, every 2 bars
   for (let bt = t0; bt < t0+total; bt += beat*4){
@@ -942,12 +963,16 @@ function playAarti(){
   const done = setTimeout(() => stopAarti(), (total+1.8)*1000);
   return () => { clearTimeout(done); try { out.gain.cancelScheduledValues(a.currentTime); out.gain.setValueAtTime(out.gain.value, a.currentTime); out.gain.exponentialRampToValueAtTime(.0001, a.currentTime+.3); } catch(e){} setTimeout(() => nodes.forEach(o => { try { o.stop(); } catch(e){} }), 350); };
 }
-function stopAarti(){ if (aartiStop){ aartiStop(); aartiStop = null; } music.classList.remove('on'); $('m-toggle').setAttribute('aria-pressed','false'); }
-$('m-toggle').addEventListener('click', () => {
-  if (aartiStop){ stopAarti(); return; }
-  aartiStop = playAarti(); if (!aartiStop) return;
-  music.classList.add('on'); $('m-toggle').setAttribute('aria-pressed','true');
-});
+let aartiMode = null;
+function stopAarti(){ if (aartiStop){ aartiStop(); aartiStop = null; } aartiMode = null;
+  for (const id of ['m-toggle','f-toggle']){ $(id).classList.remove('on'); $(id).setAttribute('aria-pressed','false'); } }
+function toggleAarti(mode, id){
+  const same = aartiMode === mode; stopAarti(); if (same) return;
+  aartiStop = playAarti(mode); if (!aartiStop) return; aartiMode = mode;
+  $(id).classList.add('on'); $(id).setAttribute('aria-pressed','true');
+}
+$('m-toggle').addEventListener('click', () => toggleAarti('harmonium', 'm-toggle'));
+$('f-toggle').addEventListener('click', () => toggleAarti('flute', 'f-toggle'));
 $('s-toggle').addEventListener('click', e => {
   soundOn = !soundOn; const a = audio(); if (a && a.state === 'suspended') a.resume();
   e.currentTarget.textContent = soundOn ? '🔊 Sound' : '🔇 Sound'; e.currentTarget.setAttribute('aria-pressed', String(soundOn));
