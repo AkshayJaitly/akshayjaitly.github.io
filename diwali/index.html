@@ -329,7 +329,7 @@
         <button id="share" class="solid" type="button">Share</button>
       </div>
       <div class="bar music-row">
-        <button id="m-toggle" class="mbtn" type="button" aria-expanded="false"><span class="eq"><i></i><i></i><i></i></span>Om Jai Lakshmi Mata<span class="artist">&nbsp;· Aarti</span></button>
+        <button id="m-toggle" class="mbtn" type="button" aria-pressed="false"><span class="eq"><i></i><i></i><i></i></span>🔔 Play Aarti<span class="artist">&nbsp;· Om Jai Lakshmi Mata</span></button>
         <button id="s-toggle" class="snd" type="button" aria-pressed="false" title="Firework sounds">🔇 Sound</button>
       </div>
       <div class="player-wrap"><div class="player" id="player" hidden></div></div>
@@ -894,16 +894,65 @@ $('share').addEventListener('click', () => {
 });
 
 const music = $('m-toggle'), player = $('player');
+// ---- in-page aarti: original ~14s harmonium + tanpura + temple bell rendition of the traditional tune ----
+let aartiStop = null;
+function playAarti(){
+  const a = audio(); if (!a) return null; if (a.state === 'suspended') a.resume();
+  const t0 = a.currentTime + .08, SA = 293.66, beat = .42;
+  const R = {S:1, R:9/8, G:5/4, M:4/3, P:3/2, D:5/3, N:15/8, s:2};
+  const tune = [
+    ['S',1],['R',.5],['G',.5],['G',1],['G',1],['R',.5],['G',.5],['M',1],['G',.5],['R',.5],['S',1],
+    ['S',1],['R',.5],['G',.5],['G',1],['G',1],['R',.5],['G',.5],['M',1],['G',.5],['R',.5],['S',1],
+    ['G',.5],['M',.5],['P',1],['P',1],['P',1],['M',.5],['P',.5],['D',1],['P',.5],['M',.5],['G',1],
+    ['G',.5],['M',.5],['P',1],['M',.5],['G',.5],['R',1],['G',.5],['R',.5],['S',2.5]];
+  const total = tune.reduce((n,[,b]) => n+b, 0) * beat;
+  const out = a.createGain(); out.gain.setValueAtTime(.0001, t0); out.gain.exponentialRampToValueAtTime(.9, t0+.4);
+  out.gain.setValueAtTime(.9, t0+total-.6); out.gain.exponentialRampToValueAtTime(.0001, t0+total+1.6); out.connect(a.destination);
+  const nodes = [];
+  // tanpura drone: Sa and Pa
+  for (const [f,v] of [[SA/2,.10],[SA*3/4,.06],[SA,.04]]){
+    const o = a.createOscillator(), g = a.createGain(), lp = a.createBiquadFilter();
+    o.type = 'sawtooth'; o.frequency.value = f; lp.type = 'lowpass'; lp.frequency.value = 900; g.gain.value = v;
+    o.connect(lp).connect(g).connect(out); o.start(t0); o.stop(t0+total+1.8); nodes.push(o);
+  }
+  // harmonium melody (two reeds, slight detune + bellows swell)
+  let t = t0;
+  for (const [n,b] of tune){
+    const f = SA*R[n], d = b*beat;
+    for (const det of [0, 4]){
+      const o = a.createOscillator(), g = a.createGain(), lp = a.createBiquadFilter();
+      o.type = det ? 'square' : 'sawtooth'; o.frequency.value = f; o.detune.value = det;
+      lp.type = 'lowpass'; lp.frequency.value = 2200; lp.Q.value = .7;
+      const peak = det ? .05 : .09;
+      g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t+.05); g.gain.setValueAtTime(peak*.85, t+d*.8); g.gain.exponentialRampToValueAtTime(.0001, t+d+.05);
+      o.connect(lp).connect(g).connect(out); o.start(t); o.stop(t+d+.1); nodes.push(o);
+    }
+    t += d;
+  }
+  // temple bell (ghanti): inharmonic partials, every 2 bars
+  for (let bt = t0; bt < t0+total; bt += beat*4){
+    for (const [mul,v,dec] of [[1,.12,2.4],[2.76,.06,1.4],[5.4,.035,.8],[8.9,.02,.5]]){
+      const o = a.createOscillator(), g = a.createGain(); o.type = 'sine'; o.frequency.value = 1180*mul/2.76;
+      g.gain.setValueAtTime(.0001, bt); g.gain.exponentialRampToValueAtTime(v, bt+.005); g.gain.exponentialRampToValueAtTime(.0001, bt+dec);
+      o.connect(g).connect(out); o.start(bt); o.stop(bt+dec+.05); nodes.push(o);
+    }
+  }
+  const done = setTimeout(() => stopAarti(), (total+1.8)*1000);
+  return () => { clearTimeout(done); try { out.gain.cancelScheduledValues(a.currentTime); out.gain.setValueAtTime(out.gain.value, a.currentTime); out.gain.exponentialRampToValueAtTime(.0001, a.currentTime+.3); } catch(e){} setTimeout(() => nodes.forEach(o => { try { o.stop(); } catch(e){} }), 350); };
+}
+function stopAarti(){ if (aartiStop){ aartiStop(); aartiStop = null; } music.classList.remove('on'); $('m-toggle').setAttribute('aria-pressed','false'); }
 $('m-toggle').addEventListener('click', () => {
-  const open = player.hidden;
-  if (open && !player.firstChild){
+  if (aartiStop){ stopAarti(); return; }
+  aartiStop = playAarti(); if (!aartiStop) return;
+  music.classList.add('on'); $('m-toggle').setAttribute('aria-pressed','true');
+  if (!player.firstChild){
     const links = document.createElement('div'); links.className = 'm-links';
-    links.innerHTML = '<a href="https://www.youtube.com/results?search_query=Om+Jai+Lakshmi+Mata+Aarti+Anuradha+Paudwal" target="_blank" rel="noopener">▶ YouTube</a>'
-      + '<a href="https://open.spotify.com/track/15zTvb1r5S328pFLtJYS83" target="_blank" rel="noopener">▶ Spotify</a>'
-      + '<a href="https://music.apple.com/song/730343317" target="_blank" rel="noopener">▶ Apple Music</a>';
+    links.innerHTML = '<a href="https://www.youtube.com/results?search_query=Om+Jai+Lakshmi+Mata+Aarti+Anuradha+Paudwal" target="_blank" rel="noopener">Full aarti: YouTube</a>'
+      + '<a href="https://open.spotify.com/track/15zTvb1r5S328pFLtJYS83" target="_blank" rel="noopener">Spotify</a>'
+      + '<a href="https://music.apple.com/song/730343317" target="_blank" rel="noopener">Apple Music</a>';
     player.appendChild(links);
   }
-  player.hidden = !open; music.classList.toggle('on', open); $('m-toggle').setAttribute('aria-expanded', String(open));
+  player.hidden = false;
 });
 $('s-toggle').addEventListener('click', e => {
   soundOn = !soundOn; const a = audio(); if (a && a.state === 'suspended') a.resume();
