@@ -58,7 +58,11 @@
   .deity .halo{transform-box:fill-box;transform-origin:50% 50%;animation:spin 40s linear infinite}
   .deity .sway-l{transform-box:fill-box;transform-origin:100% 100%;animation:sway 3.6s ease-in-out infinite}
   .deity .sway-r{transform-box:fill-box;transform-origin:0% 100%;animation:sway 3.6s ease-in-out infinite reverse}
-  .deity .trunk{transform-box:fill-box;transform-origin:50% 0%;animation:trunk 4s ease-in-out infinite}
+  .deity .trunk{transform-box:fill-box;transform-origin:50% 0%;animation:trunk 7s ease-in-out infinite}
+  .deity .aura{transform-box:fill-box;transform-origin:50% 50%;animation:aura 5s ease-in-out infinite}
+  .deity .tw{transform-box:fill-box;transform-origin:50% 50%;animation:tw 2.6s ease-in-out infinite}
+  .deity .tw:nth-of-type(2n){animation-delay:-1.3s}.deity .tw:nth-of-type(3n){animation-delay:-.7s}
+  .deity .gem{animation:gem 3s ease-in-out infinite}
   .deity .ear-l{transform-box:fill-box;transform-origin:100% 50%;animation:earl 2.8s ease-in-out infinite}
   .deity .ear-r{transform-box:fill-box;transform-origin:0% 50%;animation:earr 2.8s ease-in-out infinite}
   .deity .bless{transform-box:fill-box;transform-origin:50% 100%;animation:bless 3s ease-in-out infinite}
@@ -67,7 +71,10 @@
   .deity .coins circle:nth-child(4){animation-delay:1.44s}.deity .coins circle:nth-child(5){animation-delay:1.92s}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
-  @keyframes trunk{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
+  @keyframes trunk{0%,100%{transform:rotate(-8deg) skewX(2deg)}50%{transform:rotate(9deg) skewX(-3deg)}}
+  @keyframes aura{0%,100%{opacity:.55;transform:scale(.97)}50%{opacity:1;transform:scale(1.05)}}
+  @keyframes tw{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1.15)}}
+  @keyframes gem{0%,100%{filter:brightness(1)}50%{filter:brightness(1.6) drop-shadow(0 0 3px #fff3c4)}}
   @keyframes earl{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.9)}}
   @keyframes earr{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.9)}}
   @keyframes bless{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
@@ -119,7 +126,7 @@
   .player iframe{display:block;width:100%;height:80px;border:0}
   .m-links{display:flex;gap:6px;padding:6px;background:#0a0507e6}
   .m-links a{flex:1;text-align:center;font-family:var(--caps);font-size:12px;letter-spacing:.08em;color:#1a0b05;background:var(--gold);border-radius:999px;padding:8px 6px;text-decoration:none;white-space:nowrap}
-  .m-links a:last-child{background:transparent;color:var(--gold-hi);box-shadow:inset 0 0 0 1px var(--gold)}
+  .m-links a:not(:first-child){background:transparent;color:var(--gold-hi);box-shadow:inset 0 0 0 1px var(--gold)}
   @keyframes fade{from{opacity:0}to{opacity:1}}
   @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
   @keyframes reveal{from{opacity:0;letter-spacing:.2em;filter:blur(8px)}to{opacity:1;letter-spacing:0;filter:drop-shadow(0 2px 0 #3a1a05) drop-shadow(0 0 22px #ffb84a55)}}
@@ -213,11 +220,13 @@
     <radialGradient id="gShine" cx="35%" cy="28%" r="45%"><stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
   </defs>
   <rect width="300" height="410" fill="url(#gBg)"/>
+  <circle class="aura" cx="150" cy="168" r="140" fill="url(#gHalo)" opacity=".7"/>
   <g class="halo"><circle cx="150" cy="168" r="128" fill="url(#gHalo)"/>
     <g stroke="#ffd98a" stroke-opacity=".45" stroke-width="2">
       <path d="M150 30v28M150 278v28M12 168h28M260 168h28M52 70l20 20M228 246l20 20M248 70l-20 20M72 246l-20 20"/></g>
     <circle cx="150" cy="168" r="96" fill="none" stroke="#ffe3a1" stroke-opacity=".6" stroke-width="2" stroke-dasharray="3 7"/></g>
 
+  <g><path class="tw" d="M38 85 L39.6 90.4 L45 92 L39.6 93.6 L38 99 L36.4 93.6 L31 92 L36.4 90.4Z" fill="#fff3c4"/><path class="tw" d="M262 89 L263.6 94.4 L269 96 L263.6 97.6 L262 103 L260.4 97.6 L255 96 L260.4 94.4Z" fill="#fff3c4"/><path class="tw" d="M26 243 L27.6 248.4 L33 250 L27.6 251.6 L26 257 L24.4 251.6 L19 250 L24.4 248.4Z" fill="#fff3c4"/><path class="tw" d="M276 239 L277.6 244.4 L283 246 L277.6 247.6 L276 253 L274.4 247.6 L269 246 L274.4 244.4Z" fill="#fff3c4"/><path class="tw" d="M70 33 L71.6 38.4 L77 40 L71.6 41.6 L70 47 L68.4 41.6 L63 40 L68.4 38.4Z" fill="#fff3c4"/><path class="tw" d="M232 29 L233.6 34.4 L239 36 L233.6 37.6 L232 43 L230.4 37.6 L225 36 L230.4 34.4Z" fill="#fff3c4"/><path class="tw" d="M150 7 L151.6 12.4 L157 14 L151.6 15.6 L150 21 L148.4 15.6 L143 14 L148.4 12.4Z" fill="#fff3c4"/></g>
   <!-- lotus seat -->
   <g transform="translate(150 372)">
     <path d="M-120 0q30-46 60-10q30-50 60 0q30-50 60 0q30-36 60 10z" fill="url(#gLotus)"/>
@@ -250,6 +259,7 @@
   <circle cx="150" cy="254" r="6" fill="#d7263d" stroke="#ffe3a1" stroke-width="2"/>
   <path d="M110 220 Q150 300 196 224" stroke="#fff6d8" stroke-width="2" fill="none" opacity=".8"/>
 
+  <g class="mala"><circle cx="98.0" cy="228.0" r="6.2" fill="#ffc928"/><circle cx="98.0" cy="228.0" r="2.2" fill="#d9480f"/><circle cx="103.8" cy="237.4" r="6.2" fill="#ff9a1f"/><circle cx="103.8" cy="237.4" r="2.2" fill="#d9480f"/><circle cx="109.6" cy="245.8" r="6.2" fill="#ffc928"/><circle cx="109.6" cy="245.8" r="2.2" fill="#d9480f"/><circle cx="115.3" cy="253.0" r="6.2" fill="#ff9a1f"/><circle cx="115.3" cy="253.0" r="2.2" fill="#d9480f"/><circle cx="121.1" cy="259.1" r="6.2" fill="#ffc928"/><circle cx="121.1" cy="259.1" r="2.2" fill="#d9480f"/><circle cx="126.9" cy="264.1" r="6.2" fill="#ff9a1f"/><circle cx="126.9" cy="264.1" r="2.2" fill="#d9480f"/><circle cx="132.7" cy="268.0" r="6.2" fill="#ffc928"/><circle cx="132.7" cy="268.0" r="2.2" fill="#d9480f"/><circle cx="138.4" cy="270.8" r="6.2" fill="#ff9a1f"/><circle cx="138.4" cy="270.8" r="2.2" fill="#d9480f"/><circle cx="144.2" cy="272.4" r="6.2" fill="#ffc928"/><circle cx="144.2" cy="272.4" r="2.2" fill="#d9480f"/><circle cx="150.0" cy="273.0" r="6.2" fill="#ff9a1f"/><circle cx="150.0" cy="273.0" r="2.2" fill="#d9480f"/><circle cx="155.8" cy="272.4" r="6.2" fill="#ffc928"/><circle cx="155.8" cy="272.4" r="2.2" fill="#d9480f"/><circle cx="161.6" cy="270.8" r="6.2" fill="#ff9a1f"/><circle cx="161.6" cy="270.8" r="2.2" fill="#d9480f"/><circle cx="167.3" cy="268.0" r="6.2" fill="#ffc928"/><circle cx="167.3" cy="268.0" r="2.2" fill="#d9480f"/><circle cx="173.1" cy="264.1" r="6.2" fill="#ff9a1f"/><circle cx="173.1" cy="264.1" r="2.2" fill="#d9480f"/><circle cx="178.9" cy="259.1" r="6.2" fill="#ffc928"/><circle cx="178.9" cy="259.1" r="2.2" fill="#d9480f"/><circle cx="184.7" cy="253.0" r="6.2" fill="#ff9a1f"/><circle cx="184.7" cy="253.0" r="2.2" fill="#d9480f"/><circle cx="190.4" cy="245.8" r="6.2" fill="#ffc928"/><circle cx="190.4" cy="245.8" r="2.2" fill="#d9480f"/><circle cx="196.2" cy="237.4" r="6.2" fill="#ff9a1f"/><circle cx="196.2" cy="237.4" r="2.2" fill="#d9480f"/><circle cx="202.0" cy="228.0" r="6.2" fill="#ffc928"/><circle cx="202.0" cy="228.0" r="2.2" fill="#d9480f"/></g>
   <!-- lower arms: blessing (left) and modak (right) -->
   <path d="M98 250 Q76 248 74 222" stroke="url(#gSkin)" stroke-width="20" stroke-linecap="round" fill="none"/>
   <g class="bless"><rect x="62" y="196" width="24" height="28" rx="11" fill="url(#gSkin)"/>
@@ -272,8 +282,8 @@
   <!-- crown (mukut) -->
   <path d="M104 116 Q150 96 196 116 L186 82 Q170 92 162 70 Q156 46 150 30 Q144 46 138 70 Q130 92 114 82Z" fill="url(#gGold)"/>
   <path d="M106 116 Q150 98 194 116" stroke="#a8721f" stroke-width="3" fill="none"/>
-  <circle cx="150" cy="78" r="7" fill="#d7263d" stroke="#ffe3a1" stroke-width="2"/>
-  <circle cx="126" cy="100" r="4" fill="#1fa37a"/><circle cx="174" cy="100" r="4" fill="#1fa37a"/>
+  <circle class="gem" cx="150" cy="78" r="7" fill="#d7263d" stroke="#ffe3a1" stroke-width="2"/>
+  <circle class="gem" cx="126" cy="100" r="4" fill="#1fa37a"/><circle class="gem" cx="174" cy="100" r="4" fill="#1fa37a"/><circle cx="138" cy="92" r="2.6" fill="#fff"/><circle cx="162" cy="92" r="2.6" fill="#fff"/>
   <circle cx="150" cy="28" r="4" fill="#ffe3a1"/>
   <!-- tilak -->
   <path d="M142 118 q8 16 16 0" stroke="#fff3d6" stroke-width="3" fill="none"/>
@@ -286,7 +296,7 @@
   <path d="M164 178 q16 8 18 22 q-12 -4 -20 -14z" fill="#fff8e6"/>
   <!-- trunk -->
   <g class="trunk"><path d="M150 160 C150 200 128 214 140 236 C150 252 172 246 170 232 C168 222 156 224 158 232" stroke="url(#gSkin)" stroke-width="24" stroke-linecap="round" fill="none"/>
-    <path d="M140 186 q10 3 20 0M136 202 q10 3 20 0M134 218 q10 3 20 0" stroke="#c2501c" stroke-width="1.6" fill="none" opacity=".7"/></g>
+    <path d="M140 186 q10 3 20 0M136 202 q10 3 20 0M134 218 q10 3 20 0" stroke="#c2501c" stroke-width="1.6" fill="none" opacity=".7"/><circle cx="160" cy="232" r="6" fill="#ffb347" stroke="#e08a1e" stroke-width="1"/><circle cx="158" cy="230" r="1.6" fill="#fff3c4"/></g>
 
   <!-- mouse (vahana) -->
   <g transform="translate(242 376)"><ellipse cx="0" cy="0" rx="18" ry="11" fill="#8f8a94"/><circle cx="14" cy="-6" r="8" fill="#a39ea8"/><circle cx="12" cy="-13" r="4" fill="#d9a3b0"/><circle cx="17" cy="-7" r="1.6" fill="#1d1210"/><path d="M-18 2q-14 2 -16 -10" stroke="#8f8a94" stroke-width="2.5" fill="none"/></g>
@@ -418,12 +428,18 @@
     <svg class="couple" viewBox="0 0 400 420" role="img" aria-label="Akshay in a black Masaba kurta and Kanika in a pink suit, each holding a sparkler">
       <defs>
         <radialGradient id="skin" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#fff1e8"/><stop offset=".6" stop-color="#fcdccb"/><stop offset="1" stop-color="#eebfa6"/></radialGradient>
+        <radialGradient id="faceShade" cx="50%" cy="38%" r="62%"><stop offset=".62" stop-color="#d9927a" stop-opacity="0"/><stop offset="1" stop-color="#d9927a" stop-opacity=".38"/></radialGradient>
+        <radialGradient id="iris" cx="45%" cy="40%" r="60%"><stop offset="0" stop-color="#8a5a3a"/><stop offset=".7" stop-color="#4a2a18"/><stop offset="1" stop-color="#22120a"/></radialGradient>
+        <linearGradient id="lehGold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a87726"/><stop offset=".25" stop-color="#e9c46a"/><stop offset=".45" stop-color="#fff1c0"/><stop offset=".65" stop-color="#e3b450"/><stop offset="1" stop-color="#94641c"/></linearGradient>
+        <pattern id="zari" width="16" height="16" patternUnits="userSpaceOnUse">
+          <path d="M8 2 q4 4 0 8 q-4-4 0-8z" fill="#8a5a12" opacity=".55"/><circle cx="2" cy="13" r="1.2" fill="#fff4cf"/><circle cx="14" cy="13" r="1.2" fill="#fff4cf"/><circle cx="8" cy="12.5" r=".9" fill="#b3122e" opacity=".8"/>
+        </pattern>
         <radialGradient id="skinHand" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#ffeadf"/><stop offset="1" stop-color="#f0c4ab"/></radialGradient>
         <linearGradient id="kurta" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#050505"/><stop offset=".45" stop-color="#2b2b2e"/><stop offset="1" stop-color="#0a0a0a"/></linearGradient>
         <linearGradient id="pyjama" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d9d2c5"/><stop offset=".5" stop-color="#fffaf0"/><stop offset="1" stop-color="#cfc6b6"/></linearGradient>
         <linearGradient id="suit" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d83f86"/><stop offset=".45" stop-color="#ff86c0"/><stop offset="1" stop-color="#c9327a"/></linearGradient>
         <linearGradient id="salwar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f0a0c4"/><stop offset=".5" stop-color="#ffd3e6"/><stop offset="1" stop-color="#e48db5"/></linearGradient>
-        <linearGradient id="dupatta" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb6d6" stop-opacity=".85"/><stop offset="1" stop-color="#ff7fb5" stop-opacity=".55"/></linearGradient>
+        <linearGradient id="dupatta" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffcfb8" stop-opacity=".7"/><stop offset="1" stop-color="#e88f8f" stop-opacity=".45"/></linearGradient>
         <radialGradient id="hair" cx="40%" cy="25%" r="80%"><stop offset="0" stop-color="#3a2a24"/><stop offset=".5" stop-color="#1a1210"/><stop offset="1" stop-color="#080505"/></radialGradient>
         <linearGradient id="goldg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3a1"/><stop offset="1" stop-color="#b9842a"/></linearGradient>
         <pattern id="masaba" width="22" height="22" patternUnits="userSpaceOnUse">
@@ -489,15 +505,25 @@
         </g>
         <!-- neck + head -->
         <path d="M124 150 h18 v24 q-9 6 -18 0z" fill="#f2c9b2"/>
-        <circle cx="133" cy="112" r="46" fill="url(#skin)"/>
-        <ellipse cx="88" cy="116" rx="7" ry="10" fill="#f6cdb8"/><ellipse cx="178" cy="116" rx="7" ry="10" fill="#f6cdb8"/>
+        <ellipse cx="88" cy="114" rx="7.5" ry="11" fill="#f6cdb8"/><ellipse cx="178" cy="114" rx="7.5" ry="11" fill="#f6cdb8"/>
+        <path d="M86 108 q4 5 2 12M180 108 q-4 5 -2 12" stroke="#dba18a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <path d="M87 106 Q87 62 133 62 Q179 62 179 106 Q179 140 161 158 Q148 170 133 170 Q118 170 105 158 Q87 140 87 106Z" fill="url(#skin)"/>
+        <path d="M87 106 Q87 62 133 62 Q179 62 179 106 Q179 140 161 158 Q148 170 133 170 Q118 170 105 158 Q87 140 87 106Z" fill="url(#faceShade)"/>
         <!-- hair -->
-        <path d="M88 108 Q84 62 126 60 Q170 56 180 96 Q178 112 174 104 Q166 82 140 80 Q118 92 100 88 Q92 96 92 112Z" fill="url(#hair)"/>
-        <path d="M112 70 q20-8 40 2" stroke="#5a463d" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/>
+        <path d="M85 112 Q78 70 104 56 Q130 44 160 52 Q186 62 182 104 Q181 114 176 108 Q173 88 160 80 Q150 92 126 88 Q106 90 97 96 Q91 102 91 114Z" fill="url(#hair)"/>
+        <path d="M102 66 q22-14 52-6M98 80 q14-10 30-8M150 60 q16 6 24 22" stroke="#6b5247" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".55"/>
         <!-- face -->
-        <path d="M110 100 q8-5 16 0M140 100 q8-5 16 0" stroke="#2a1a14" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <g class="blink"><ellipse cx="118" cy="114" rx="5" ry="6.5" fill="#1d1210"/><ellipse cx="148" cy="114" rx="5" ry="6.5" fill="#1d1210"/></g>
-        <circle cx="120" cy="111" r="1.8" fill="#fff"/><circle cx="150" cy="111" r="1.8" fill="#fff"/>
+        <path d="M107 102 Q116 95 127 99 Q117 99 108 104Z" fill="#1f1410"/><path d="M139 99 Q150 95 159 102 Q149 99 139 101Z" fill="#1f1410"/>
+        <path d="M108 102 Q117 96 126 99M140 99 Q150 96 158 102" stroke="#1f1410" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <g class="blink">
+          <ellipse cx="118" cy="114" rx="8" ry="6.6" fill="#fffaf6"/><circle cx="119" cy="114.6" r="5" fill="url(#iris)"/><circle cx="119" cy="114.6" r="2.3" fill="#120806"/>
+          <circle cx="121" cy="112.4" r="1.7" fill="#fff"/><circle cx="117" cy="116.8" r=".9" fill="#fff" opacity=".8"/>
+          <path d="M109.6 112.6 Q118 105.4 126.6 111.8" stroke="#1d1210" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <ellipse cx="148" cy="114" rx="8" ry="6.6" fill="#fffaf6"/><circle cx="149" cy="114.6" r="5" fill="url(#iris)"/><circle cx="149" cy="114.6" r="2.3" fill="#120806"/>
+          <circle cx="151" cy="112.4" r="1.7" fill="#fff"/><circle cx="147" cy="116.8" r=".9" fill="#fff" opacity=".8"/>
+          <path d="M139.4 111.8 Q148 105.4 156.4 112.6" stroke="#1d1210" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        </g>
+        <path d="M111 119.6 Q118 122.4 125 119.2M141 119.2 Q148 122.4 155 119.6" stroke="#d8a08a" stroke-width="1" fill="none"/>
         <ellipse cx="107" cy="128" rx="9" ry="6" fill="url(#cheek)"/><ellipse cx="159" cy="128" rx="9" ry="6" fill="url(#cheek)"/>
         <path d="M92 104 Q94 140 133 150 Q172 140 174 104 Q170 128 133 136 Q96 128 92 104Z" fill="#241815" opacity=".09"/>
         <path d="M89 110 Q88 152 133 166 Q178 152 177 110 Q175 136 164 145 Q152 151 140 150 Q136 153 133 153 Q130 153 126 150 Q114 151 102 145 Q91 136 89 110Z" fill="#241815"/>
@@ -505,7 +531,8 @@
         <g stroke="#3d2b24" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".75">
           <path d="M100 146 q2 5 5 8M116 154 q1 4 3 6M131 158 v5M135 158 v5M150 154 q-1 4 -3 6M166 146 q-2 5 -5 8"/></g>
         <path d="M114 134 Q123 125 133 129.5 Q143 125 152 134 Q145 136.5 133 132.6 Q121 136.5 114 134Z" fill="#1c120f"/>
-        <path d="M120 135 q13 11 26 0" stroke="#7d3d36" stroke-width="2.6" fill="#fff" stroke-linecap="round"/>
+        <path d="M121 135.6 Q133 147.5 145 135.6 Q133 139 121 135.6Z" fill="#fff" stroke="#7d3d36" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M125 142 Q133 148.6 141 142" stroke="#b5615a" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
         <path d="M129 150 q4 4 8 0" stroke="#241815" stroke-width="5" stroke-linecap="round"/>
         <path d="M130.5 103 L128.6 121.5 Q129.4 125.6 133.6 126.2" stroke="#c98a72" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M129.8 104 L128 121" stroke="#e7ae96" stroke-width="3.2" fill="none" opacity=".35" stroke-linecap="round"/>
@@ -519,9 +546,6 @@
         <!-- hair behind -->
         <path d="M222 118 Q218 60 266 58 Q314 58 312 118 Q318 188 300 214 L232 214 Q214 186 222 118Z" fill="url(#hair)"/>
         <!-- salwar -->
-        <path d="M244 318 L242 390 Q252 396 262 390 L264 322Z" fill="url(#salwar)"/>
-        <path d="M268 322 L270 390 Q280 396 290 390 L292 318Z" fill="url(#salwar)"/>
-        <path d="M244 372q9 3 18 0M244 382q9 3 18 0M270 372q9 3 18 0M270 382q9 3 18 0" stroke="#c96f98" stroke-width="1.2" fill="none"/>
         <!-- juttis -->
 <g transform="translate(265 386) scale(-1 1)">
           <path d="M-1 9 L30 9 Q40 9 43 5 L43 11 Q20 15 -1 12Z" fill="#7a1f45"/>
@@ -545,15 +569,22 @@
           <path d="M41 5 Q51 4 49 -5 Q47 0 43 1Z" fill="#f2c766"/>
           <path d="M-1 9 L-1 -5 Q4 -7 6 -3" fill="#ff6fae" stroke="#f2c766" stroke-width="1"/>
         </g>
-        <!-- kameez -->
-        <path d="M234 186 Q267 170 300 186 Q306 260 318 334 Q267 348 216 334 Q228 260 234 186Z" fill="url(#suit)"/>
-        <path d="M234 186 Q267 170 300 186 Q306 260 318 334 Q267 348 216 334 Q228 260 234 186Z" fill="url(#shine)" opacity=".45"/>
-        <path d="M216 332 Q267 346 318 332" stroke="url(#goldg)" stroke-width="7" fill="none"/>
-        <path d="M218 322 Q267 336 316 322" stroke="#ffe3a1" stroke-width="1.2" stroke-dasharray="2 4" fill="none"/>
-        <path d="M252 180 Q267 204 282 180" stroke="url(#goldg)" stroke-width="4" fill="none"/>
-        <g fill="#ffe3a1" opacity=".9"><circle cx="252" cy="250" r="2"/><circle cx="282" cy="262" r="2"/><circle cx="262" cy="290" r="2"/><circle cx="292" cy="300" r="2"/><circle cx="240" cy="296" r="2"/><circle cx="270" cy="232" r="2"/></g>
+        <!-- lehenga skirt -->
+        <path d="M238 250 Q267 242 296 250 Q318 320 336 392 Q267 404 198 392 Q216 320 238 250Z" fill="url(#lehGold)"/>
+        <path d="M238 250 Q267 242 296 250 Q318 320 336 392 Q267 404 198 392 Q216 320 238 250Z" fill="url(#zari)"/>
+        <path d="M252 252 Q246 320 232 396M282 252 Q288 320 302 396M267 248 V400" stroke="#9a6a1e" stroke-width="1.2" opacity=".45" fill="none"/>
+        <path d="M200 388 Q267 402 334 388 L336 393 Q267 406 198 393Z" fill="#b3122e"/>
+        <path d="M204 380 Q267 394 330 380" stroke="#fff1c0" stroke-width="3" fill="none"/>
+        <path d="M206 384 Q267 398 328 384" stroke="#b3122e" stroke-width="1.6" stroke-dasharray="3 3" fill="none"/>
+        <path d="M238 252 Q267 244 296 252" stroke="#b3122e" stroke-width="4" fill="none"/>
+        <!-- midriff + choli -->
+        <path d="M240 236 Q267 230 294 236 L296 252 Q267 246 238 252Z" fill="url(#skin)"/>
+        <path d="M234 186 Q267 170 300 186 Q302 212 296 238 Q267 232 238 238 Q232 212 234 186Z" fill="url(#lehGold)"/>
+        <path d="M234 186 Q267 170 300 186 Q302 212 296 238 Q267 232 238 238 Q232 212 234 186Z" fill="url(#zari)"/>
+        <path d="M252 180 Q267 204 282 180" stroke="#b3122e" stroke-width="3.5" fill="none"/>
+        <path d="M238 238 Q267 232 296 238" stroke="#b3122e" stroke-width="3" fill="none"/>
         <!-- inner arm toward Akshay -->
-        <path d="M238 190 Q214 226 212 262 L226 266 Q230 232 248 204Z" fill="url(#suit)"/>
+        <path d="M238 190 Q214 226 212 262 L226 266 Q230 232 248 204Z" fill="url(#lehGold)"/>
         <circle cx="216" cy="268" r="8.5" fill="url(#skinHand)"/>
         <path d="M209 258 h14" stroke="#ffd36b" stroke-width="2.5"/><path d="M210 262 h13" stroke="#ff4f9a" stroke-width="2"/>
         <!-- dupatta over shoulder -->
@@ -562,7 +593,7 @@
         <path d="M312 330 Q330 260 316 196" stroke="#ffe3a1" stroke-width="2" fill="none" stroke-dasharray="3 3"/>
         <!-- outer arm raised with phuljhari -->
         <g class="wave hers">
-          <path d="M296 190 Q322 170 332 140 L318 132 Q308 158 286 176Z" fill="url(#suit)"/>
+          <path d="M296 190 Q322 170 332 140 L318 132 Q308 158 286 176Z" fill="url(#lehGold)"/>
           <circle cx="326" cy="130" r="9" fill="url(#skinHand)"/>
           <path d="M318 142 h15" stroke="#ffd36b" stroke-width="2.5"/><path d="M317 146 h15" stroke="#ff4f9a" stroke-width="2"/>
           <line x1="326" y1="132" x2="356" y2="50" stroke="#8a8a8a" stroke-width="2.4" stroke-linecap="round"/>
@@ -571,20 +602,32 @@
         </g>
         <!-- neck + head -->
         <path d="M258 152 h18 v24 q-9 6 -18 0z" fill="#f2c9b2"/>
-        <circle cx="267" cy="114" r="44" fill="url(#skin)"/>
+        <path d="M223 110 Q223 68 267 68 Q311 68 311 110 Q311 140 294 157 Q282 168 267 168 Q252 168 240 157 Q223 140 223 110Z" fill="url(#skin)"/>
+        <path d="M223 110 Q223 68 267 68 Q311 68 311 110 Q311 140 294 157 Q282 168 267 168 Q252 168 240 157 Q223 140 223 110Z" fill="url(#faceShade)" opacity=".8"/>
         <!-- fringe / centre parting -->
         <path d="M224 112 Q222 66 267 64 Q312 66 310 112 Q300 84 270 76 Q236 84 224 112Z" fill="url(#hair)"/>
         <path d="M267 64 L268 80" stroke="#c0392b" stroke-width="2.4"/>
+        <path d="M236 92 q14-18 30-22M298 92 q-14-18 -30-22M244 80 q10-8 20-10" stroke="#5a463d" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".55"/>
         <!-- jhumkas -->
         <g fill="url(#goldg)"><circle cx="224" cy="132" r="3"/><path d="M218 136 q6 12 12 0z"/><circle cx="310" cy="132" r="3"/><path d="M304 136 q6 12 12 0z"/></g>
         <!-- face -->
         <circle cx="267" cy="96" r="3.2" fill="#d7263d"/>
-        <path d="M246 104 q8-5 16 0M272 104 q8-5 16 0" stroke="#2a1a14" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-        <g class="blink"><ellipse cx="254" cy="117" rx="5" ry="6.5" fill="#1d1210"/><ellipse cx="282" cy="117" rx="5" ry="6.5" fill="#1d1210"/></g>
-        <path d="M247 112 l-4-3M289 112 l4-3" stroke="#1d1210" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="256" cy="114" r="1.8" fill="#fff"/><circle cx="284" cy="114" r="1.8" fill="#fff"/>
+        <path d="M245 105 Q254 98 263 102M271 102 Q280 98 289 105" stroke="#2a1a14" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <g class="blink">
+          <ellipse cx="254" cy="118" rx="8.4" ry="7.2" fill="#fffaf6"/><circle cx="255" cy="118.6" r="5.4" fill="url(#iris)"/><circle cx="255" cy="118.6" r="2.4" fill="#120806"/>
+          <circle cx="257.2" cy="116.2" r="1.9" fill="#fff"/><circle cx="252.8" cy="121" r=".9" fill="#fff" opacity=".8"/>
+          <path d="M245.4 117 Q254 108.6 262.8 115.6" stroke="#120806" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M246 115.6 l-4.6 -2.6M247.6 112.8 l-3.4 -4M250.4 110.8 l-1.8 -4.4" stroke="#120806" stroke-width="1.4" stroke-linecap="round"/>
+          <ellipse cx="280" cy="118" rx="8.4" ry="7.2" fill="#fffaf6"/><circle cx="281" cy="118.6" r="5.4" fill="url(#iris)"/><circle cx="281" cy="118.6" r="2.4" fill="#120806"/>
+          <circle cx="283.2" cy="116.2" r="1.9" fill="#fff"/><circle cx="278.8" cy="121" r=".9" fill="#fff" opacity=".8"/>
+          <path d="M271.2 115.6 Q280 108.6 288.6 117" stroke="#120806" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M288 115.6 l4.6 -2.6M286.4 112.8 l3.4 -4M283.6 110.8 l1.8 -4.4" stroke="#120806" stroke-width="1.4" stroke-linecap="round"/>
+        </g>
+        <path d="M246.6 123.6 Q254 126.4 261.4 123.2M272.6 123.2 Q280 126.4 287.4 123.6" stroke="#d8a08a" stroke-width=".9" fill="none"/>
         <ellipse cx="243" cy="130" rx="9" ry="6" fill="url(#cheek)"/><ellipse cx="291" cy="130" rx="9" ry="6" fill="url(#cheek)"/>
-        <path d="M256 136 q11 11 22 0" stroke="#c2405a" stroke-width="3" fill="#fff" stroke-linecap="round"/>
+        <path d="M257.6 138 Q262 134.6 267 136.6 Q272 134.6 276.4 138 Q267 147.4 257.6 138Z" fill="#d6455f"/>
+        <path d="M260.2 138.6 Q267 141.8 273.8 138.6 Q267 140 260.2 138.6Z" fill="#fff"/>
+        <ellipse cx="267" cy="143.2" rx="3" ry="1" fill="#fff" opacity=".45"/>
         <path d="M266.3 108 L264.8 124.4 Q265.5 127.8 268.9 128.2" stroke="#d09582" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M265.7 109 L264.3 123.6" stroke="#ebb8a3" stroke-width="2.6" fill="none" opacity=".35" stroke-linecap="round"/>
         <path d="M269.6 110 L269.8 122.4" stroke="#fff" stroke-width="1.1" opacity=".65" stroke-linecap="round"/>
@@ -863,13 +906,10 @@ $('m-toggle').addEventListener('click', () => {
   const open = player.hidden;
   if (open && !player.firstChild){
     const links = document.createElement('div'); links.className = 'm-links';
-    links.innerHTML = '<a href="https://open.spotify.com/track/15zTvb1r5S328pFLtJYS83" target="_blank" rel="noopener">▶ Play in Spotify</a>'
-      + '<a href="https://www.youtube.com/results?search_query=Om+Jai+Lakshmi+Mata+Aarti+Anuradha+Paudwal" target="_blank" rel="noopener">▶ Play on YouTube</a>';
-    if (location.protocol === 'file:'){ player.appendChild(links); player.hidden = false; music.classList.add('on'); $('m-toggle').setAttribute('aria-expanded','true'); return; }
-    const f = document.createElement('iframe');
-    f.src = 'https://open.spotify.com/embed/track/15zTvb1r5S328pFLtJYS83?utm_source=generator&theme=0';
-    f.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'; f.loading = 'lazy'; f.title = 'Om Jai Lakshmi Mata Aarti by Anuradha Paudwal on Spotify';
-    player.appendChild(f); player.appendChild(links);
+    links.innerHTML = '<a href="https://www.youtube.com/results?search_query=Om+Jai+Lakshmi+Mata+Aarti+Anuradha+Paudwal" target="_blank" rel="noopener">▶ YouTube</a>'
+      + '<a href="https://open.spotify.com/track/15zTvb1r5S328pFLtJYS83" target="_blank" rel="noopener">▶ Spotify</a>'
+      + '<a href="https://music.apple.com/song/730343317" target="_blank" rel="noopener">▶ Apple Music</a>';
+    player.appendChild(links);
   }
   player.hidden = !open; music.classList.toggle('on', open); $('m-toggle').setAttribute('aria-expanded', String(open));
 });
